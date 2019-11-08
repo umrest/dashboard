@@ -1,0 +1,19 @@
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\bin\Debug\REST Dashboard.exe.config
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\bin\Debug\REST Dashboard.exe
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\bin\Debug\REST Dashboard.pdb
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\bin\Debug\SlimDX.dll
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard.csprojAssemblyReference.cache
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\MainWindow.g.cs
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\App.g.cs
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard_MarkupCompile.cache
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard_MarkupCompile.lref
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\MainWindow.baml
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard.g.resources
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST_Dashboard.Properties.Resources.resources
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard.csproj.GenerateResource.cache
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard.csproj.CopyComplete
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard.exe
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\REST Dashboard.pdb
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\ConnectionIndicator.g.cs
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\ConnectionIndicator.baml
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\GeneratedInternalTypeHelper.g.cs

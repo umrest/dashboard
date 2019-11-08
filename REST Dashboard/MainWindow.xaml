@@ -1,0 +1,106 @@
+﻿<Window x:Name="MainWindow1" x:Class="REST_Dashboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:REST_Dashboard"
+        mc:Ignorable="d"
+        Title="REST Dashboard" Height="487" Width="858" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <TabItem x:Name="Status_Tab" Header="Status">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Margin="0,0,0,0" Grid.Column="2" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="Enable_Button" Content="Enable" Margin="0,-3,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF008500" Click="Enable_Button_Click"/>
+                        <Button x:Name="Disable_Button" Content="Disable" Margin="0,-3,0,0" Background="#FF7D0000" Foreground="White" BorderBrush="{x:Null}" Grid.Column="1" Click="Disable_Button_Click"/>
+                        <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Background="#FFC56B00" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Click="EStop_Button_Click"/>
+                        <Button x:Name="Teleop_Button" Content="Teleop" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF0800B8" Grid.Row="2" Grid.Column="0" Click="Teleop_Button_Click"/>
+                        <Button x:Name="Auton_Button" Content="Auton" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF850085" Grid.Row="2" Grid.Column="1" Click="Auton_Button_Click" />
+                    </Grid>
+                    <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0">
+                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Teleop_Tab" Header="Teleop">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+                        <Button x:Name="enable_joystick" Content="Enable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="enable_joystick_click" Margin="0,0,1,0"/>
+                        <Button x:Name="disable_joystick" Content="Disable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="disable_joystick_click" Margin="0,0,1,0"/>
+                        <Label Content="Driver Joystick&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
+                        <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+           
+            <TabItem x:Name="State_Tab" Header="State" Margin="0,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3">
+                        <Label Content="Motor Info"/>
+                        <DataGrid />
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="Other_Tab" Header="Other">
+                <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Center" Width="157" Click="EStop_Reset_Button_Click" Margin="0,0,0,0" Background="#FFDC0000">
+                </Button>
+
+            </TabItem>
+
+        </TabControl>
+
+        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="189"/>
+
+    </Grid>
+</Window>

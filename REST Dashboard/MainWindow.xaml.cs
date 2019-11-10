@@ -57,12 +57,11 @@ namespace REST_Dashboard
         }
         private void recieve_data_timer_elapsed(object sender, EventArgs e)
         {
+            update_connected_indicator();
             byte[] bytes = new byte[128];
 
             if(socket.recieve(ref bytes))
             {
-
-                Console.WriteLine(bytes[0]);
             }
 
         }
@@ -70,6 +69,8 @@ namespace REST_Dashboard
         {
             connected_indicator.label = "Connected";
             connected_indicator.connected = socket.connected();
+
+            HeroConnectedIndicator.label = "HeroSerial";
         }
 
         private void send_joystick_timer_elapsed(object sender, EventArgs e)
@@ -88,7 +89,6 @@ namespace REST_Dashboard
             List<SlimDX.DirectInput.Joystick> sticks = new List<SlimDX.DirectInput.Joystick>(); // Creates the list of joysticks connected to the computer via USB.
 
             ControllerSelect1.Items.Clear();
-
             foreach (DeviceInstance device in Input.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
             {
                 // Creates a joystick for each game device in USB Ports
@@ -102,9 +102,9 @@ namespace REST_Dashboard
             }
         }
 
-        float joy2float(int joy)
+        byte joy2byte(int joy)
         {
-            float ret = (float)(joy / 65535.0 * 2 - 1);
+            byte ret = (byte)((joy / 65535.0 * 2) * 127);
             return ret;
         }
 
@@ -112,8 +112,6 @@ namespace REST_Dashboard
 
         private void send_joystick_data()
         {
-
-            update_connected_indicator();
 
             if (!socket.connected())
             {
@@ -138,7 +136,7 @@ namespace REST_Dashboard
             var state = stick.GetCurrentState();
             
 
-            JoystickData data = new JoystickData();
+            JoystickData data = new DashboardJoystickData();
 
             data.button_a = state.GetButtons()[0];
             data.button_b = state.GetButtons()[1];
@@ -147,16 +145,18 @@ namespace REST_Dashboard
 
             data.button_lb = state.GetButtons()[4];
             data.button_rb = state.GetButtons()[5];
+            data.button_select = state.GetButtons()[6];
+            data.button_start = state.GetButtons()[7];
             data.button_lj = state.GetButtons()[8];
             data.button_rj = state.GetButtons()[9];
 
-            data.lj_x = joy2float(state.X);
-            data.lj_y = joy2float(state.Y);
-            data.rj_x = joy2float(state.RotationX);
-            data.rj_y = joy2float(state.RotationY);
+            data.lj_x = joy2byte(state.X);
+            data.lj_y = joy2byte(state.Y);
+            data.rj_x = joy2byte(state.RotationX);
+            data.rj_y = joy2byte(state.RotationY);
 
-            data.rt = joy2float(state.Z);
-            data.lt = joy2float(state.Z);
+            data.rt = joy2byte(state.Z);
+            data.lt = joy2byte(state.Z);
 
             socket.send(data.Serialize());
 
@@ -165,9 +165,6 @@ namespace REST_Dashboard
         private void send_dashboard_data()
         {
             socket.send(dashboard_state.Serialize());
-
-            DashboardData d = new DashboardData();
-            d.Deserialize(dashboard_state.Serialize());
         }
 
         private void enable_joystick_click(object sender, RoutedEventArgs e)
@@ -211,12 +208,12 @@ namespace REST_Dashboard
 
         private void Teleop_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            dashboard_state.robot_state = DashboardData.RobotStateEnum.Teleop;
         }
 
         private void Auton_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            dashboard_state.robot_state = DashboardData.RobotStateEnum.Auton;
         }
 
         private void EStop_Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -230,6 +227,28 @@ namespace REST_Dashboard
         private void disable_joystick_click(object sender, RoutedEventArgs e)
         {
             send_joystick_timer.Stop();
+        }
+
+        private void send_one_joystick_Click(object sender, RoutedEventArgs e)
+        {
+            joy_guid = ((DeviceInstance)ControllerSelect1.SelectedItem).InstanceGuid;
+            send_joystick_data();
+        }
+
+        private void HeroConnectedIndicator_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MainWindow1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == System.Windows.Input.Key.Space)
+            {
+                e.Handled = true;
+                dashboard_state.estop = true;
+                send_dashboard_data();
+            }
+            
         }
     }
 }

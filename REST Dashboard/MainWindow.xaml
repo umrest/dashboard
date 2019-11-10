@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:REST_Dashboard"
         mc:Ignorable="d"
-        Title="REST Dashboard" Height="487" Width="858" Loaded="Window_Loaded">
+        Title="REST Dashboard" Height="487" Width="858" Loaded="Window_Loaded" KeyDown="MainWindow1_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -24,12 +24,13 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="161*"/>
+                        <ColumnDefinition Width="121*"/>
+                        <ColumnDefinition Width="281*"/>
+                        <ColumnDefinition Width="281*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Margin="0,0,0,0" Grid.Column="2" Grid.RowSpan="2">
+                    <Grid Margin="281,0,-0.333,0.333" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -45,8 +46,8 @@
                         <Button x:Name="Teleop_Button" Content="Teleop" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF0800B8" Grid.Row="2" Grid.Column="0" Click="Teleop_Button_Click"/>
                         <Button x:Name="Auton_Button" Content="Auton" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF850085" Grid.Row="2" Grid.Column="1" Click="Auton_Button_Click" />
                     </Grid>
-                    <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0">
-                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
+                    <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0" Grid.ColumnSpan="2">
+                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" Loaded="HeroConnectedIndicator_Loaded" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -67,11 +68,12 @@
                         <Button x:Name="disable_joystick" Content="Disable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="disable_joystick_click" Margin="0,0,1,0"/>
                         <Label Content="Driver Joystick&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
                         <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" />
+                        <Button x:Name="send_one_joystick" Content="Joystick One Send" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,1,0" Click="send_one_joystick_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
 
-           
+
             <TabItem x:Name="State_Tab" Header="State" Margin="0,0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -93,7 +95,7 @@
             </TabItem>
 
             <TabItem x:Name="Other_Tab" Header="Other">
-                <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Center" Width="157" Click="EStop_Reset_Button_Click" Margin="0,0,0,0" Background="#FFDC0000">
+                <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" Click="EStop_Reset_Button_Click" Margin="333,205,354.667,0" Background="#FFDC0000">
                 </Button>
 
             </TabItem>

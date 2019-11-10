@@ -29,7 +29,7 @@ namespace REST_Dashboard
             client.SendBufferSize = 128;
             try
             {
-                client.Connect("127.0.0.1", 5000);
+                client.ConnectAsync("localhost", 8091);
             }
             catch
             {
@@ -45,6 +45,7 @@ namespace REST_Dashboard
 
         public void send(byte[] bytes)
         {
+            
             if (!client.Connected)
             {
                 connect();
@@ -64,6 +65,7 @@ namespace REST_Dashboard
             if (!connected())
             {
                 connect();
+                return false;
             }
             if (client.Available >= bytes.Length)
             {

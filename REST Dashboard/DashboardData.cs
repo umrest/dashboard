@@ -16,8 +16,15 @@ namespace REST_Dashboard
 
         }
 
+        public enum RobotStateEnum : byte
+        {
+            Teleop=0,
+            Auton=1
+        };
+
         public bool enabled = false;
         public bool estop = false;
+        public RobotStateEnum robot_state;
 
 
         public byte[] Serialize()
@@ -31,41 +38,25 @@ namespace REST_Dashboard
 
                     writer.Write(type);
 
-                    BitArray8 critical_state = new BitArray8();
+                    byte[] enabled_byte = new byte[8];
 
-                    critical_state.SetBit(0, enabled);
-                    critical_state.SetBit(1, estop);
+                    for(int i = 0; i < 8; i++)
+                    {
+                        if (enabled && !estop)
+                        {
+                            enabled_byte[i] = (byte)(20 + i);
+                        }
+                        else
+                        {
+                            enabled_byte[i] = 0;
+                        }
+                    }
 
-                    
-
-                    writer.Write(critical_state.aByte);
-                    writer.Write(critical_state.aByte);
+                    writer.Write(enabled_byte);
                 }
 
                 m.ToArray().CopyTo(ret, 0);
                 return ret;
-            }
-        }
-
-        public void Deserialize(byte[] data)
-        {
-            using (MemoryStream m = new MemoryStream(data))
-            {
-                using (BinaryReader reader = new BinaryReader(m))
-                {
-                    byte type;
-
-                    type = reader.ReadByte();
-
-
-                    BitArray8 critical_state = new BitArray8();
-
-                    critical_state.aByte = reader.ReadByte();
-
-                    enabled = critical_state.GetBit(0);
-                    estop = critical_state.GetBit(1);
-
-                }
             }
         }
     }

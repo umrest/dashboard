@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DashboardJoystickData.cs" />
     <Compile Include="RobotState.cs" />
     <Page Include="ConnectionIndicator.xaml">
       <SubType>Designer</SubType>

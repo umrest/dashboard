@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:REST_Dashboard"
         mc:Ignorable="d"
-        Title="REST Dashboard" Height="487" Width="858" Loaded="Window_Loaded" KeyDown="MainWindow1_KeyDown">
+        Title="REST Dashboard" Height="487" Width="858" KeyDown="MainWindow1_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -47,7 +47,7 @@
                         <Button x:Name="Auton_Button" Content="Auton" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF850085" Grid.Row="2" Grid.Column="1" Click="Auton_Button_Click" />
                     </Grid>
                     <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0" Grid.ColumnSpan="2">
-                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" Loaded="HeroConnectedIndicator_Loaded" />
+                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -95,10 +95,12 @@
             </TabItem>
 
             <TabItem x:Name="Other_Tab" Header="Other">
+                <Grid>
                 <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" Click="EStop_Reset_Button_Click" Margin="333,205,354.667,0" Background="#FFDC0000">
                 </Button>
-
+                </Grid>
             </TabItem>
+            
 
         </TabControl>
 

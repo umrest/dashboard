@@ -12,8 +12,9 @@ namespace REST_Dashboard
         public override byte[] Serialize()
         {
             byte[] ret = new byte[128];
- 
-            byte type = 1;
+
+            ret[TYPE_OFFSET] = TYPE;
+
 
             BitArray8 button_data_1 = new BitArray8();
             BitArray8 button_data_2 = new BitArray8();
@@ -29,8 +30,7 @@ namespace REST_Dashboard
 
             button_data_2.SetBit(1, button_lj);
             button_data_2.SetBit(1, button_rj);
-
-            ret[TYPE_OFFSET] = type;
+            
             ret[BUTTONS_1_OFFSET] = button_data_1.aByte;
             ret[BUTTONS_2_OFFSET] = button_data_2.aByte;
 
@@ -42,6 +42,11 @@ namespace REST_Dashboard
             BitConverter.GetBytes(rt).CopyTo(ret, RT_OFFSET);
 
             return ret;
+        }
+
+        public override void Deserialize(byte[] data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

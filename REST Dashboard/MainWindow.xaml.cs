@@ -62,6 +62,14 @@ namespace REST_Dashboard
 
             if(socket.recieve(ref bytes))
             {
+                byte type = 8;
+                if(type == 8)
+                {
+                    DashboardDataAggregatorState d = new DashboardDataAggregatorState();
+                    d.Deserialize(bytes);
+
+                    HeroConnectedIndicator.connected = d.hero_connected;
+                }
             }
 
         }
@@ -233,11 +241,6 @@ namespace REST_Dashboard
         {
             joy_guid = ((DeviceInstance)ControllerSelect1.SelectedItem).InstanceGuid;
             send_joystick_data();
-        }
-
-        private void HeroConnectedIndicator_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void MainWindow1_KeyDown(object sender, KeyEventArgs e)

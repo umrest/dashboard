@@ -2,12 +2,14 @@
 
 namespace REST_Dashboard
 {
-    public abstract class JoystickData
+    public abstract class JoystickData : RESTPacket
     {
         public JoystickData()
         {
 
         }
+
+        public new byte TYPE = 1;
 
         public bool button_a;
         public bool button_b;
@@ -29,9 +31,8 @@ namespace REST_Dashboard
         public byte lt;
         public byte rt;
 
-        public abstract byte[] Serialize();
-
-        protected const int TYPE_OFFSET = 0;
+        // Offsets
+        
         protected const int BUTTONS_1_OFFSET = 1;
         protected const int BUTTONS_2_OFFSET = 2;
         protected const int LJ_X_OFFSET = 3;

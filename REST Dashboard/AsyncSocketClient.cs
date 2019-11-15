@@ -17,6 +17,7 @@ namespace REST_Dashboard
             connect();
         }
 
+
         public void connect()
         {
         
@@ -27,9 +28,16 @@ namespace REST_Dashboard
             }
             client = new TcpClient();
             client.SendBufferSize = 128;
+            client.SendTimeout = 100;
+            client.ReceiveTimeout = 100;
             try
             {
-                client.ConnectAsync("localhost", 8091);
+                client.ConnectAsync("localhost", 8091).Wait(100);
+
+                byte[] identifier = new byte[128];
+                identifier[0] = 250;
+                identifier[1] = 1;
+                client.Client.Send(identifier);
             }
             catch
             {
@@ -52,7 +60,7 @@ namespace REST_Dashboard
             }
             try
             {
-                client.GetStream().Write(bytes, 0, bytes.Length);
+                client.Client.Send(bytes);
             }
             catch
             {

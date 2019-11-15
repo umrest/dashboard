@@ -58,9 +58,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DashboardDataAggregatorState.cs" />
     <Compile Include="DashboardJoystickData.cs" />
+    <Compile Include="DataAggregatorState.cs" />
+    <Compile Include="FieldView.xaml.cs">
+      <DependentUpon>FieldView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RESTPacket.cs" />
     <Compile Include="RobotState.cs" />
     <Page Include="ConnectionIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FieldView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

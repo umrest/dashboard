@@ -74,7 +74,7 @@
             </TabItem>
 
 
-            <TabItem x:Name="State_Tab" Header="State" Margin="0,0,0,0">
+            <TabItem x:Name="State_Tab" Header="State">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -86,19 +86,21 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3"/>
 
-                    <local:VisionStateView Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-
+                    <local:VisionStateView x:Name="vision_state_view" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <local:FieldView x:Name="field_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
+                    <local:RobotView x:Name="robot_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
                 </Grid>
+
             </TabItem>
 
             <TabItem x:Name="Other_Tab" Header="Other">
                 <Grid>
-                <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" Click="EStop_Reset_Button_Click" Margin="333,205,354.667,0" Background="#FFDC0000">
-                </Button>
+                    <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" Click="EStop_Reset_Button_Click" Margin="333,205,354.667,0" Background="#FFDC0000">
+                    </Button>
                 </Grid>
             </TabItem>
+
 
 
         </TabControl>

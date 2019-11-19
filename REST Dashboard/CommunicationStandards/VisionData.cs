@@ -22,13 +22,11 @@ namespace REST_Dashboard
 
         // Offsets
 
-        protected const int BUTTONS_1_OFFSET = 1;
-        protected const int BUTTONS_2_OFFSET = 2;
-        protected const int LJ_X_OFFSET = 3;
-        protected const int LJ_Y_OFFSET = 7;
-        protected const int RJ_X_OFFSET = 11;
-        protected const int RJ_Y_OFFSET = 15;
-        protected const int LT_OFFSET = 19;
-        protected const int RT_OFFSET = 23;
+        protected const int YAW_OFFSET = 1;
+        protected const int PITCH_OFFSET = 3;
+        protected const int ROLL_OFFSET = 5;
+        protected const int X_OFFSET = 7;
+        protected const int Y_OFFSET = 9;
+        protected const int Z_OFFSET = 11;
     }
 }

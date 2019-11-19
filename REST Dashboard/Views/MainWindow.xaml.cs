@@ -42,7 +42,7 @@ namespace REST_Dashboard
             TimeSpan interval = new TimeSpan(0,0,0,0,50);
             send_joystick_timer.Interval = interval;
 
-            TimeSpan recieve_interval = new TimeSpan(0, 0, 0, 0, 100);
+            TimeSpan recieve_interval = new TimeSpan(0, 0, 0, 0, 50);
             recieve_data_timer.Interval = recieve_interval;
 
             send_joystick_timer.Tick += new EventHandler(send_joystick_timer_elapsed);
@@ -62,13 +62,17 @@ namespace REST_Dashboard
 
             if(socket.recieve(ref bytes))
             {
-                byte type = 8;
+                byte type = bytes[0];
                 if(type == 8)
                 {
                     DashboardDataAggregatorState d = new DashboardDataAggregatorState();
                     d.Deserialize(bytes);
 
                     HeroConnectedIndicator.connected = d.hero_connected;
+                }
+                if(type == 2)
+                {
+                    vision_state_view.tag_1.Deserialize(bytes);
                 }
             }
 

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\App.xaml
-51441469841
+7842395534
 
-20-1972765105
+211997379224
 141017614992
-ConnectionIndicator.xaml;FieldView.xaml;MainWindow.xaml;RobotOrientationView.xaml;VisionStateView.xaml;
+Views\ConnectionIndicator.xaml;Views\FieldView.xaml;Views\GamepadView.xaml;Views\JoystickView.xaml;Views\MainWindow.xaml;Views\RobotOrientationView.xaml;Views\VisionStateView.xaml;
 
 False
 

@@ -21,7 +21,7 @@ namespace REST_Dashboard
     /// </summary>
     public partial class VisionStateView : UserControl
     {
-        DashboardVisionData tag_1 = new DashboardVisionData("main");
+        public DashboardVisionData tag_1 = new DashboardVisionData("main");
         DashboardVisionData tag_2 = new DashboardVisionData("unloading");
 
         private ObservableCollection<DashboardVisionData> tags = new ObservableCollection<DashboardVisionData>();

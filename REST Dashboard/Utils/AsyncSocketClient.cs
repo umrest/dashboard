@@ -32,7 +32,7 @@ namespace REST_Dashboard
             client.ReceiveTimeout = 100;
             try
             {
-                client.ConnectAsync("35.3.94.161", 8091).Wait(100);
+                client.ConnectAsync("127.0.0.1", 8091).Wait(100);
 
                 byte[] identifier = new byte[128];
                 identifier[0] = 250;

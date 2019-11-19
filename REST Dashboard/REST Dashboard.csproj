@@ -67,6 +67,12 @@
     </Compile>
     <Compile Include="CommunicationStandards\VisionData.cs" />
     <Compile Include="CommunicationStandards\RESTPacket.cs" />
+    <Compile Include="Views\GamepadView.xaml.cs">
+      <DependentUpon>GamepadView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JoystickView.xaml.cs">
+      <DependentUpon>JoystickView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RobotOrientationView.xaml.cs">
       <DependentUpon>RobotOrientationView.xaml</DependentUpon>
     </Compile>
@@ -78,6 +84,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FieldView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GamepadView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\JoystickView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

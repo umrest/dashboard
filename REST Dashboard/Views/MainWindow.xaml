@@ -86,10 +86,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3">
-                        <Label Content="Motor Info"/>
-                        <DataGrid />
-                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3"/>
+
+                    <local:VisionStateView Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                 </Grid>
             </TabItem>
@@ -100,7 +99,7 @@
                 </Button>
                 </Grid>
             </TabItem>
-            
+
 
         </TabControl>
 

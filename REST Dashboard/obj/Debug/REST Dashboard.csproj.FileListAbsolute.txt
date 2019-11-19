@@ -19,3 +19,7 @@ C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\ConnectionIn
 C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\FieldView.g.cs
 C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\FieldView.baml
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\RobotOrientationView.g.cs
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\VisionStateView.g.cs
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\RobotOrientationView.baml
+C:\Users\justin\source\repos\RestDashbaord\REST Dashboard\obj\Debug\VisionStateView.baml

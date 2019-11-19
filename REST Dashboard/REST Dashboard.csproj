@@ -58,23 +58,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DashboardDataAggregatorState.cs" />
-    <Compile Include="DashboardJoystickData.cs" />
-    <Compile Include="DataAggregatorState.cs" />
-    <Compile Include="FieldView.xaml.cs">
+    <Compile Include="CommunicationStandards\DashboardDataAggregatorState.cs" />
+    <Compile Include="CommunicationStandards\DashboardVisionData.cs" />
+    <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
+    <Compile Include="CommunicationStandards\DataAggregatorState.cs" />
+    <Compile Include="Views\FieldView.xaml.cs">
       <DependentUpon>FieldView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RESTPacket.cs" />
-    <Compile Include="RobotState.cs" />
-    <Page Include="ConnectionIndicator.xaml">
+    <Compile Include="CommunicationStandards\VisionData.cs" />
+    <Compile Include="CommunicationStandards\RESTPacket.cs" />
+    <Compile Include="Views\RobotOrientationView.xaml.cs">
+      <DependentUpon>RobotOrientationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VisionStateView.xaml.cs">
+      <DependentUpon>VisionStateView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\ConnectionIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FieldView.xaml">
+    <Page Include="Views\FieldView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -82,17 +89,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AsyncSocketClient.cs" />
-    <Compile Include="BitArray8.cs" />
-    <Compile Include="ConnectionIndicator.xaml.cs">
+    <Compile Include="Utils\AsyncSocketClient.cs" />
+    <Compile Include="Utils\BitArray8.cs" />
+    <Compile Include="Views\ConnectionIndicator.xaml.cs">
       <DependentUpon>ConnectionIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DashboardData.cs" />
-    <Compile Include="JoystickData.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="CommunicationStandards\DashboardData.cs" />
+    <Compile Include="CommunicationStandards\JoystickData.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\RobotOrientationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VisionStateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

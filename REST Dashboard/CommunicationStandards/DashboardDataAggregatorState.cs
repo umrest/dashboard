@@ -20,6 +20,7 @@ namespace REST_Dashboard
             status.aByte = data[1];
 
             hero_connected = status.GetBit(0);
+            vision_connected = status.GetBit(1);
         }
     }
 }

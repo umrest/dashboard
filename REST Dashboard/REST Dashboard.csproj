@@ -73,8 +73,8 @@
     <Compile Include="Views\JoystickView.xaml.cs">
       <DependentUpon>JoystickView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RobotOrientationView.xaml.cs">
-      <DependentUpon>RobotOrientationView.xaml</DependentUpon>
+    <Compile Include="Views\RobotView.xaml.cs">
+      <DependentUpon>RobotView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VisionStateView.xaml.cs">
       <DependentUpon>VisionStateView.xaml</DependentUpon>
@@ -114,7 +114,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\RobotOrientationView.xaml">
+    <Page Include="Views\RobotView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

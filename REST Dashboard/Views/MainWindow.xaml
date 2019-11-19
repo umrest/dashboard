@@ -48,6 +48,7 @@
                     </Grid>
                     <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0" Grid.ColumnSpan="2">
                         <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
+                        <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -86,10 +87,13 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-
-                    <local:VisionStateView x:Name="vision_state_view" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     <local:FieldView x:Name="field_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
-                    <local:RobotView x:Name="robot_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
+
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="388" VerticalAlignment="Top" Width="281" Grid.RowSpan="3">
+                        <Label Content="Vision State View"/>
+                        <local:VisionStateView x:Name="vision_state_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        
+                    </StackPanel>
                 </Grid>
 
             </TabItem>
@@ -100,6 +104,8 @@
                     </Button>
                 </Grid>
             </TabItem>
+            
+
 
 
 

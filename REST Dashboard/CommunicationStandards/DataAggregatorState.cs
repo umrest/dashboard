@@ -12,6 +12,7 @@ namespace REST_Dashboard
         public new byte TYPE = 8;
 
         public bool hero_connected;
+        public bool vision_connected;
 
 
         // Offsets

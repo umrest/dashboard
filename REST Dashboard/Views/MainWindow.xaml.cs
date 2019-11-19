@@ -69,10 +69,13 @@ namespace REST_Dashboard
                     d.Deserialize(bytes);
 
                     HeroConnectedIndicator.connected = d.hero_connected;
+                    VisionConnectedIndicator.connected = d.vision_connected;
                 }
                 if(type == 2)
                 {
                     vision_state_view.tag_1.Deserialize(bytes);
+
+                    field_view.SetRobotPosition(vision_state_view.tag_1.X, vision_state_view.tag_1.Z, vision_state_view.tag_1.yaw);
                 }
             }
 
@@ -83,6 +86,7 @@ namespace REST_Dashboard
             connected_indicator.connected = socket.connected();
 
             HeroConnectedIndicator.label = "HeroSerial";
+            VisionConnectedIndicator.label = "Vision";
         }
 
         private void send_joystick_timer_elapsed(object sender, EventArgs e)

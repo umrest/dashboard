@@ -107,8 +107,8 @@ namespace REST_Dashboard
         public override void Deserialize(byte[] data)
         {
             X = BitConverter.ToInt16(data, X_OFFSET);
-            X = BitConverter.ToInt16(data, Y_OFFSET);
-            X = BitConverter.ToInt16(data, Z_OFFSET);
+            Y = BitConverter.ToInt16(data, Y_OFFSET);
+            Z = BitConverter.ToInt16(data, Z_OFFSET);
 
             yaw = BitConverter.ToInt16(data, YAW_OFFSET);
             pitch = BitConverter.ToInt16(data, PITCH_OFFSET);

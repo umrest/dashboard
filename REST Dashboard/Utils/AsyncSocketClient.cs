@@ -10,8 +10,8 @@ namespace REST_Dashboard
     class AsyncSocketClient
     {
         public TcpClient client = null;
-        
 
+        private bool _connected = false;
         public AsyncSocketClient()
         {
             connect();
@@ -33,11 +33,13 @@ namespace REST_Dashboard
             try
             {
                 client.ConnectAsync("127.0.0.1", 8091).Wait(100);
-
-                byte[] identifier = new byte[128];
-                identifier[0] = 250;
-                identifier[1] = 1;
-                client.Client.Send(identifier);
+                if (client.Connected)
+                {
+                    byte[] identifier = new byte[128];
+                    identifier[0] = 250;
+                    identifier[1] = 1;
+                    client.Client.Send(identifier);
+                }
             }
             catch
             {
@@ -48,13 +50,17 @@ namespace REST_Dashboard
 
         public bool connected()
         {
-           return client.Connected;
+            try
+            {
+                return !(client.Client.Poll(1, SelectMode.SelectRead) && client.Client.Available == 0);
+            }
+            catch (SocketException) { return false; }
         }
 
         public void send(byte[] bytes)
         {
             
-            if (!client.Connected)
+            if (!connected())
             {
                 connect();
             }
@@ -64,7 +70,6 @@ namespace REST_Dashboard
             }
             catch
             {
-                
             }
         }
 
@@ -73,15 +78,24 @@ namespace REST_Dashboard
             if (!connected())
             {
                 connect();
+            }
+            try
+            {
+
+                int recieved = client.Client.Receive(bytes, bytes.Length, SocketFlags.None);
+                if(recieved == bytes.Length)
+                {
+                    return true;
+                }
                 return false;
             }
-            if (client.Available >= bytes.Length)
+            catch
             {
-                client.GetStream().Read(bytes, 0, bytes.Length);
-                return true;
+
             }
 
             return false;
+
         }
     }
 }

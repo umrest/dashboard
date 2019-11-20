@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using REST_Dashboard.Utils;
 using SlimDX.DirectInput;
 
 namespace REST_Dashboard
@@ -33,13 +34,15 @@ namespace REST_Dashboard
 
         DashboardData dashboard_state;
 
+        GlobalHotkey space_hotkey;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            socket = new AsyncSocketClient(); 
+            socket = new AsyncSocketClient();
 
-            TimeSpan interval = new TimeSpan(0,0,0,0,50);
+            TimeSpan interval = new TimeSpan(0, 0, 0, 0, 50);
             send_joystick_timer.Interval = interval;
 
             TimeSpan recieve_interval = new TimeSpan(0, 0, 0, 0, 50);
@@ -52,18 +55,41 @@ namespace REST_Dashboard
 
             update_connected_indicator();
 
-            dashboard_state =new  DashboardData();
+            dashboard_state = new DashboardData();
+
+            update_indicators();
+
 
         }
-        private void recieve_data_timer_elapsed(object sender, EventArgs e)
+
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            // Space EStop hotkey
+            /*
+            space_hotkey = new GlobalHotkey(this, delegate ()
+            {
+                EStop_Button_Click(null, null);
+            });
+            */
+        }
+         private void recieve_data_timer_elapsed(object sender, EventArgs e)
         {
             update_connected_indicator();
             byte[] bytes = new byte[128];
 
-            if(socket.recieve(ref bytes))
+            // slow down the timer if we can't connect
+            if (!socket.connected())
+            {
+                update_connected_indicator();
+                recieve_data_timer.Interval = new TimeSpan(0, 0, 0, 1, 0);
+            }
+
+            if (socket.recieve(ref bytes))
             {
                 byte type = bytes[0];
-                if(type == 8)
+                if (type == 8)
                 {
                     DashboardDataAggregatorState d = new DashboardDataAggregatorState();
                     d.Deserialize(bytes);
@@ -71,22 +97,19 @@ namespace REST_Dashboard
                     HeroConnectedIndicator.connected = d.hero_connected;
                     VisionConnectedIndicator.connected = d.vision_connected;
                 }
-                if(type == 2)
+                if (type == 2)
                 {
                     vision_state_view.tag_1.Deserialize(bytes);
 
                     field_view.SetRobotPosition(vision_state_view.tag_1.X, vision_state_view.tag_1.Z, vision_state_view.tag_1.yaw);
                 }
+                recieve_data_timer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             }
 
         }
         private void update_connected_indicator()
         {
-            connected_indicator.label = "Connected";
             connected_indicator.connected = socket.connected();
-
-            HeroConnectedIndicator.label = "HeroSerial";
-            VisionConnectedIndicator.label = "Vision";
         }
 
         private void send_joystick_timer_elapsed(object sender, EventArgs e)
@@ -150,7 +173,7 @@ namespace REST_Dashboard
             }
 
             var state = stick.GetCurrentState();
-            
+
 
             JoystickData data = new DashboardJoystickData();
 
@@ -178,9 +201,26 @@ namespace REST_Dashboard
 
         }
 
+        private void update_indicators()
+        {
+            double on = 1;
+            double off = .25;
+            Enable_Button.Background.Opacity = dashboard_state.enabled ? on : off;
+
+            Disable_Button.Background.Opacity = !dashboard_state.enabled ? on : off;
+
+            EStop_Button.Background.Opacity = dashboard_state.estop ? on : off;
+
+            Auton_Button.Background.Opacity = dashboard_state.robot_state == DashboardData.RobotStateEnum.Auton ? on : off;
+
+            Teleop_Button.Background.Opacity = dashboard_state.robot_state == DashboardData.RobotStateEnum.Teleop ? on : off;
+        }
+
         private void send_dashboard_data()
         {
+            update_indicators();
             socket.send(dashboard_state.Serialize());
+
         }
 
         private void enable_joystick_click(object sender, RoutedEventArgs e)
@@ -195,7 +235,7 @@ namespace REST_Dashboard
             {
                 MessageBox.Show("Invalid joystick");
             }
-            
+
         }
 
         private void ControllerSelect1_DropDownOpened(object sender, EventArgs e)
@@ -207,6 +247,7 @@ namespace REST_Dashboard
         {
             dashboard_state.enabled = true;
             send_dashboard_data();
+
         }
 
         private void Disable_Button_Click(object sender, RoutedEventArgs e)
@@ -218,18 +259,20 @@ namespace REST_Dashboard
         private void EStop_Button_Click(object sender, RoutedEventArgs e)
         {
             dashboard_state.estop = true;
-            dashboard_state.enabled = true;
+            dashboard_state.enabled = false;
             send_dashboard_data();
         }
 
         private void Teleop_Button_Click(object sender, RoutedEventArgs e)
         {
             dashboard_state.robot_state = DashboardData.RobotStateEnum.Teleop;
+            send_dashboard_data();
         }
 
         private void Auton_Button_Click(object sender, RoutedEventArgs e)
         {
             dashboard_state.robot_state = DashboardData.RobotStateEnum.Auton;
+            send_dashboard_data();
         }
 
         private void EStop_Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -251,15 +294,5 @@ namespace REST_Dashboard
             send_joystick_data();
         }
 
-        private void MainWindow1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == System.Windows.Input.Key.Space)
-            {
-                e.Handled = true;
-                dashboard_state.estop = true;
-                send_dashboard_data();
-            }
-            
-        }
     }
 }

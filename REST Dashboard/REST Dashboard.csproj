@@ -62,6 +62,7 @@
     <Compile Include="CommunicationStandards\DashboardVisionData.cs" />
     <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
     <Compile Include="CommunicationStandards\DataAggregatorState.cs" />
+    <Compile Include="Utils\GlobalHotkey.cs" />
     <Compile Include="Views\FieldView.xaml.cs">
       <DependentUpon>FieldView.xaml</DependentUpon>
     </Compile>

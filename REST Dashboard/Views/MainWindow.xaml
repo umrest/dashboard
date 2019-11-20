@@ -5,17 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:REST_Dashboard"
         mc:Ignorable="d"
-        Title="REST Dashboard" Height="487" Width="858" KeyDown="MainWindow1_KeyDown">
+        Title="REST Dashboard" Height="487" Width="858">
+    <Window.Resources>
+        <Color x:Key="EnableColor">#FF008500</Color>
+        <Color x:Key="Enabled">#FF008500</Color>
+        <Color x:Key="Disabled">#FF7D0000</Color>
+        <Color x:Key="EStopped">#FFC56B00</Color>
+        <Color x:Key="Teleop">#FF0800B8</Color>
+        <Color x:Key="Auton">#FF850085</Color>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="24*"></ColumnDefinition>
+            <ColumnDefinition Width="61*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.ColumnSpan="2">
             <TabItem x:Name="Status_Tab" Header="Status">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -40,15 +49,31 @@
                             <RowDefinition/>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button x:Name="Enable_Button" Content="Enable" Margin="0,-3,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF008500" Click="Enable_Button_Click"/>
-                        <Button x:Name="Disable_Button" Content="Disable" Margin="0,-3,0,0" Background="#FF7D0000" Foreground="White" BorderBrush="{x:Null}" Grid.Column="1" Click="Disable_Button_Click"/>
-                        <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Background="#FFC56B00" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Click="EStop_Button_Click"/>
-                        <Button x:Name="Teleop_Button" Content="Teleop" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF0800B8" Grid.Row="2" Grid.Column="0" Click="Teleop_Button_Click"/>
-                        <Button x:Name="Auton_Button" Content="Auton" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Background="#FF850085" Grid.Row="2" Grid.Column="1" Click="Auton_Button_Click" />
+                        <Button x:Name="Enable_Button" Content="Enable" Margin="0,-3,0,0" Foreground="White" Click="Enable_Button_Click" BorderThickness="5" Background="#FF008500" BorderBrush="{x:Null}"/>
+                        <Button x:Name="Disable_Button" Content="Disable" Margin="0,-3,0,0" Foreground="White" BorderBrush="{x:Null}" Grid.Column="1" Click="Disable_Button_Click" BorderThickness="5">
+                            <Button.Background>
+                                <SolidColorBrush Color="{DynamicResource Disabled}"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Click="EStop_Button_Click" BorderThickness="5">
+                            <Button.Background>
+                                <SolidColorBrush Color="{DynamicResource EStopped}"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="Teleop_Button" Content="Teleop" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Grid.Row="2" Grid.Column="0" Click="Teleop_Button_Click" BorderThickness="5">
+                            <Button.Background>
+                                <SolidColorBrush Color="{DynamicResource Teleop}"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="Auton_Button" Content="Auton" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Grid.Row="2" Grid.Column="1" Click="Auton_Button_Click" BorderThickness="5,5,6,5" >
+                            <Button.Background>
+                                <SolidColorBrush Color="{DynamicResource Auton}"/>
+                            </Button.Background>
+                        </Button>
                     </Grid>
                     <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0" Grid.ColumnSpan="2">
-                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
-                        <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" />
+                        <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Hero" />
+                        <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Vision" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -92,7 +117,7 @@
                     <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="388" VerticalAlignment="Top" Width="281" Grid.RowSpan="3">
                         <Label Content="Vision State View"/>
                         <local:VisionStateView x:Name="vision_state_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        
+
                     </StackPanel>
                 </Grid>
 
@@ -104,14 +129,14 @@
                     </Button>
                 </Grid>
             </TabItem>
-            
+
 
 
 
 
         </TabControl>
 
-        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="189"/>
+        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="189" label="Connected"/>
 
     </Grid>
 </Window>

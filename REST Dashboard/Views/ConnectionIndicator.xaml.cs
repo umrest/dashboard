@@ -27,21 +27,33 @@ namespace REST_Dashboard
         {
             InitializeComponent();
         }
-
+        bool _connected = false;
         public bool connected
         {
             set
             {
-                ConnectionColor.Fill = new SolidColorBrush(value ? connected_color : disconnected_color);
+                _connected = value;
+                ConnectionColor.Fill = new SolidColorBrush(_connected ? connected_color : disconnected_color);
+            }
+            get
+            {
+                return _connected;
             }
         }
 
+        public string _label = "null";
         public string label
         {
+            get
+            {
+                return _label;
+            }
             set
             {
-                ConnectionLabel.Content = value;
+                _label = value;
+                ConnectionLabel.Content = _label;
             }
         }
+
     }
 }

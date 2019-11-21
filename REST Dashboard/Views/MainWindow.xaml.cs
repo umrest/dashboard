@@ -45,7 +45,7 @@ namespace REST_Dashboard
             TimeSpan interval = new TimeSpan(0, 0, 0, 0, 50);
             send_joystick_timer.Interval = interval;
 
-            TimeSpan recieve_interval = new TimeSpan(0, 0, 0, 0, 50);
+            TimeSpan recieve_interval = new TimeSpan(0, 0, 0, 0, 5);
             recieve_data_timer.Interval = recieve_interval;
 
             send_joystick_timer.Tick += new EventHandler(send_joystick_timer_elapsed);
@@ -100,8 +100,6 @@ namespace REST_Dashboard
                 if (type == 2)
                 {
                     vision_state_view.tag_1.Deserialize(bytes);
-
-                    field_view.SetRobotPosition(vision_state_view.tag_1.X, vision_state_view.tag_1.Z, vision_state_view.tag_1.yaw);
                 }
                 recieve_data_timer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             }

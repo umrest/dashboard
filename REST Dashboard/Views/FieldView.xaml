@@ -8,10 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Border BorderBrush="Black" BorderThickness="5"/>
-        <Canvas x:Name="FieldCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Canvas x:Name="FieldCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
 
-            <Rectangle x:Name="RobotRectangle" Fill="#FF575757"  Height="30"  Width="50" Canvas.Left="158" Canvas.Top="155" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Rectangle x:Name="DumpingStation" Fill="#FF006304" Height="36" Width="40" Canvas.Left="540" Canvas.Top="254" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Rectangle x:Name="RobotRectangle" Fill="#FF575757" Height="30" Width="50" Canvas.Left="0" Canvas.Top="0" />
+            <Rectangle x:Name="DumpingStation" Fill="#FF006304" Height="36" Width="40" Canvas.Right="0" Canvas.Bottom="0"/>
 
 
         </Canvas>

@@ -15,16 +15,12 @@
         <Color x:Key="Auton">#FF850085</Color>
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="24*"></ColumnDefinition>
-            <ColumnDefinition Width="61*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.ColumnSpan="2">
+        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <TabItem x:Name="Status_Tab" Header="Status">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -93,7 +89,7 @@
                         <Button x:Name="enable_joystick" Content="Enable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="enable_joystick_click" Margin="0,0,1,0"/>
                         <Button x:Name="disable_joystick" Content="Disable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="disable_joystick_click" Margin="0,0,1,0"/>
                         <Label Content="Driver Joystick&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
-                        <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" />
+                        <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" DisplayMemberPath="ProductName" />
                         <Button x:Name="send_one_joystick" Content="Joystick One Send" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,1,0" Click="send_one_joystick_Click"/>
                     </StackPanel>
                 </Grid>
@@ -112,7 +108,6 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <local:FieldView x:Name="field_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
 
                     <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="388" VerticalAlignment="Top" Width="281" Grid.RowSpan="3">
                         <Label Content="Vision State View"/>
@@ -136,7 +131,7 @@
 
         </TabControl>
 
-        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="189" label="Connected"/>
+        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="219" label="Connected"/>
 
     </Grid>
 </Window>

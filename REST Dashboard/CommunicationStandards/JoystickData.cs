@@ -36,10 +36,10 @@ namespace REST_Dashboard
         protected const int BUTTONS_1_OFFSET = 1;
         protected const int BUTTONS_2_OFFSET = 2;
         protected const int LJ_X_OFFSET = 3;
-        protected const int LJ_Y_OFFSET = 7;
-        protected const int RJ_X_OFFSET = 11;
-        protected const int RJ_Y_OFFSET = 15;
-        protected const int LT_OFFSET = 19;
-        protected const int RT_OFFSET = 23;
+        protected const int LJ_Y_OFFSET = 4;
+        protected const int RJ_X_OFFSET = 5;
+        protected const int RJ_Y_OFFSET = 6;
+        protected const int LT_OFFSET = 7;
+        protected const int RT_OFFSET = 8;
     }
 }

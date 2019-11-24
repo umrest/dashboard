@@ -19,19 +19,23 @@ namespace REST_Dashboard
     /// <summary>
     /// Interaction logic for VisionStateView.xaml
     /// </summary>
-    public partial class VisionStateView : UserControl
+    public partial class RobotStateView : UserControl
     {
-        public DashboardVisionData dashboardVisionData = new DashboardVisionData();
 
-        private ObservableCollection<DashboardTagPosition> tags = new ObservableCollection<DashboardTagPosition>();
-        public VisionStateView()
+        RobotStateData robot_state = new RobotStateData();
+
+        public RobotStateView()
         {
             InitializeComponent();
 
-            tags.Add((DashboardTagPosition)dashboardVisionData.t1);
-            tags.Add((DashboardTagPosition)dashboardVisionData.t2);
+            ObservableCollection<GyroData> gyro_data = new ObservableCollection<GyroData>();
+            gyro_data.Add(robot_state.gyro_data);
 
-            vision_data_grid.ItemsSource = tags;
+            gyro_data_grid.ItemsSource = gyro_data;
+
+            ObservableCollection<MotorInfo> motor_info = new ObservableCollection<MotorInfo>(robot_state.motor_info);
+
+            motor_data_grid.ItemsSource = motor_info;
         }
     }
 }

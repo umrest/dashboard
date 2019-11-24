@@ -11,6 +11,23 @@ namespace REST_Dashboard
 
         public new byte TYPE = 2;
 
+        public TagPosition t1;
+        public TagPosition t2;
+
+
+
+      
+
+        protected const int TAG_1_OFFSET = 1;
+        protected const int TAG_2_OFFSET = 13;
+
+
+    }
+
+    public abstract class TagPosition
+    {
+        // Offsets
+
         public short yaw { get; set; }
         public short pitch { get; set; }
         public short roll { get; set; }
@@ -19,14 +36,13 @@ namespace REST_Dashboard
         public short Y { get; set; }
         public short Z { get; set; }
 
+        protected const int YAW_OFFSET = 0;
+        protected const int PITCH_OFFSET = 2;
+        protected const int ROLL_OFFSET = 4;
+        protected const int X_OFFSET = 6;
+        protected const int Y_OFFSET = 8;
+        protected const int Z_OFFSET = 10;
 
-        // Offsets
-
-        protected const int YAW_OFFSET = 1;
-        protected const int PITCH_OFFSET = 3;
-        protected const int ROLL_OFFSET = 5;
-        protected const int X_OFFSET = 7;
-        protected const int Y_OFFSET = 9;
-        protected const int Z_OFFSET = 11;
+        public abstract void Deserialize(byte[] data);
     }
 }

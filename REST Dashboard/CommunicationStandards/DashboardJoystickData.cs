@@ -28,7 +28,7 @@ namespace REST_Dashboard
             button_data_1.SetBit(6, button_start);
             button_data_1.SetBit(7, button_select);
 
-            button_data_2.SetBit(1, button_lj);
+            button_data_2.SetBit(0, button_lj);
             button_data_2.SetBit(1, button_rj);
             
             ret[BUTTONS_1_OFFSET] = button_data_1.aByte;

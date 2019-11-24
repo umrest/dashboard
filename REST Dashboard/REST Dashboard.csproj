@@ -59,9 +59,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CommunicationStandards\DashboardDataAggregatorState.cs" />
+    <Compile Include="CommunicationStandards\DashboardRobotStateData.cs" />
     <Compile Include="CommunicationStandards\DashboardVisionData.cs" />
     <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
     <Compile Include="CommunicationStandards\DataAggregatorState.cs" />
+    <Compile Include="CommunicationStandards\RobotStateData.cs" />
     <Compile Include="Utils\GlobalHotkey.cs" />
     <Compile Include="Views\FieldView.xaml.cs">
       <DependentUpon>FieldView.xaml</DependentUpon>
@@ -76,6 +78,9 @@
     </Compile>
     <Compile Include="Views\RobotView.xaml.cs">
       <DependentUpon>RobotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RobotStateView.xaml.cs">
+      <DependentUpon>RobotStateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VisionStateView.xaml.cs">
       <DependentUpon>VisionStateView.xaml</DependentUpon>
@@ -118,6 +123,10 @@
     <Page Include="Views\RobotView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RobotStateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\VisionStateView.xaml">
       <SubType>Designer</SubType>

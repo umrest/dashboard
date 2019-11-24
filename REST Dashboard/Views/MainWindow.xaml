@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:REST_Dashboard"
         mc:Ignorable="d"
-        Title="REST Dashboard" Height="487" Width="858">
+        Title="REST Dashboard" Height="450" Width="800" FontSize="14" MinWidth="800" MinHeight="450">
     <Window.Resources>
         <Color x:Key="EnableColor">#FF008500</Color>
         <Color x:Key="Enabled">#FF008500</Color>
@@ -29,45 +29,52 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="161*"/>
-                        <ColumnDefinition Width="121*"/>
-                        <ColumnDefinition Width="281*"/>
-                        <ColumnDefinition Width="281*"/>
+                        <ColumnDefinition Width="241*"/>
+                        <ColumnDefinition Width="268*"/>
+                        <ColumnDefinition Width="335*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Margin="281,0,-0.333,0.333" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Button x:Name="Enable_Button" Content="Enable" Margin="0,-3,0,0" Foreground="White" Click="Enable_Button_Click" BorderThickness="5" Background="#FF008500" BorderBrush="{x:Null}"/>
-                        <Button x:Name="Disable_Button" Content="Disable" Margin="0,-3,0,0" Foreground="White" BorderBrush="{x:Null}" Grid.Column="1" Click="Disable_Button_Click" BorderThickness="5">
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource Disabled}"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Click="EStop_Button_Click" BorderThickness="5">
+                    <StackPanel Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="1">
+                        <Grid Height="100">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="Disable_Button" Content="Disable" Foreground="White" BorderBrush="{x:Null}" Click="Disable_Button_Click" BorderThickness="5" Margin="0" Grid.Column="1">
+                                <Button.Background>
+                                    <SolidColorBrush Color="{DynamicResource Disabled}"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="Enable_Button" Content="Enable" Foreground="White" Click="Enable_Button_Click" BorderThickness="5" Background="#FF008500" BorderBrush="{x:Null}" Margin="0"/>
+                        </Grid>
+                        <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Click="EStop_Button_Click" BorderThickness="5" Height="97">
                             <Button.Background>
                                 <SolidColorBrush Color="{DynamicResource EStopped}"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="Teleop_Button" Content="Teleop" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Grid.Row="2" Grid.Column="0" Click="Teleop_Button_Click" BorderThickness="5">
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource Teleop}"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="Auton_Button" Content="Auton" Margin="0,0,0,0" BorderBrush="{x:Null}" Foreground="White" Grid.Row="2" Grid.Column="1" Click="Auton_Button_Click" BorderThickness="5,5,6,5" >
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource Auton}"/>
-                            </Button.Background>
-                        </Button>
-                    </Grid>
-                    <StackPanel x:Name="ConnectionIndicators" Margin="0,0,0,0" Grid.ColumnSpan="2">
+
+
+                        <Grid Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="Teleop_Button" Content="Teleop"  BorderBrush="{x:Null}" Foreground="White" Click="Teleop_Button_Click" BorderThickness="5" Grid.Column="0">
+                                <Button.Background>
+                                    <SolidColorBrush Color="{DynamicResource Teleop}"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="Auton_Button" Content="Auton" BorderBrush="{x:Null}" Foreground="White"  Click="Auton_Button_Click" BorderThickness="5"  Grid.Column="1" >
+                                <Button.Background>
+                                    <SolidColorBrush Color="{DynamicResource Auton}"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="Test_Button" Content="Test" BorderBrush="{x:Null}" Foreground="White"  Click="Test_Button_Click" BorderThickness="5" Background="#FF06A3CE" Grid.Column="2" />
+
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel x:Name="ConnectionIndicators" Grid.ColumnSpan="1">
                         <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Hero" />
                         <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Vision" />
                     </StackPanel>
@@ -85,11 +92,11 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
-                        <Button x:Name="enable_joystick" Content="Enable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="enable_joystick_click" Margin="0,0,1,0"/>
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.RowSpan="3">
+                        <Button x:Name="enable_joystick" Content="Enable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,1,0"/>
                         <Button x:Name="disable_joystick" Content="Disable Joystick Send" HorizontalAlignment="Stretch" VerticalAlignment="Top"  Click="disable_joystick_click" Margin="0,0,1,0"/>
                         <Label Content="Driver Joystick&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
-                        <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" DisplayMemberPath="ProductName" />
+                        <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" DisplayMemberPath="ProductName" SelectionChanged="ControllerSelect1_SelectionChanged" />
                         <Button x:Name="send_one_joystick" Content="Joystick One Send" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,1,0" Click="send_one_joystick_Click"/>
                     </StackPanel>
                 </Grid>
@@ -104,16 +111,19 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="388" VerticalAlignment="Top" Width="281" Grid.RowSpan="3">
-                        <Label Content="Vision State View"/>
+                    <StackPanel Grid.RowSpan="3">
+                        <local:RobotStateView Margin="0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.RowSpan="3">
                         <local:VisionStateView x:Name="vision_state_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                     </StackPanel>
+
                 </Grid>
 
             </TabItem>
@@ -131,7 +141,7 @@
 
         </TabControl>
 
-        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="219" label="Connected"/>
+        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="260" label="Connected"/>
 
     </Grid>
 </Window>

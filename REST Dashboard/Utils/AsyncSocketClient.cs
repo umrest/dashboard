@@ -32,7 +32,8 @@ namespace REST_Dashboard
             client.ReceiveTimeout = 100;
             try
             {
-                client.ConnectAsync("127.0.0.1", 8091).Wait(100);
+                //"35.3.105.198
+                client.ConnectAsync("127.0.0.1", 8091).Wait(1000);
                 if (client.Connected)
                 {
                     byte[] identifier = new byte[128];
@@ -50,11 +51,15 @@ namespace REST_Dashboard
 
         public bool connected()
         {
+            if (client == null || client.Client == null || client.Connected == false)
+            {
+                return false;
+            }
             try
             {
                 return !(client.Client.Poll(1, SelectMode.SelectRead) && client.Client.Available == 0);
             }
-            catch (SocketException) { return false; }
+            catch  { return false; }
         }
 
         public void send(byte[] bytes)
@@ -73,28 +78,22 @@ namespace REST_Dashboard
             }
         }
 
-        public bool recieve(ref byte[] bytes)
+        public bool recieve(List<byte[]> messages)
         {
             if (!connected())
             {
                 connect();
-            }
-            try
-            {
-
-                int recieved = client.Client.Receive(bytes, bytes.Length, SocketFlags.None);
-                if(recieved == bytes.Length)
-                {
-                    return true;
-                }
                 return false;
             }
-            catch
+           //c Console.WriteLine("Before: {0}" , client.Available);
+            while(client.Available >= 128)
             {
-
+                messages.Add(new byte[128]);
+                client.Client.Receive(messages.Last(), 128, SocketFlags.None);
             }
+           // Console.WriteLine("After:  {0}", client.Available);
 
-            return false;
+            return true;
 
         }
     }

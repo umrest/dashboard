@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="REST_Dashboard.RobotStateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:REST_Dashboard"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300">
+    <Grid
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Label Content="Gyro Data"/>
+            <DataGrid x:Name="gyro_data_grid"/>
+            <Label Content="Motor Data Data"/>
+            <DataGrid x:Name="motor_data_grid" />
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

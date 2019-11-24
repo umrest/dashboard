@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:REST_Dashboard"
-             mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="300">
+             mc:Ignorable="d" d:DesignWidth="300">
     <Grid
         >
         <Grid.RowDefinitions>
@@ -14,6 +13,20 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-<DataGrid x:Name="vision_data_grid" />
+        <StackPanel >
+            <Label Content="Vision State View"/>
+            <DataGrid x:Name="vision_data_grid" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding label}"  Header="Label"/>
+                    <DataGridTextColumn Binding="{Binding X_, StringFormat=F2}"  Header="X"/>
+                    <DataGridTextColumn Binding="{Binding Y_, StringFormat=F2}"  Header="Y"/>
+                    <DataGridTextColumn Binding="{Binding Z_, StringFormat=F2}"  Header="Z"/>
+                    <DataGridTextColumn Binding="{Binding yaw_, StringFormat=F2}"  Header="Yaw"/>
+                    <DataGridTextColumn Binding="{Binding pitch_, StringFormat=F2}"  Header="Pitch"/>
+                    <DataGridTextColumn Binding="{Binding roll_, StringFormat=F2}"  Header="Roll"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>

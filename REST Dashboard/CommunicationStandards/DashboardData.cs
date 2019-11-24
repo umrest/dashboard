@@ -18,8 +18,10 @@ namespace REST_Dashboard
 
         public enum RobotStateEnum : byte
         {
-            Teleop=0,
-            Auton=1
+            Disabled=0,
+            Teleop=1,
+            Auton=2,
+            Test=3
         };
 
         public bool enabled = false;
@@ -53,7 +55,11 @@ namespace REST_Dashboard
                     }
 
                     writer.Write(enabled_byte);
+                    writer.Write((byte)robot_state);
                 }
+
+
+                
 
                 m.ToArray().CopyTo(ret, 0);
                 return ret;

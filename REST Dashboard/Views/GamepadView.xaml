@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600">
     <Grid>
-        <local:JoystickView HorizontalAlignment="Left" Height="100" Margin="125,150,0,0" VerticalAlignment="Top" Width="100"/>
-        <local:JoystickView HorizontalAlignment="Right" Height="100" Margin="0,150,125,0" VerticalAlignment="Top" Width="100"/>
+        <local:JoystickView HorizontalAlignment="Left" Height="100" Margin="133,150,0,0" VerticalAlignment="Top" Width="100"/>
+        <local:JoystickView HorizontalAlignment="Right" Height="100" Margin="0,150,128,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </UserControl>

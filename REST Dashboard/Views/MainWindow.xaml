@@ -130,7 +130,7 @@
 
             <TabItem x:Name="Other_Tab" Header="Other">
                 <Grid>
-                    <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" Click="EStop_Reset_Button_Click" Margin="333,205,354.667,0" Background="#FFDC0000">
+                    <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Center" VerticalAlignment="Top" Width="157" Click="EStop_Reset_Button_Click" Margin="309,149,320.667,0" Background="#FFDC0000">
                     </Button>
                 </Grid>
             </TabItem>

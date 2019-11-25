@@ -11,11 +11,9 @@ namespace REST_Dashboard
     public class DashboardRobotStateData : RobotStateData, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        public string label { get; set; }
 
-        public DashboardRobotStateData(string label_in) : base()
+        public DashboardRobotStateData() : base()
         {
-            label = label_in;
         }
         public override byte[] Serialize()
         {

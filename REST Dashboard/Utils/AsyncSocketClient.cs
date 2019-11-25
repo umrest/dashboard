@@ -11,6 +11,8 @@ namespace REST_Dashboard
     {
         public TcpClient client = null;
 
+        static readonly object _lock = new object();
+
         private bool _connected = false;
         public AsyncSocketClient()
         {
@@ -20,46 +22,53 @@ namespace REST_Dashboard
 
         public void connect()
         {
-        
-            if(client != null)
+            lock (_lock)
             {
-                client.Close();
-
-            }
-            client = new TcpClient();
-            client.SendBufferSize = 128;
-            client.SendTimeout = 100;
-            client.ReceiveTimeout = 100;
-            try
-            {
-                //"35.3.105.198
-                client.ConnectAsync("127.0.0.1", 8091).Wait(1000);
-                if (client.Connected)
+                if (client != null)
                 {
-                    byte[] identifier = new byte[128];
-                    identifier[0] = 250;
-                    identifier[1] = 1;
-                    client.Client.Send(identifier);
-                }
-            }
-            catch
-            {
+                    client.Close();
 
+                }
+                client = new TcpClient();
+                client.SendBufferSize = 128;
+                client.SendTimeout = 100;
+                client.ReceiveTimeout = 100;
+                try
+                {
+                    // 192.168.0.120
+                    client.ConnectAsync("127.0.0.1", 8091).Wait(1000);
+                    if (client.Connected)
+                    {
+                        byte[] identifier = new byte[128];
+                        identifier[0] = 250;
+                        identifier[1] = 1;
+                        client.Client.Send(identifier);
+                    }
+                }
+                catch
+                {
+
+                }
             }
            
         }
 
         public bool connected()
         {
-            if (client == null || client.Client == null || client.Connected == false)
+            lock (_lock)
             {
-                return false;
+
+
+                if (client == null || client.Client == null || client.Connected == false)
+                {
+                    return false;
+                }
+                try
+                {
+                    return !(client.Client.Poll(1, SelectMode.SelectRead) && client.Client.Available == 0);
+                }
+                catch { return false; }
             }
-            try
-            {
-                return !(client.Client.Poll(1, SelectMode.SelectRead) && client.Client.Available == 0);
-            }
-            catch  { return false; }
         }
 
         public void send(byte[] bytes)
@@ -69,12 +78,15 @@ namespace REST_Dashboard
             {
                 connect();
             }
-            try
+            lock (_lock)
             {
-                client.Client.Send(bytes);
-            }
-            catch
-            {
+                try
+                {
+                    client.Client.Send(bytes);
+                }
+                catch
+                {
+                }
             }
         }
 
@@ -85,16 +97,18 @@ namespace REST_Dashboard
                 connect();
                 return false;
             }
-           //c Console.WriteLine("Before: {0}" , client.Available);
-            while(client.Available >= 128)
+            lock (_lock)
             {
-                messages.Add(new byte[128]);
-                client.Client.Receive(messages.Last(), 128, SocketFlags.None);
+                //c Console.WriteLine("Before: {0}" , client.Available);
+                while (client.Available >= 128)
+                {
+                    messages.Add(new byte[128]);
+                    client.Client.Receive(messages.Last(), 128, SocketFlags.None);
+                }
+                // Console.WriteLine("After:  {0}", client.Available);
+
+                return true;
             }
-           // Console.WriteLine("After:  {0}", client.Available);
-
-            return true;
-
         }
     }
 }

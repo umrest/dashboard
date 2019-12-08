@@ -116,7 +116,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.RowSpan="3">
-                        <local:RobotStateView Margin="0"/>
+                        <local:RobotStateView x:Name="robot_state_view" Margin="0"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Grid.RowSpan="3">

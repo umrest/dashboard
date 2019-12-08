@@ -11,7 +11,9 @@ namespace REST_Dashboard
     {
         public TcpClient client = null;
 
-        static readonly object _lock = new object();
+        static readonly object send_lock = new object();
+        static readonly object recieve_lock = new object();
+
 
         private bool _connected = false;
         public AsyncSocketClient()
@@ -22,7 +24,7 @@ namespace REST_Dashboard
 
         public void connect()
         {
-            lock (_lock)
+            lock (recieve_lock) lock(send_lock)
             {
                 if (client != null)
                 {
@@ -36,18 +38,19 @@ namespace REST_Dashboard
                 try
                 {
                     // 192.168.0.120
-                    client.ConnectAsync("127.0.0.1", 8091).Wait(1000);
+                    client.ConnectAsync("192.168.0.120", 8091).Wait(1000);
                     if (client.Connected)
                     {
                         byte[] identifier = new byte[128];
                         identifier[0] = 250;
                         identifier[1] = 1;
                         client.Client.Send(identifier);
+                        _connected = true;
                     }
                 }
                 catch
                 {
-
+                    _connected = false;
                 }
             }
            
@@ -55,20 +58,8 @@ namespace REST_Dashboard
 
         public bool connected()
         {
-            lock (_lock)
-            {
-
-
-                if (client == null || client.Client == null || client.Connected == false)
-                {
-                    return false;
-                }
-                try
-                {
-                    return !(client.Client.Poll(1, SelectMode.SelectRead) && client.Client.Available == 0);
-                }
-                catch { return false; }
-            }
+            return _connected;
+       
         }
 
         public void send(byte[] bytes)
@@ -78,7 +69,7 @@ namespace REST_Dashboard
             {
                 connect();
             }
-            lock (_lock)
+            lock (send_lock)
             {
                 try
                 {
@@ -86,6 +77,7 @@ namespace REST_Dashboard
                 }
                 catch
                 {
+                    _connected = false;
                 }
             }
         }
@@ -95,19 +87,27 @@ namespace REST_Dashboard
             if (!connected())
             {
                 connect();
-                return false;
             }
-            lock (_lock)
+            lock (recieve_lock)
             {
-                //c Console.WriteLine("Before: {0}" , client.Available);
-                while (client.Available >= 128)
+                try
                 {
-                    messages.Add(new byte[128]);
-                    client.Client.Receive(messages.Last(), 128, SocketFlags.None);
-                }
-                // Console.WriteLine("After:  {0}", client.Available);
+                    //c Console.WriteLine("Before: {0}" , client.Available);
+                    while (client.Available >= 128)
+                    {
+                        messages.Add(new byte[128]);
+                        client.Client.Receive(messages.Last(), 128, SocketFlags.None);
+                    }
+                    // Console.WriteLine("After:  {0}", client.Available);
 
-                return true;
+                    return true;
+                }
+                catch
+                {
+                    _connected = false;
+                    return false;
+                }
+                
             }
         }
     }

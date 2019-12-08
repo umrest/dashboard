@@ -26,11 +26,12 @@ namespace REST_Dashboard
     /// </summary>
     public partial class MainWindow : Window
     {
-        DispatcherTimer send_joystick_timer = new DispatcherTimer();
 
         ThreadStart recieve_data_ts;
+        ThreadStart send_joystick_ts;
 
         Thread recieve_data_thread;
+        Thread send_joystick_thread;
 
         Guid joy_guid;
 
@@ -40,18 +41,17 @@ namespace REST_Dashboard
 
         GlobalHotkey space_hotkey;
 
+        bool send_joystick_enabled = false;
+
         public MainWindow()
         {
             InitializeComponent();
 
             socket = new AsyncSocketClient();
 
-            send_joystick_timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
 
+            send_joystick_ts = new ThreadStart(send_joystick_data);
 
-            send_joystick_timer.Tick += new EventHandler(send_joystick_timer_elapsed);
-
-            
 
             update_connected_indicator();
 
@@ -122,6 +122,10 @@ namespace REST_Dashboard
                             {
                                 vision_state_view.Dispatcher.BeginInvoke((Action)(() => vision_state_view.dashboardVisionData.Deserialize(bytes)));
                             }
+                            else if (type == 10)
+                            {
+                                robot_state_view.Dispatcher.BeginInvoke((Action)(() => robot_state_view.robot_state.Deserialize(bytes)));
+                            }
                             else
                             {
                                 Console.WriteLine("Invalid Type");
@@ -179,63 +183,80 @@ namespace REST_Dashboard
             return ret;
         }
 
-        Joystick stick = null;
+        
 
+        private void start_send_joystick()
+        {
+            send_joystick_enabled = true;
+            if (send_joystick_thread == null || !send_joystick_thread.IsAlive)
+            {
+                send_joystick_thread = new Thread(send_joystick_ts);
+                send_joystick_thread.Start();
+            }
+        }
+
+        private void stop_send_joystick()
+        {
+            send_joystick_enabled = false;
+        }
         private void send_joystick_data()
         {
+            Joystick stick = null;
 
-            if (stick == null)
-            {
                 try
-                {
-                    stick = new SlimDX.DirectInput.Joystick(Input, joy_guid);
-                    if (stick.Acquire().IsFailure)
-                    {
-
-                        throw new Exception("Joystick Aquire Failed");
-                    }
-                }
-                catch
-                {
-                    send_joystick_timer.Stop();
-                    MessageBox.Show("Failed to Aquire Joystick");
-                    return;
-                }
-                
-            }
-
-            if (stick.Poll().IsFailure)
             {
+                stick = new SlimDX.DirectInput.Joystick(Input, joy_guid);
+                stick.Properties.BufferSize = 128;
+                if (stick.Acquire().IsFailure)
+                {
+
+                    throw new Exception("Joystick Aquire Failed");
+                }
+            }
+            catch
+            {
+                send_joystick_enabled = false;
+                MessageBox.Show("Failed to Aquire Joystick");
                 return;
             }
+                
+            while (send_joystick_enabled)
+            {
+                
+                if (stick.Poll().IsFailure)
+                {
+                    return;
+                }
+                stick.GetBufferedData();
+                var state = stick.GetCurrentState();
 
-            var state = stick.GetCurrentState();
 
+                JoystickData data = new DashboardJoystickData();
 
-            JoystickData data = new DashboardJoystickData();
+                data.button_a = state.GetButtons()[0];
+                data.button_b = state.GetButtons()[1];
+                data.button_x = state.GetButtons()[2];
+                data.button_y = state.GetButtons()[3];
 
-            data.button_a = state.GetButtons()[0];
-            data.button_b = state.GetButtons()[1];
-            data.button_x = state.GetButtons()[2];
-            data.button_y = state.GetButtons()[3];
+                data.button_lb = state.GetButtons()[4];
+                data.button_rb = state.GetButtons()[5];
+                data.button_select = state.GetButtons()[6];
+                data.button_start = state.GetButtons()[7];
+                data.button_lj = state.GetButtons()[8];
+                data.button_rj = state.GetButtons()[9];
 
-            data.button_lb = state.GetButtons()[4];
-            data.button_rb = state.GetButtons()[5];
-            data.button_select = state.GetButtons()[6];
-            data.button_start = state.GetButtons()[7];
-            data.button_lj = state.GetButtons()[8];
-            data.button_rj = state.GetButtons()[9];
+                data.lj_x = joy2byte(state.X);
+                data.lj_y = joy2byte(state.Y);
+                data.rj_x = joy2byte(state.RotationX);
+                data.rj_y = joy2byte(state.RotationY);
 
-            data.lj_x = joy2byte(state.X);
-            data.lj_y = joy2byte(state.Y);
-            data.rj_x = joy2byte(state.RotationX);
-            data.rj_y = joy2byte(state.RotationY);
+                data.rt = joy2byte(state.Z);
+                data.lt = joy2byte(state.Z);
 
-            data.rt = joy2byte(state.Z);
-            data.lt = joy2byte(state.Z);
+                socket.send(data.Serialize());
 
-            socket.send(data.Serialize());
-
+                System.Threading.Thread.Sleep(50);
+            }
         }
 
         private void update_indicators()
@@ -273,7 +294,7 @@ namespace REST_Dashboard
             send_dashboard_data();
             if(dashboard_state.robot_state == DashboardData.RobotStateEnum.Teleop)
             {
-                send_joystick_timer.Start();
+                start_send_joystick();
             }           
             
 
@@ -284,7 +305,7 @@ namespace REST_Dashboard
             dashboard_state.enabled = false;
             send_dashboard_data();
 
-            send_joystick_timer.Stop();
+            stop_send_joystick();
         }
 
         private void EStop_Button_Click(object sender, RoutedEventArgs e)
@@ -328,7 +349,7 @@ namespace REST_Dashboard
 
         private void disable_joystick_click(object sender, RoutedEventArgs e)
         {
-            send_joystick_timer.Stop();
+            stop_send_joystick();
         }
 
         private void send_one_joystick_Click(object sender, RoutedEventArgs e)
@@ -339,15 +360,20 @@ namespace REST_Dashboard
 
         private void ControllerSelect1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            if (ControllerSelect1.SelectedIndex != -1)
             {
                 joy_guid = ((DeviceInstance)ControllerSelect1.SelectedItem).InstanceGuid;
 
-                send_joystick_timer.Start();
+                bool was_running = send_joystick_thread != null && send_joystick_thread.IsAlive;
+                if (was_running)
+                {
+                    stop_send_joystick();
+                    start_send_joystick();
+                }
             }
-            catch
+            else
             {
-                MessageBox.Show("Invalid joystick");
+                stop_send_joystick();
             }
         }
 

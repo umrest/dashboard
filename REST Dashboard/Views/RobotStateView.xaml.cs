@@ -22,20 +22,25 @@ namespace REST_Dashboard
     public partial class RobotStateView : UserControl
     {
 
-        RobotStateData robot_state = new RobotStateData();
+        public DashboardRobotStateData robot_state = new DashboardRobotStateData();
+
+        public ObservableCollection<DashboardMotorInfo> motor_info;
+
+        public ObservableCollection<GyroData> gyro_data = new ObservableCollection<GyroData>();
 
         public RobotStateView()
         {
             InitializeComponent();
 
-            ObservableCollection<GyroData> gyro_data = new ObservableCollection<GyroData>();
+            
             gyro_data.Add(robot_state.gyro_data);
 
             gyro_data_grid.ItemsSource = gyro_data;
 
-            ObservableCollection<MotorInfo> motor_info = new ObservableCollection<MotorInfo>(robot_state.motor_info);
+            motor_info = new ObservableCollection<DashboardMotorInfo>(robot_state.motor_info);
 
             motor_data_grid.ItemsSource = motor_info;
+            
         }
     }
 }

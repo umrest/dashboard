@@ -2,13 +2,20 @@
 
 namespace REST_Dashboard
 {
-    public struct MotorInfo
+    public class MotorInfo
     {
-        public float current { get; set; }
-        public float voltage { get; set; }
-        public float speed { get; set; }
-        public float position { get; set; }
-        public float percentage { get; set; }
+        public int can_id { get; set; }
+        public double current { get; set; }
+        public double voltage { get; set; }
+        public double speed { get; set; }
+        public double position { get; set; }
+        public double percentage { get; set; }
+
+        public static int MOTOR_INFO_SIZE = 15;
+        public static int MOTOR_INFO_CAN_OFFSET = 0;
+        public static int MOTOR_INFO_CURRENT_OFFSET = 1;
+        public static int MOTOR_INFO_POSITION_OFFSET = MOTOR_INFO_CURRENT_OFFSET + 2;
+        public static int MOTOR_INFO_VELOCITY_OFFSET = MOTOR_INFO_POSITION_OFFSET + 8;
     }
 
     public struct GyroData
@@ -21,21 +28,12 @@ namespace REST_Dashboard
     {
         public RobotStateData()
         {
-            motor_info = new MotorInfo[8];
-            gyro_data = new GyroData();
-            gyro_data.yaw = 10;
-            gyro_data.pitch = 11;
-            gyro_data.roll = 12;
-
-            motor_info[0].current = 12;
 
         }
 
         public new byte TYPE = 10;
 
-        public MotorInfo[] motor_info;
 
-        public GyroData gyro_data;
 
         public override byte[] Serialize()
         {
@@ -46,5 +44,8 @@ namespace REST_Dashboard
         {
             throw new System.NotImplementedException();
         }
+
+        public static int MOTOR_INFO_OFFSET = 1;
+
     }
 }

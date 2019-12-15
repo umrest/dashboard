@@ -23,6 +23,21 @@ namespace REST_Dashboard.Views
         public JoystickView()
         {
             InitializeComponent();
+
+            SetX(127);
+            SetY(127);
+        }
+
+        public void SetX(float x)
+        {
+            int X_OFFSET = 40;
+            Stick.Dispatcher.BeginInvoke((Action)(() => Canvas.SetLeft(Stick, X_OFFSET + ((x - 127)/127.0) * 50)));
+        }
+
+        public void SetY(float y)
+        {
+            int Y_OFFSET = 40;
+            Stick.Dispatcher.BeginInvoke((Action)(() => Canvas.SetLeft(Stick, Y_OFFSET + ((y - 127) / 127.0) * 50)));
         }
     }
 }

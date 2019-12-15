@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SlimDX.DirectInput;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace REST_Dashboard
 {
-    class DashboardJoystickData :  JoystickData
+    public class DashboardJoystickData :  JoystickData, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+    
         public override byte[] Serialize()
         {
             byte[] ret = new byte[128];
@@ -47,6 +51,37 @@ namespace REST_Dashboard
         public override void Deserialize(byte[] data)
         {
             throw new NotImplementedException();
+        }
+
+        private byte joy2byte(int joy)
+        {
+            byte ret = (byte)((joy / 65535.0 * 2) * 127);
+            return ret;
+        }
+
+        public void Load(JoystickState state)
+        {
+            button_a = state.GetButtons()[0];
+            button_b = state.GetButtons()[1];
+            button_x = state.GetButtons()[2];
+            button_y = state.GetButtons()[3];
+            
+            button_lb = state.GetButtons()[4];
+            button_rb = state.GetButtons()[5];
+            button_select = state.GetButtons()[6];
+            button_start = state.GetButtons()[7];
+            button_lj = state.GetButtons()[8];
+            button_rj = state.GetButtons()[9];
+            
+            lj_x = joy2byte(state.X);
+            lj_y = joy2byte(state.Y);
+            rj_x = joy2byte(state.RotationX);
+            rj_y = joy2byte(state.RotationY);
+
+            rt = joy2byte(state.Z);
+            lt = joy2byte(state.Z);
+
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
         }
     }
 }

@@ -21,9 +21,6 @@ namespace REST_Dashboard
     /// </summary>
     public partial class RobotStateView : UserControl
     {
-
-        public DashboardRobotStateData robot_state = new DashboardRobotStateData();
-
         public ObservableCollection<DashboardMotorInfo> motor_info;
 
         public ObservableCollection<GyroData> gyro_data = new ObservableCollection<GyroData>();
@@ -33,11 +30,11 @@ namespace REST_Dashboard
             InitializeComponent();
 
             
-            gyro_data.Add(robot_state.gyro_data);
+            gyro_data.Add(StateData.robot_state_data.gyro_data);
 
             gyro_data_grid.ItemsSource = gyro_data;
 
-            motor_info = new ObservableCollection<DashboardMotorInfo>(robot_state.motor_info);
+            motor_info = new ObservableCollection<DashboardMotorInfo>(StateData.robot_state_data.motor_info);
 
             motor_data_grid.ItemsSource = motor_info;
             

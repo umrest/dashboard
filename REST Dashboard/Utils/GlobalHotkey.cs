@@ -39,12 +39,15 @@ namespace REST_Dashboard.Utils
 
             keypress_callback = keypress_callback_in;
         }
-
-        ~GlobalHotkey()
+        public void disable()
         {
             _source.RemoveHook(HwndHook);
             _source = null;
             UnregisterHotKey();
+        }
+        ~GlobalHotkey()
+        {
+            disable();
         }
 
         private void RegisterHotKey()

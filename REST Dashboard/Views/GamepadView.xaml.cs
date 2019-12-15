@@ -23,6 +23,22 @@ namespace REST_Dashboard.Views
         public GamepadView()
         {
             InitializeComponent();
+
+            StateData.joystick_data.PropertyChanged += Joystick_data_PropertyChanged;
+        }
+
+        private void Joystick_data_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            update_joysticks();
+        }
+
+        private void update_joysticks()
+        {
+            left_joystick.SetX(StateData.joystick_data.lj_x);
+            left_joystick.SetY(StateData.joystick_data.lj_y);
+
+            right_joystick.SetX(StateData.joystick_data.rj_x);
+            right_joystick.SetY(StateData.joystick_data.rj_y);
         }
     }
 }

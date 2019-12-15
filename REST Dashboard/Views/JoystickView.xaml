@@ -7,8 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="0,00,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
-        <Ellipse Fill="Black" HorizontalAlignment="Center" Height="25" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="25"/>
+        <Canvas>
+
+            <Ellipse Fill="#FFF4F4F5" Height="100" Stroke="Black" Width="100"/>
+            <Ellipse x:Name="Stick" Fill="Black" Height="20" Stroke="Black" Width="20" Canvas.Left="40" Canvas.Top="40"/>
+        </Canvas>
 
     </Grid>
 </UserControl>

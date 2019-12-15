@@ -11,15 +11,15 @@ namespace REST_Dashboard
 
         public new byte TYPE = 2;
 
+        public TagPosition t0;
         public TagPosition t1;
-        public TagPosition t2;
 
 
 
       
 
-        protected const int TAG_1_OFFSET = 1;
-        protected const int TAG_2_OFFSET = 13;
+        protected const int TAG_0_OFFSET = 1;
+        protected const int TAG_1_OFFSET = 13;
 
 
     }

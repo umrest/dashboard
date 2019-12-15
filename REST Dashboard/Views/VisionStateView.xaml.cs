@@ -20,16 +20,15 @@ namespace REST_Dashboard
     /// Interaction logic for VisionStateView.xaml
     /// </summary>
     public partial class VisionStateView : UserControl
-    {
-        public DashboardVisionData dashboardVisionData = new DashboardVisionData();
-
+    { 
         private ObservableCollection<DashboardTagPosition> tags = new ObservableCollection<DashboardTagPosition>();
+
         public VisionStateView()
         {
             InitializeComponent();
 
-            tags.Add((DashboardTagPosition)dashboardVisionData.t1);
-            tags.Add((DashboardTagPosition)dashboardVisionData.t2);
+            tags.Add((DashboardTagPosition)(StateData.vision_data.t0));
+            tags.Add((DashboardTagPosition)(StateData.vision_data.t1));
 
             vision_data_grid.ItemsSource = tags;
         }

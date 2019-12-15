@@ -24,8 +24,17 @@ namespace REST_Dashboard
 
         public void connect()
         {
+            if (connected())
+            {
+                return;
+            }
             lock (recieve_lock) lock(send_lock)
             {
+                if (connected())
+                {
+                    return;
+                }
+
                 if (client != null)
                 {
                     client.Close();
@@ -38,7 +47,7 @@ namespace REST_Dashboard
                 try
                 {
                     // 192.168.0.120
-                    client.ConnectAsync("192.168.0.120", 8091).Wait(1000);
+                    client.ConnectAsync("uofmrestraspberrypi", 8091).Wait(100);
                     if (client.Connected)
                     {
                         byte[] identifier = new byte[128];
@@ -95,8 +104,33 @@ namespace REST_Dashboard
                     //c Console.WriteLine("Before: {0}" , client.Available);
                     while (client.Available >= 128)
                     {
-                        messages.Add(new byte[128]);
-                        client.Client.Receive(messages.Last(), 128, SocketFlags.None);
+                        byte[] t = new byte[1];
+
+                        client.Client.Receive(t, 1, SocketFlags.None);
+
+                        int size = 127; // defualt size
+
+                        int type = t[0];
+
+                        if (type == 8 || type == 2 || type == 10)
+                        {
+                            size = 127;
+                        }
+                        else if (type == 13)
+                        {
+                            size = 65536 - 1;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                       
+
+                        byte[] msg = new byte[size + 1];
+                        msg[0] = t[0];
+
+                        messages.Add(msg);
+                        client.Client.Receive(messages.Last(), 1, size,  SocketFlags.None);
                     }
                     // Console.WriteLine("After:  {0}", client.Available);
 

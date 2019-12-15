@@ -64,6 +64,8 @@
     <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
     <Compile Include="CommunicationStandards\DataAggregatorState.cs" />
     <Compile Include="CommunicationStandards\RobotStateData.cs" />
+    <Compile Include="Handlers\CommunicationHandler.cs" />
+    <Compile Include="StateData.cs" />
     <Compile Include="Utils\GlobalHotkey.cs" />
     <Compile Include="Views\FieldView.xaml.cs">
       <DependentUpon>FieldView.xaml</DependentUpon>
@@ -84,6 +86,9 @@
     </Compile>
     <Compile Include="Views\VisionStateView.xaml.cs">
       <DependentUpon>VisionStateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VisionView.xaml.cs">
+      <DependentUpon>VisionView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ConnectionIndicator.xaml">
       <SubType>Designer</SubType>
@@ -129,6 +134,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\VisionStateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VisionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

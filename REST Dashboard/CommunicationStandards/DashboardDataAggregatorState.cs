@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace REST_Dashboard
 {
-    class DashboardDataAggregatorState :  DataAggregatorState
+    public class DashboardDataAggregatorState :  DataAggregatorState
     {
         public override byte[] Serialize()
         {

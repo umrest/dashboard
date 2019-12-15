@@ -10,13 +10,10 @@ namespace REST_Dashboard
 {
     public class DashboardVisionData : VisionData
     {
-        
-        
-
         public DashboardVisionData() : base()
         {
-            t1 = new DashboardTagPosition("main");
-            t2 = new DashboardTagPosition("unloading");
+            t0 = new DashboardTagPosition("t0");
+            t1 = new DashboardTagPosition("t1");
         }
         public override byte[] Serialize()
         {
@@ -25,13 +22,13 @@ namespace REST_Dashboard
 
         public override void Deserialize(byte[] data)
         {
+            byte[] t0_data = new byte[12];
+            Array.Copy(data, TAG_0_OFFSET, t0_data, 0, 12);
+            t0.Deserialize(t0_data);
+
             byte[] t1_data = new byte[12];
             Array.Copy(data, TAG_1_OFFSET, t1_data, 0, 12);
-            t1.Deserialize(t1_data);
-
-            byte[] t2_data = new byte[12];
-            Array.Copy(data, TAG_2_OFFSET, t2_data, 0, 12);
-            t2.Deserialize(t2_data);           
+            t1.Deserialize(t1_data);           
         }
     }
     public class DashboardTagPosition : TagPosition,  INotifyPropertyChanged

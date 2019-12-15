@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:REST_Dashboard"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600">
+             d:DesignHeight="360" d:DesignWidth="540">
     <Grid>
         <Border BorderBrush="Black" BorderThickness="5"/>
         <Canvas x:Name="FieldCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
 
-            <Rectangle x:Name="RobotRectangle" Fill="#FF575757" Height="30" Width="50" Canvas.Left="0" Canvas.Top="0" />
-            <Rectangle x:Name="DumpingStation" Fill="#FF006304" Height="36" Width="40" Canvas.Right="0" Canvas.Bottom="0"/>
+            <Rectangle x:Name="RobotRectangle" Fill="#FF575757" Height="30" Width="50" Canvas.Left="448" Canvas.Top="113" />
+            <Rectangle x:Name="Sieve" Fill="#FF006304" Height="30" Width="100" Canvas.Right="100" Canvas.Bottom="0"/>
+            <Rectangle Fill="#FF006304" Height="350" Canvas.Left="200" Width="3" Canvas.Top="0" Canvas.Bottom="360"/>
 
 
         </Canvas>

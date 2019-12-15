@@ -31,8 +31,9 @@ namespace REST_Dashboard
         public byte lt;
         public byte rt;
 
+
         // Offsets
-        
+
         protected const int BUTTONS_1_OFFSET = 1;
         protected const int BUTTONS_2_OFFSET = 2;
         protected const int LJ_X_OFFSET = 3;

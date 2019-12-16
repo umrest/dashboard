@@ -27,7 +27,7 @@ namespace REST_Dashboard
         {
             InitializeComponent();
         }
-        bool _connected = false;
+        private bool _connected = false;
         public bool connected
         {
             set
@@ -41,7 +41,7 @@ namespace REST_Dashboard
             }
         }
 
-        public string _label = "null";
+        private string _label = "null";
         public string label
         {
             get

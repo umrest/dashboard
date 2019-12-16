@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:REST_Dashboard"
         xmlns:Views="clr-namespace:REST_Dashboard.Views" x:Name="MainWindow1" x:Class="REST_Dashboard.MainWindow"
         mc:Ignorable="d"
-        Title="REST Dashboard" Height="928" Width="1738" FontSize="14" MinWidth="803" MinHeight="450" PreviewKeyDown="MainWindow1_PreviewKeyDown" Foreground="{x:Null}" Background="White">
+        Title="REST Dashboard" Height="1080" Width="1920" FontSize="14" MinWidth="803" MinHeight="450" PreviewKeyDown="MainWindow1_PreviewKeyDown" Foreground="{x:Null}" Background="White">
     <Window.Resources>
         <Color x:Key="EnableColor">#FF008500</Color>
         <Color x:Key="Enabled">#FF008500</Color>
@@ -15,17 +15,17 @@
         <Color x:Key="Teleop">#FF0800B8</Color>
         <Color x:Key="Auton">#FF850085</Color>
     </Window.Resources>
-    <Grid >
+    <Grid  >
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="241*"/>
-            <ColumnDefinition Width="268*"/>
-            <ColumnDefinition Width="335*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="260" label="Connected" Grid.Row="0"/>
@@ -44,10 +44,10 @@
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="1">
             <local:VisionStateView x:Name="vision_state_view" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  />
-            <local:RobotStateView x:Name="robot_state_view" Margin="0"/>
+            <local:RobotStateView x:Name="robot_state_view"/>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.Column="2" Grid.Row="2">
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="1" Grid.Column="2" Grid.Row="2">
             <Label Content="Driver Joystick&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
             <ComboBox x:Name="ControllerSelect1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DropDownOpened="ControllerSelect1_DropDownOpened" Margin="0,0,1,0" DisplayMemberPath="ProductName" SelectionChanged="ControllerSelect1_SelectionChanged" />
             <Viewbox Height="200">
@@ -57,53 +57,46 @@
         </StackPanel>
 
         <Button x:Name="EStop_Reset_Button" Content="EStop Reset" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="157" Click="EStop_Reset_Button_Click" Background="#FFDC0000" Grid.Column="2" Margin="0" Grid.Row="2" Height="23"/>
-        <Viewbox Grid.Column="2" Grid.Row="1">
-            <StackPanel Height="273" Width="721">
-                <Grid Height="100">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="Disable_Button" Content="Disable" Foreground="White" BorderBrush="{x:Null}" Click="Disable_Button_Click" BorderThickness="5" Margin="0" Grid.Column="1">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource Disabled}"/>
-                        </Button.Background>
-                    </Button>
-                    <Button x:Name="Enable_Button" Content="Enable" Foreground="White" Click="Enable_Button_Click" BorderThickness="5" Background="#FF008500" BorderBrush="{x:Null}" Margin="0"/>
-                </Grid>
-                <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Click="EStop_Button_Click" BorderThickness="5" Height="100">
-                    <Button.Background>
-                        <SolidColorBrush Color="{DynamicResource EStopped}"/>
-                    </Button.Background>
-                </Button>
+        <Grid Grid.Column="2"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="Disable_Button" Content="Disable" Foreground="White" BorderBrush="{x:Null}" Click="Disable_Button_Click" BorderThickness="5" Grid.Column="2" Grid.Row="0">
+                <Button.Background>
+                    <SolidColorBrush Color="{DynamicResource Disabled}"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Enable_Button" Content="Enable" Foreground="White" Click="Enable_Button_Click" BorderThickness="5" Background="#FF008500" BorderBrush="{x:Null}" Margin="0"/>
+            <Button x:Name="EStop_Button" Content="E-STOP" BorderBrush="{x:Null}" Foreground="White" Click="EStop_Button_Click" BorderThickness="5" Height="100" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+                <Button.Background>
+                    <SolidColorBrush Color="{DynamicResource EStopped}"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Teleop_Button" Content="Teleop"  BorderBrush="{x:Null}" Foreground="White" Click="Teleop_Button_Click" BorderThickness="5" Grid.Column="0" Grid.Row="2">
+                <Button.Background>
+                    <SolidColorBrush Color="{DynamicResource Teleop}"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Auton_Button" Content="Auton" BorderBrush="{x:Null}" Foreground="White"  Click="Auton_Button_Click" BorderThickness="5"  Grid.Column="1"  Grid.Row="2">
+                <Button.Background>
+                    <SolidColorBrush Color="{DynamicResource Auton}"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Test_Button" Content="Test" BorderBrush="{x:Null}" Foreground="White"  Click="Test_Button_Click" BorderThickness="5" Background="#FF06A3CE" Grid.Column="2"   Grid.Row="2"/>
 
+        </Grid>
 
-                <Grid Height="80">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="Teleop_Button" Content="Teleop"  BorderBrush="{x:Null}" Foreground="White" Click="Teleop_Button_Click" BorderThickness="5" Grid.Column="0">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource Teleop}"/>
-                        </Button.Background>
-                    </Button>
-                    <Button x:Name="Auton_Button" Content="Auton" BorderBrush="{x:Null}" Foreground="White"  Click="Auton_Button_Click" BorderThickness="5"  Grid.Column="1" >
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource Auton}"/>
-                        </Button.Background>
-                    </Button>
-                    <Button x:Name="Test_Button" Content="Test" BorderBrush="{x:Null}" Foreground="White"  Click="Test_Button_Click" BorderThickness="5" Background="#FF06A3CE" Grid.Column="2" />
-
-                </Grid>
-
-            </StackPanel>
-        </Viewbox>
-        <Viewbox Grid.Column="1" HorizontalAlignment="Left" Height="324" Margin="72,41,0,0" Grid.Row="2" VerticalAlignment="Top" Width="418">
+        <Viewbox Grid.Column="1" HorizontalAlignment="Left" Height="324" Margin="72,41,0,-4" Grid.Row="2" VerticalAlignment="Top" Width="418">
             <Views:VisionView x:Name="vision_view" />
         </Viewbox>
-        <Button x:Name="send_vision_image_button" Content="Send Vision Image" Grid.Column="1" HorizontalAlignment="Left" Margin="210,370,0,0" Grid.Row="2" VerticalAlignment="Top" Width="147" Click="send_vision_image_button_Click" Height="39"/>
+        <Button x:Name="send_vision_image_button" Content="Send Vision Image" Grid.Column="1" HorizontalAlignment="Left" Margin="210,370,0,-48" Grid.Row="2" VerticalAlignment="Top" Width="147" Click="send_vision_image_button_Click" Height="39"/>
 
     </Grid>
 </Window>

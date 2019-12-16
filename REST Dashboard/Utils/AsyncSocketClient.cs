@@ -47,7 +47,7 @@ namespace REST_Dashboard
                 try
                 {
                     // 192.168.0.120
-                    client.ConnectAsync("uofmrestraspberrypi", 8091).Wait(100);
+                    client.ConnectAsync("192.168.0.120", 8091).Wait(100);
                     if (client.Connected)
                     {
                         byte[] identifier = new byte[128];

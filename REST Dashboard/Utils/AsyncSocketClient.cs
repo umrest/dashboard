@@ -1,4 +1,5 @@
-﻿using System;
+﻿using REST_Dashboard.CommunicationStandards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -47,14 +48,17 @@ namespace REST_Dashboard
                 try
                 {
                     // 192.168.0.120
-                    client.ConnectAsync("192.168.0.120", 8091).Wait(100);
+                    client.ConnectAsync("localhost", 8091).Wait(100);
                     if (client.Connected)
                     {
-                        byte[] identifier = new byte[128];
-                        identifier[0] = 250;
-                        identifier[1] = 1;
-                        client.Client.Send(identifier);
-                        _connected = true;
+                            _connected = true;
+
+                            byte[] identifier = new byte[128];
+                        identifier[0] = (byte)CommunicationDefinitions.TYPE.INDENTIFIER;
+                        identifier[1] = (byte)CommunicationDefinitions.IDENTIFIER.DASHBOARD;
+                            
+                            send(identifier);
+                        
                     }
                 }
                 catch
@@ -102,7 +106,7 @@ namespace REST_Dashboard
                 try
                 {
                     //c Console.WriteLine("Before: {0}" , client.Available);
-                    while (client.Available >= 128)
+                    while (client.Available >= 1)
                     {
                         byte[] t = new byte[1];
 
@@ -112,17 +116,9 @@ namespace REST_Dashboard
 
                         int type = t[0];
 
-                        if (type == 8 || type == 2 || type == 10)
+                        if (type == (byte)CommunicationDefinitions.TYPE.VISION_IMAGE)
                         {
-                            size = 127;
-                        }
-                        else if (type == 13)
-                        {
-                            size = 65536 - 1;
-                        }
-                        else
-                        {
-                            continue;
+                            size = 65536 - 1; // large image buffer
                         }
                        
 

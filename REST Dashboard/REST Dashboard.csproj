@@ -63,6 +63,7 @@
     <Compile Include="CommunicationStandards\DashboardVisionData.cs" />
     <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
     <Compile Include="CommunicationStandards\DataAggregatorState.cs" />
+    <Compile Include="CommunicationStandards\CommunicationDefinitions.cs" />
     <Compile Include="CommunicationStandards\RobotStateData.cs" />
     <Compile Include="Handlers\CommunicationHandler.cs" />
     <Compile Include="StateData.cs" />

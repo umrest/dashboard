@@ -1,4 +1,5 @@
-﻿using SlimDX.DirectInput;
+﻿using REST_Dashboard.CommunicationStandards;
+using SlimDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,22 +90,23 @@ namespace REST_Dashboard.Handlers
                         foreach (byte[] bytes in msgs)
                         {
 
-                            byte type = bytes[0];
-                            if (type == 8)
+                            CommunicationDefinitions.TYPE type = (CommunicationDefinitions.TYPE)bytes[0];
+
+                            if (type == CommunicationDefinitions.TYPE.DATAAGGREGATOR_STATE)
                             {
                                 StateData.dataaggregator_state.Deserialize(bytes);
 
                                 parent.update_indicators();
                             }
-                            else if (type == 2)
+                            else if (type == CommunicationDefinitions.TYPE.VISION)
                             {
                                 StateData.vision_data.Deserialize(bytes);
                             }
-                            else if (type == 10)
+                            else if (type == CommunicationDefinitions.TYPE.ROBOT_STATE)
                             {
                                 StateData.robot_state_data.Deserialize(bytes);
                             }
-                            else if (type == 13)
+                            else if (type == CommunicationDefinitions.TYPE.VISION_IMAGE)
                             {
                                 parent.vision_view.SetImage(bytes.Skip(1).ToArray());
                             }

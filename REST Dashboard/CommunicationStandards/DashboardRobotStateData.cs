@@ -56,7 +56,7 @@ namespace REST_Dashboard
             position = BitConverter.ToInt64(data, MOTOR_INFO_POSITION_OFFSET);
             speed = BitConverter.ToInt32(data, MOTOR_INFO_VELOCITY_OFFSET);
 
-            percentage = data[MOTOR_INFO_PERCENTAGE_OFFSET];
+            percentage = data[MOTOR_INFO_PERCENTAGE_OFFSET] - 127;
 
 
             PropertyChanged(this, new PropertyChangedEventArgs(null));

@@ -38,7 +38,49 @@ namespace REST_Dashboard.Handlers
         {
             parent = parent_in;
 
+            send_joystick_ts = new ThreadStart(send_joystick_data);
+
             socket_reconnect();
+        }
+
+        public void send_joystick_data()
+        {
+            Joystick stick = null;
+
+            try
+            {
+                stick = new SlimDX.DirectInput.Joystick(StateData.Input, StateData.joy_guid);
+                stick.Properties.BufferSize = 128;
+                if (stick.Acquire().IsFailure)
+                {
+
+                    throw new Exception("Joystick Aquire Failed");
+                }
+            }
+            catch
+            {
+
+                StateData.send_joystick_enabled = false;
+                MessageBox.Show("Failed to Aquire Joystick");
+                return;
+            }
+
+            while (StateData.send_joystick_enabled)
+            {
+
+                if (stick.Poll().IsFailure)
+                {
+                    return;
+                }
+                stick.GetBufferedData();
+                var state = stick.GetCurrentState();
+
+                StateData.joystick_data.Load(state);
+
+                send(StateData.joystick_data.Serialize());
+
+                System.Threading.Thread.Sleep(50);
+            }
         }
 
         public void socket_reconnect()
@@ -76,21 +118,18 @@ namespace REST_Dashboard.Handlers
 
         void socket_read()
         {
-            key_pos = 0;
+            cur_offset = 0;
             socket_read_key();
         }
-
-        int key_pos = 0;
 
         public void on_key(IAsyncResult ar)
         {
             try
             {
-                if (socket_connected)
-                {
-                    int bytesRead = client.GetStream().EndRead(ar);
 
-                    if (bytesRead != 1)
+                   int bytesRead = client.GetStream().EndRead(ar);
+
+                    if (bytesRead != 3)
                     {
                         if (socket_connected)
                         {
@@ -99,26 +138,20 @@ namespace REST_Dashboard.Handlers
                         }
                         return;
                     }
-                    if (buffer[0] == CommunicationDefinitions.key[key_pos])
+
+                    for (int i = 0; i < 3; i++)
                     {
-                        key_pos++;
-                        if (key_pos >= 3)
+                        if (buffer[i] != CommunicationDefinitions.key[i])
                         {
-                            key_pos = 0;
-                            Console.WriteLine("Valid key");
-                            // valid key
-                            socket_read_header();
-                        }
-                        socket_read_key();
-                    }
-                    else
-                    {
-
-                        Console.WriteLine("Invalid Key: " + buffer[0]);
-
+                            Console.WriteLine("Invalid key");
                         socket_read();
+                        }
                     }
-                }
+                    // Valid key
+                    //Console.WriteLine("Valid key");
+                    socket_read_header();
+
+                
             }
             catch
             {
@@ -152,7 +185,7 @@ namespace REST_Dashboard.Handlers
         {
             try
             {
-               client.GetStream().BeginRead(buffer, 0, 1, new AsyncCallback(on_key), null);
+               client.GetStream().BeginRead(buffer, 0, 3, new AsyncCallback(on_key), null);
             }
             catch
             {
@@ -165,12 +198,13 @@ namespace REST_Dashboard.Handlers
         }
 
         int read_size = 0;
+        int cur_offset = 0;
         public void socket_read_data()
         {
             if (CommunicationDefinitions.PACKET_SIZES.ContainsKey((CommunicationDefinitions.TYPE)buffer[0]))
             {
                 read_size = CommunicationDefinitions.PACKET_SIZES[(CommunicationDefinitions.TYPE)buffer[0]];
-                client.GetStream().BeginRead(buffer, 1, read_size, new AsyncCallback(on_recv), null);
+                client.GetStream().BeginRead(buffer, 1 + cur_offset, read_size - cur_offset, new AsyncCallback(on_recv), null);
 
             }
             else
@@ -185,17 +219,26 @@ namespace REST_Dashboard.Handlers
         {
             try
             {
-                if (socket_connected)
-                {
+              
 
                     int bytesRead = client.GetStream().EndRead(ar);
 
-                    if (bytesRead != read_size)
+                    if (bytesRead + cur_offset != read_size)
                     {
+                        
                         if (socket_connected)
                         {
-                            socket_disconnect();
-                            socket_reconnect();
+                            if(bytesRead > 0)
+                            {
+                                cur_offset += bytesRead;
+                                socket_read_data();
+                            }
+                            else
+                            {
+                                socket_disconnect();
+                                socket_reconnect();
+                            }
+                            
                         }
                         return;
                     }
@@ -231,7 +274,7 @@ namespace REST_Dashboard.Handlers
 
                     socket_read();
 
-                }
+                
             }
             catch
             {
@@ -245,20 +288,31 @@ namespace REST_Dashboard.Handlers
 
         public void send(byte[] buf)
         {
-            List<byte> list = new List<byte>();
-            list.AddRange(CommunicationDefinitions.key);
-            list.AddRange(buf);
+            try
+            {
+                List<byte> list = new List<byte>();
+                list.AddRange(CommunicationDefinitions.key);
+                list.AddRange(buf);
 
-            byte[] data = list.ToArray();
-            client.GetStream().BeginWrite(data, 0, data.Length, on_send, client.Client);
+                byte[] data = list.ToArray();
+                client.GetStream().BeginWrite(data, 0, data.Length, on_send, client.Client);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                if (socket_connected)
+                {
+                    socket_disconnect();
+                    socket_reconnect();
+                }
+            }
         }
 
         public void on_header(IAsyncResult ar)
         {
             try
             {
-                if (socket_connected)
-                {
+                
                     int bytesRead = client.GetStream().EndRead(ar);
 
                     if (bytesRead != 1)
@@ -272,7 +326,7 @@ namespace REST_Dashboard.Handlers
                     }
 
                     socket_read_data();
-                }
+                
             }
             catch
             {

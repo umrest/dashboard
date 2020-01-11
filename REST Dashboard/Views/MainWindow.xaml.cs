@@ -51,6 +51,9 @@ namespace REST_Dashboard
 
             
             VisionCaptureProperties.ItemsSource = props;
+
+            list_joysticks();
+           
         }
 
         private void Properties_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -89,6 +92,8 @@ namespace REST_Dashboard
                 {
                 }
             }
+
+            ControllerSelect1.SelectedIndex = 0;
         }
 
         private void start_send_joystick()

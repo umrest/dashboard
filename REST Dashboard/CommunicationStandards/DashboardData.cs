@@ -26,7 +26,7 @@ namespace REST_Dashboard
 
         public bool enabled = false;
         public bool estop = false;
-        public RobotStateEnum robot_state;
+        public RobotStateEnum robot_state = RobotStateEnum.Teleop;
 
 
         public byte[] Serialize()

@@ -43,12 +43,12 @@ namespace REST_Dashboard
                 }
                 client = new TcpClient();
                 client.SendBufferSize = 128;
-                client.SendTimeout = 100;
-                client.ReceiveTimeout = 100;
+                client.SendTimeout = 10000;
+                client.ReceiveTimeout = 10000;
                 try
                 {
                     // 192.168.0.120
-                    client.ConnectAsync("localhost", 8091).Wait(100);
+                    client.ConnectAsync("uofmrestraspberrypi", 8091).Wait(1000);
                     if (client.Connected)
                     {
                             _connected = true;
@@ -86,7 +86,12 @@ namespace REST_Dashboard
             {
                 try
                 {
-                    client.Client.Send(bytes);
+                    List<byte> list = new List<byte>();
+                    list.AddRange(CommunicationDefinitions.key);
+                    list.AddRange(bytes);
+
+                    byte[] data = list.ToArray();
+                    client.Client.Send(data);
                 }
                 catch
                 {
@@ -94,7 +99,6 @@ namespace REST_Dashboard
                 }
             }
         }
-
         public bool recieve(List<byte[]> messages)
         {
             if (!connected())
@@ -105,22 +109,41 @@ namespace REST_Dashboard
             {
                 try
                 {
+                    
                     //c Console.WriteLine("Before: {0}" , client.Available);
                     while (client.Available >= 1)
                     {
+                        byte[] key = new byte[3];
+
+                        client.Client.Receive(key, 3, SocketFlags.None);
+
+                        for(int i = 0; i < 3; i++)
+                        {
+                            if(key[i] != CommunicationDefinitions.key[i])
+                            {
+                                Console.WriteLine("Invalid key");
+                                continue;
+                            }
+                        }
+
+
                         byte[] t = new byte[1];
 
                         client.Client.Receive(t, 1, SocketFlags.None);
 
                         int size = 127; // defualt size
 
-                        int type = t[0];
+                        CommunicationDefinitions.TYPE type = (CommunicationDefinitions.TYPE)t[0];
 
-                        if (type == (byte)CommunicationDefinitions.TYPE.VISION_IMAGE)
+                        if(CommunicationDefinitions.PACKET_SIZES.ContainsKey(type))
                         {
-                            size = 65536 - 1; // large image buffer
+                            size = CommunicationDefinitions.PACKET_SIZES[type];
                         }
-                       
+                        else
+                        {
+                            Console.WriteLine("invalid type");
+                            continue;
+                        }
 
                         byte[] msg = new byte[size + 1];
                         msg[0] = t[0];

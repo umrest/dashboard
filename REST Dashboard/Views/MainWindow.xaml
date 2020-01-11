@@ -93,10 +93,14 @@
 
         </Grid>
 
-        <Viewbox Grid.Column="1" HorizontalAlignment="Left" Height="324" Margin="72,41,0,-4" Grid.Row="2" VerticalAlignment="Top" Width="418">
-            <Views:VisionView x:Name="vision_view" />
-        </Viewbox>
-        <Button x:Name="send_vision_image_button" Content="Send Vision Image" Grid.Column="1" HorizontalAlignment="Left" Margin="210,370,0,-48" Grid.Row="2" VerticalAlignment="Top" Width="147" Click="send_vision_image_button_Click" Height="39"/>
+        <StackPanel Grid.Column="1" Margin="0" Grid.Row="2">
+            <Viewbox Grid.Column="1" Margin="0" Grid.Row="2" VerticalAlignment="Top" Height="424">
+                <Views:VisionView x:Name="vision_view" />
+            </Viewbox>
+            <Button x:Name="send_vision_image_button" Content="Send Vision Image" Grid.Column="1" Margin="0" Grid.Row="2" VerticalAlignment="Top" Click="send_vision_image_button_Click"/>
+            <DataGrid x:Name="VisionCaptureProperties" Grid.Column="1" Margin="0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
+        </StackPanel>
 
     </Grid>
 </Window>

@@ -28,13 +28,23 @@ namespace REST_Dashboard.Views
 
         public void SetImage(byte[] image)
         {
-            Stream imageStreamSource = new MemoryStream(image);
+            try
+            {
+                Stream imageStreamSource = new MemoryStream(image);
 
-            JpegBitmapDecoder decoder = new JpegBitmapDecoder(imageStreamSource, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+                JpegBitmapDecoder decoder = new JpegBitmapDecoder(imageStreamSource, BitmapCreateOptions.None, BitmapCacheOption.None);
 
-            BitmapSource bitmapSource = decoder.Frames[0];
+                BitmapSource bitmapSource = decoder.Frames[0];
 
-            vision_image.Dispatcher.BeginInvoke((Action)(() => vision_image.Source = bitmapSource));
+                vision_image.Dispatcher.BeginInvoke((Action)(() => vision_image.Source = bitmapSource));
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Image...");
+            }
+            
+             
+            
         }
     }
 }

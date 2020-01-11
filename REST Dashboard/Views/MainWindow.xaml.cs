@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -27,6 +28,12 @@ namespace REST_Dashboard
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+
+
+
+        ObservableCollection<DashboardVisionCaptureProperties> props = new ObservableCollection<DashboardVisionCaptureProperties>();
+
         private CommunicationHandler communication;
 
         public MainWindow()
@@ -36,10 +43,20 @@ namespace REST_Dashboard
             update_indicators();
             communication =  new CommunicationHandler(this);
 
-            communication.start_recieve_data();
+            //communication.start_recieve_data();
 
+            props.Add(StateData.properties);
+
+            StateData.properties.PropertyChanged += Properties_PropertyChanged;
+
+            
+            VisionCaptureProperties.ItemsSource = props;
         }
 
+        private void Properties_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            communication.send_vision_properties();
+        }
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -57,7 +74,7 @@ namespace REST_Dashboard
         
         private void list_joysticks()
         {
-            List<DeviceInstance> sticks = communication.get_joysticks(); // Creates the list of joysticks connected to the computer via USB.
+            List<DeviceInstance> sticks = StateData.get_joysticks(); // Creates the list of joysticks connected to the computer via USB.
 
 
             ControllerSelect1.Items.Clear();
@@ -190,7 +207,7 @@ namespace REST_Dashboard
 
         private void send_one_joystick_Click(object sender, RoutedEventArgs e)
         {
-            communication.send_joystick_data();
+            //communication.send_joystick_data();
         }
 
         private void ControllerSelect1_SelectionChanged(object sender, SelectionChangedEventArgs e)

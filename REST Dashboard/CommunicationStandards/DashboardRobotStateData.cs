@@ -17,9 +17,9 @@ namespace REST_Dashboard
 
         public DashboardRobotStateData() : base()
         {
-            motor_info = new DashboardMotorInfo[8];
+            motor_info = new DashboardMotorInfo[14];
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 14; i++)
             {
                 motor_info[i] = new DashboardMotorInfo();
             }
@@ -32,7 +32,7 @@ namespace REST_Dashboard
 
         public override void Deserialize(byte[] data)
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 14; i++)
             {
                 motor_info[i].Deserialize(data.Skip(MOTOR_INFO_OFFSET + i * MotorInfo.MOTOR_INFO_SIZE).Take(MotorInfo.MOTOR_INFO_SIZE).ToArray());
             }
@@ -55,6 +55,8 @@ namespace REST_Dashboard
             current = BitConverter.ToInt16(data, MOTOR_INFO_CURRENT_OFFSET) / 100.0;
             position = BitConverter.ToInt64(data, MOTOR_INFO_POSITION_OFFSET);
             speed = BitConverter.ToInt32(data, MOTOR_INFO_VELOCITY_OFFSET);
+
+            percentage = data[MOTOR_INFO_PERCENTAGE_OFFSET];
 
 
             PropertyChanged(this, new PropertyChangedEventArgs(null));

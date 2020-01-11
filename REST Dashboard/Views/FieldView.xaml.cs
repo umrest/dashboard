@@ -21,12 +21,19 @@ namespace REST_Dashboard
     /// </summary>
     public partial class FieldView : UserControl
     {
-        // TAG 0 PARAMETERS
+        // TAG 1 PARAMETERS
+        public static double FIELD_SIZE_Y = 3.6;
+        public static double FIELD_SIZE_X = 5.4;
 
         // Width of the Sieve
-        public static double T0_X_OFFSET = .3; // m
+        public static double T1_Y_OFFSET = .3; // m
         // From center of sieve to corner of field
-        public static double T0_Y_OFFSET = 1.5; // m
+        public static double T1_X_OFFSET = 1.5; // m
+
+        public static double CAMERA_X_OFFSET = 0;
+        public static double CAMERA_Y_OFFSET = .4;
+
+     
 
 
         public FieldView()
@@ -41,37 +48,75 @@ namespace REST_Dashboard
         {
             UpdateRobotPosition();
         }
-
-        public void SetRobotPosition(double field_x, double field_y, double yaw)
+        private void SetRobotPositionValid(bool valid)
         {
-            int x = (int)(field_x * 100);
-            int y = (int)(field_y * 100);
+            RobotRectangle.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                if (valid)
+                {
+                    RobotRectangle.Fill = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                }
+                else
+                {
+
+                    RobotRectangle.Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+                }
+            }
+            )
+            );
+        }
+        private void SetRobotPosition(double field_x, double field_y, double yaw)
+        {
+            // Origin point is the bottom right corner
+            double origin_x = FieldCanvas.ActualWidth - T1_X_OFFSET * 100;
+            double origin_y = FieldCanvas.ActualHeight - T1_Y_OFFSET * 100;
+
+            double x = origin_x - field_x * 100; // convert to pixels
+            double y = origin_y - field_y * 100;
+
+            RobotRectangle.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                double left = x - RobotRectangle.ActualWidth / 2;
+                double top = y - RobotRectangle.ActualHeight / 2 - CAMERA_Y_OFFSET * 100;
 
 
-            // Origin point is the left center of the dumping station
-            double origin_x = (FieldCanvas.ActualHeight - Canvas.GetBottom(Sieve) - Sieve.Height / 2);
-            double origin_y = Canvas.GetRight(Sieve) - Sieve.Width / 2;
+                Canvas.SetTop(RobotRectangle, top);
+                Canvas.SetLeft(RobotRectangle, left);
 
-
-            Canvas.SetTop(RobotRectangle, -RobotRectangle.Height / 2 + origin_x - x);
-            Canvas.SetLeft(RobotRectangle, -RobotRectangle.Width + (origin_y - y));
-
-            RotateTransform rotation = new RotateTransform(yaw, RobotRectangle.Width / 2, RobotRectangle.Height / 2);
-            RobotRectangle.RenderTransform = rotation;
+                RotateTransform rotation = new RotateTransform(yaw + 90, RobotRectangle.ActualWidth / 2, RobotRectangle.ActualHeight / 2);
+                RobotRectangle.RenderTransform = rotation;
+            }
+            ));
         }
 
         public void UpdateRobotPosition()
         {
+            double r = Math.Sqrt(StateData.t0.Z_ * StateData.t0.Z_ + StateData.t0.X_ * StateData.t0.X_);
+            double theta = StateData.t0.yaw_ / 180 * Math.PI + Math.Atan2(StateData.t0.Z_, StateData.t0.X_);
+
             // Only using tag0 for now
-            double x = StateData.t0.Z_ / 39.37; // in m
-            double y = StateData.t0.X_ / 39.37; // in m
+            double y = r*Math.Sin(theta) / 39.37; // in m
+            double x = r*Math.Cos(theta) / 39.37; // in m
 
             double yaw = StateData.t0.yaw_; // in deg
 
-            double field_x = T0_X_OFFSET + x;
-            double field_y = T0_Y_OFFSET + y;
+            double field_x = x;
+            double field_y = y;
 
-            //SetRobotPosition(field_x, field_y, yaw);
+            if(x == 0 && y == 0)
+            {
+                
+                SetRobotPositionValid(false);
+            }
+
+            else
+            {
+                SetRobotPositionValid(true);
+                SetRobotPosition(field_x, field_y, yaw);
+            }
+
+            
         }
     }
 }

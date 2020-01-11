@@ -11,11 +11,12 @@ namespace REST_Dashboard
         public double position { get; set; }
         public double percentage { get; set; }
 
-        public static int MOTOR_INFO_SIZE = 15;
+        public static int MOTOR_INFO_SIZE = 16;
         public static int MOTOR_INFO_CAN_OFFSET = 0;
         public static int MOTOR_INFO_CURRENT_OFFSET = 1;
         public static int MOTOR_INFO_POSITION_OFFSET = MOTOR_INFO_CURRENT_OFFSET + 2;
         public static int MOTOR_INFO_VELOCITY_OFFSET = MOTOR_INFO_POSITION_OFFSET + 8;
+        public static int MOTOR_INFO_PERCENTAGE_OFFSET = MOTOR_INFO_VELOCITY_OFFSET + 4;
     }
 
     public struct GyroData

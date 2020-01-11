@@ -22,7 +22,7 @@ namespace REST_Dashboard.Handlers
 
         AsyncSocketClient socket;
 
-        DirectInput Input = new DirectInput();
+       
 
         MainWindow parent = null;
 
@@ -35,6 +35,10 @@ namespace REST_Dashboard.Handlers
             recieve_data_thread = new Thread(recieve_data_ts);
 
             parent = parent_in;
+
+            start_recieve_data();
+
+            
             
         }
 
@@ -68,8 +72,7 @@ namespace REST_Dashboard.Handlers
             {
                 parent.update_indicators();
                 System.Threading.Thread.Sleep(delay);
-                try
-                {
+                
                     // slow down the timer if we can't connect
                     if (!socket.connected())
                     {
@@ -116,12 +119,9 @@ namespace REST_Dashboard.Handlers
                             }
                         }
                     }
-                }
-                catch
-                {
-                    Console.WriteLine("Exception in Recieve Data");
-                    delay = 1000;
-                }
+                
+         
+                
 
             }
 
@@ -134,7 +134,7 @@ namespace REST_Dashboard.Handlers
 
             try
             {
-                stick = new SlimDX.DirectInput.Joystick(Input, StateData.joy_guid);
+                stick = new SlimDX.DirectInput.Joystick(StateData.Input, StateData.joy_guid);
                 stick.Properties.BufferSize = 128;
                 if (stick.Acquire().IsFailure)
                 {
@@ -178,16 +178,20 @@ namespace REST_Dashboard.Handlers
             return socket.connected();
         }
 
-        public List<DeviceInstance> get_joysticks()
-        {
-            return Input.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly).ToList();
-        }
+       
 
         public void send_vision_image()
         {
             byte[] data = new byte[128];
             data[0] = 12;
             data[1] = 0;
+            socket.send(data);
+        }
+
+        public void send_vision_properties()
+        {
+            byte[] data = StateData.properties.Serialize();
+
             socket.send(data);
         }
     }

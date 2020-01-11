@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SlimDX.DirectInput;
 
 namespace REST_Dashboard
 {
@@ -23,10 +24,19 @@ namespace REST_Dashboard
 
         public static DashboardDataAggregatorState dataaggregator_state = new DashboardDataAggregatorState();
 
+        public static DashboardVisionCaptureProperties properties = new DashboardVisionCaptureProperties();
+
         public static Guid joy_guid;
 
         public static GlobalHotkey space_hotkey;
 
         public static bool send_joystick_enabled = false;
+
+        public static List<DeviceInstance> get_joysticks()
+        {
+            return Input.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly).ToList();
+        }
+
+        public static DirectInput Input = new DirectInput();
     }
 }

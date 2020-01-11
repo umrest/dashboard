@@ -34,14 +34,14 @@ namespace REST_Dashboard
 
         ObservableCollection<DashboardVisionCaptureProperties> props = new ObservableCollection<DashboardVisionCaptureProperties>();
 
-        private CommunicationHandler communication;
+        private CommunicationHandlerNew communication;
 
         public MainWindow()
         {
             InitializeComponent();
 
             update_indicators();
-            communication =  new CommunicationHandler(this);
+            communication =  new CommunicationHandlerNew(this);
 
             //communication.start_recieve_data();
 

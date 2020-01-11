@@ -71,8 +71,10 @@ namespace REST_Dashboard
 
         public bool connected()
         {
-            return _connected;
-       
+
+            return client != null && !(client.Client.Poll(1, SelectMode.SelectRead) && client.Client.Available == 0);
+
+
         }
 
         public void send(byte[] bytes)

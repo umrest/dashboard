@@ -45,4 +45,20 @@ namespace REST_Dashboard
 
         public abstract void Deserialize(byte[] data);
     }
+
+    public abstract class FieldPosition
+    {
+        // Offsets
+
+        public short yaw { get; set; }
+
+        public short X { get; set; }
+        public short Y { get; set; }
+
+        protected const int YAW_OFFSET = 0;
+        protected const int X_OFFSET = 2;
+        protected const int Y_OFFSET = 4;
+
+        public abstract void Deserialize(byte[] data);
+    }
 }

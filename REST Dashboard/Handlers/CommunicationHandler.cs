@@ -37,8 +37,6 @@ namespace REST_Dashboard.Handlers
             parent = parent_in;
 
             start_recieve_data();
-
-            
             
         }
 

@@ -31,6 +31,23 @@ namespace REST_Dashboard
             t1.Deserialize(t1_data);           
         }
     }
+
+    public static class ScaleUtils
+    {
+        public static double scale_xyz(short s)
+        {
+            return s / 10.0;
+        }
+
+        public static double scale(short s)
+        {
+            return s / 364.0888;
+        }
+    }
+
+   
+
+
     public class DashboardTagPosition : TagPosition,  INotifyPropertyChanged
     {
         public DashboardTagPosition(string label_in)
@@ -53,55 +70,92 @@ namespace REST_Dashboard
         }
 
         public string label { get; set; }
-        public double scale(short s)
-        {
-            return s / 364.0888;
-        }
-        public double scale_xyz(short s)
-        {
-            return s / 10.0;
-        }
+        
+        
         public double yaw_
         {
             get
             {
-                return scale(yaw);
+                return ScaleUtils.scale(yaw);
             }
         }
         public double pitch_
         {
             get
             {
-                return scale(pitch);
+                return ScaleUtils.scale(pitch);
             }
         }
         public double roll_
         {
             get
             {
-                return scale(roll);
+                return ScaleUtils.scale(roll);
             }
         }
         public double X_
         {
             get
             {
-                return scale_xyz(X);
+                return ScaleUtils.scale_xyz(X);
             }
         }
         public double Y_
         {
             get
             {
-                return scale_xyz(Y);
+                return ScaleUtils.scale_xyz(Y);
             }
         }
         public double Z_
         {
             get
             {
-                return scale_xyz(Z);
+                return ScaleUtils.scale_xyz(Z);
             }
         }
+    }
+
+    public class DashboardFieldPosition : FieldPosition, INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public override void Deserialize(byte[] data)
+        {
+            X = BitConverter.ToInt16(data, X_OFFSET);
+            Y = BitConverter.ToInt16(data, Y_OFFSET);
+
+            yaw = BitConverter.ToInt16(data, YAW_OFFSET);
+
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+
+        }
+
+        public double X_
+        {
+            get
+            {
+                return ScaleUtils.scale_xyz(X);
+            }
+        }
+        public double Y_
+        {
+            get
+            {
+                return ScaleUtils.scale_xyz(X);
+            }
+        }
+
+        public double yaw_
+        {
+            get
+            {
+                return ScaleUtils.scale(yaw);
+            }
+        }
+
+
+
+
     }
 }

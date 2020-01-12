@@ -14,6 +14,7 @@ namespace REST_Dashboard
         {
             t0 = new DashboardTagPosition("t0");
             t1 = new DashboardTagPosition("t1");
+            fp = new DashboardFieldPosition();
         }
         public override byte[] Serialize()
         {
@@ -28,7 +29,11 @@ namespace REST_Dashboard
 
             byte[] t1_data = new byte[12];
             Array.Copy(data, TAG_1_OFFSET, t1_data, 0, 12);
-            t1.Deserialize(t1_data);           
+            t1.Deserialize(t1_data);
+
+            byte[] fp_data = new byte[12];
+            Array.Copy(data, FIELD_POSITION_OFFSET, fp_data, 0, 12);
+            fp.Deserialize(fp_data);
         }
     }
 

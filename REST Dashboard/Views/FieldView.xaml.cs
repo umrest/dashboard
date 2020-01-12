@@ -39,8 +39,7 @@ namespace REST_Dashboard
         public FieldView()
         {
             InitializeComponent();
-            StateData.t0.PropertyChanged += Tag_PropertyChanged;
-            StateData.t1.PropertyChanged += Tag_PropertyChanged;
+            StateData.fp.PropertyChanged += Tag_PropertyChanged;
         }
 
 
@@ -92,21 +91,15 @@ namespace REST_Dashboard
 
         public void UpdateRobotPosition()
         {
-            double r = Math.Sqrt(StateData.t0.Z_ * StateData.t0.Z_ + StateData.t0.X_ * StateData.t0.X_);
-            double theta = StateData.t0.yaw_ / 180 * Math.PI + Math.Atan2(StateData.t0.Z_, StateData.t0.X_);
 
-            // Only using tag0 for now
-            double y = r*Math.Sin(theta) / 39.37; // in m
-            double x = r*Math.Cos(theta) / 39.37; // in m
+            double field_x = StateData.fp.X_;
 
-            double yaw = StateData.t0.yaw_; // in deg
+            double field_y = StateData.fp.Y_;
 
-            double field_x = x;
-            double field_y = y;
+            double yaw = StateData.fp.yaw_;
 
-            if(x == 0 && y == 0)
+            if(StateData.fp.Y_ == 0 && StateData.fp.X_ == 0)
             {
-                
                 SetRobotPositionValid(false);
             }
 

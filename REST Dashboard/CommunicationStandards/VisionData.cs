@@ -13,13 +13,14 @@ namespace REST_Dashboard
 
         public TagPosition t0;
         public TagPosition t1;
-
+        public FieldPosition fp;
 
 
       
 
         protected const int TAG_0_OFFSET = 1;
         protected const int TAG_1_OFFSET = 13;
+        protected const int FIELD_POSITION_OFFSET = TAG_1_OFFSET + 12;
 
 
     }

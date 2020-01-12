@@ -37,7 +37,7 @@ namespace REST_Dashboard.Views
         public void SetY(float y)
         {
             int Y_OFFSET = 40;
-            Stick.Dispatcher.BeginInvoke((Action)(() => Canvas.SetLeft(Stick, Y_OFFSET + ((y - 127) / 127.0) * 50)));
+            Stick.Dispatcher.BeginInvoke((Action)(() => Canvas.SetTop(Stick, Y_OFFSET + ((y - 127) / 127.0) * 50)));
         }
     }
 }

@@ -19,6 +19,7 @@ namespace REST_Dashboard
 
         public static DashboardTagPosition t0 = (DashboardTagPosition)vision_data.t0;
         public static DashboardTagPosition t1 = (DashboardTagPosition)vision_data.t1;
+        public static DashboardFieldPosition fp = (DashboardFieldPosition)vision_data.fp;
 
         public static DashboardJoystickData joystick_data = new DashboardJoystickData();
 

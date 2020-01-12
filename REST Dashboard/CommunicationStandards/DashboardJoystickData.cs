@@ -81,6 +81,8 @@ namespace REST_Dashboard
             rt = joy2byte(state.Z);
             lt = joy2byte(state.Z);
 
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+
             
         }
     }

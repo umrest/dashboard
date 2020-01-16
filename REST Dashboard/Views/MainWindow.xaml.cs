@@ -117,6 +117,9 @@ namespace REST_Dashboard
                 connected_indicator.connected = communication.connected();
                 HeroConnectedIndicator.connected = StateData.dataaggregator_state.hero_connected;
                 VisionConnectedIndicator.connected = StateData.dataaggregator_state.vision_connected;
+                TCPSerialConnectedIndicator.connected = StateData.dataaggregator_state.tcpserial_connected;
+                RealsenseConnectedIndicator.connected = StateData.dataaggregator_state.realsense_connected;
+                DashboardConnectedIndicator.connected = StateData.dataaggregator_state.dashboard_connected;
 
                 Enable_Button.Background.Opacity = StateData.dashboard_state.enabled ? on : off;
 

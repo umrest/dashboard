@@ -13,10 +13,13 @@ namespace REST_Dashboard
 
         public bool hero_connected;
         public bool vision_connected;
+        public bool tcpserial_connected;
+        public bool realsense_connected;
+        public bool dashboard_connected;
 
 
         // Offsets
-        
+
         protected const int STATUS_OFFSET = 1;
 
     }

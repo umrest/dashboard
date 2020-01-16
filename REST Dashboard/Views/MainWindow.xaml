@@ -32,7 +32,10 @@
 
         <StackPanel x:Name="ConnectionIndicators" Grid.ColumnSpan="1" Grid.Row="1">
             <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Hero" />
+            <local:ConnectionIndicator x:Name="TCPSerialConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="TCPSerial" />
             <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Vision" />
+            <local:ConnectionIndicator x:Name="DashboardConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Dashboard" />
+            <local:ConnectionIndicator x:Name="RealsenseConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Realsense" />
         </StackPanel>
 
 

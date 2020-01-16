@@ -85,10 +85,18 @@ namespace REST_Dashboard.Handlers
 
         public void socket_reconnect()
         {
-            client = new TcpClient();
-            client.SendBufferSize = 128;
-            client.ReceiveBufferSize = 128000;
-            client.BeginConnect(host, port, on_connect, null);
+            try
+            {
+                client = new TcpClient();
+                client.SendBufferSize = 128;
+                client.ReceiveBufferSize = 128000;
+                client.BeginConnect(host, port, on_connect, null);
+            }
+            catch
+            {
+                System.Threading.Thread.Sleep(100);
+                socket_reconnect();
+            }
         }
 
         public void socket_disconnect()

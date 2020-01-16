@@ -98,7 +98,7 @@ namespace REST_Dashboard
 
             double yaw = StateData.fp.yaw_;
 
-            if(StateData.fp.Y_ == 0 && StateData.fp.X_ == 0)
+            if(StateData.fp.Y == 0 && StateData.fp.X == 0)
             {
                 SetRobotPositionValid(false);
             }

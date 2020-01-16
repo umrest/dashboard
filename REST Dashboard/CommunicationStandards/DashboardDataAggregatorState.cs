@@ -21,6 +21,9 @@ namespace REST_Dashboard
 
             hero_connected = status.GetBit(0);
             vision_connected = status.GetBit(1);
+            dashboard_connected = status.GetBit(2);
+            realsense_connected = status.GetBit(3);
+            tcpserial_connected = status.GetBit(4);
         }
     }
 }

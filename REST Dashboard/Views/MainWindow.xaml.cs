@@ -153,12 +153,16 @@ namespace REST_Dashboard
 
         private void Enable_Button_Click(object sender, RoutedEventArgs e)
         {
-            StateData.dashboard_state.enabled = true;
-            send_dashboard_data();
-            if(StateData.dashboard_state.robot_state == DashboardData.RobotStateEnum.Teleop)
+            if(StateData.dashboard_state.estop == false)
             {
-                start_send_joystick();
+                StateData.dashboard_state.enabled = true;
+                send_dashboard_data();
+                if (StateData.dashboard_state.robot_state == DashboardData.RobotStateEnum.Teleop)
+                {
+                    start_send_joystick();
+                }
             }
+            
         }
 
         private void Disable_Button_Click(object sender, RoutedEventArgs e)

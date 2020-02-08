@@ -43,12 +43,37 @@ namespace REST_Dashboard
 
     public class DashboardMotorInfo : MotorInfo, INotifyPropertyChanged
     {
+        private static Dictionary<int, string> CANID_MAP = new Dictionary<int, string>()
+        {
+            { 1, "FrontLeftWheel" },
+            { 2, "FrontRightWheel" },
+            { 3, "BackLeftWheel" },
+            { 4, "BackRightWheel" },
+            { 11, "LeftActuator" },
+            { 12, "RightActuator" },
+            { 13, "AugerRotation"},
+            { 21, "LeftDumper" },
+            { 22, "RightDumper"}
+, 
+
+        };
 
         public DashboardMotorInfo()
         {
             
         }
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public string label { 
+            get
+            {
+                if (CANID_MAP.ContainsKey(can_id))
+                {
+                    return CANID_MAP[can_id];
+                }
+                return "undefined";
+            } 
+        }
         public void Deserialize(byte[] data)
         {
             can_id = data[MOTOR_INFO_CAN_OFFSET];

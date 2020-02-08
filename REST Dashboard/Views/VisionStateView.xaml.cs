@@ -22,6 +22,7 @@ namespace REST_Dashboard
     public partial class VisionStateView : UserControl
     { 
         private ObservableCollection<DashboardTagPosition> tags = new ObservableCollection<DashboardTagPosition>();
+        private ObservableCollection<DashboardFieldPosition> fps = new ObservableCollection<DashboardFieldPosition>();
 
         public VisionStateView()
         {
@@ -30,7 +31,9 @@ namespace REST_Dashboard
             tags.Add((DashboardTagPosition)(StateData.vision_data.t0));
             tags.Add((DashboardTagPosition)(StateData.vision_data.t1));
 
+            fps.Add((DashboardFieldPosition)(StateData.vision_data.fp));
             vision_data_grid.ItemsSource = tags;
+            vision_data_grid2.ItemsSource = fps;
         }
     }
 }

@@ -92,9 +92,9 @@ namespace REST_Dashboard
         public void UpdateRobotPosition()
         {
 
-            double field_x = StateData.fp.X_;
+            double field_x = StateData.fp.X_ / 39.3701;
 
-            double field_y = StateData.fp.Y_;
+            double field_y = StateData.fp.Y_ / 39.3701;
 
             double yaw = StateData.fp.yaw_;
 

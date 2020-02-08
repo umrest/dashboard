@@ -49,6 +49,8 @@ namespace REST_Dashboard
 
             StateData.properties.PropertyChanged += Properties_PropertyChanged;
 
+            StateData.mainwindow = this;
+
             
             VisionCaptureProperties.ItemsSource = props;
 
@@ -120,7 +122,7 @@ namespace REST_Dashboard
                 TCPSerialConnectedIndicator.connected = StateData.dataaggregator_state.tcpserial_connected;
                 RealsenseConnectedIndicator.connected = StateData.dataaggregator_state.realsense_connected;
                 DashboardConnectedIndicator.connected = StateData.dataaggregator_state.dashboard_connected;
-
+                   
                 Enable_Button.Background.Opacity = StateData.dashboard_state.enabled ? on : off;
 
                 Disable_Button.Background.Opacity = !StateData.dashboard_state.enabled ? on : off;
@@ -176,7 +178,7 @@ namespace REST_Dashboard
 
         private void Teleop_Button_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Button_Click(null, null);
+            //Disable_Button_Click(null, null);
 
             StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Teleop;
             send_dashboard_data();
@@ -184,14 +186,14 @@ namespace REST_Dashboard
 
         private void Auton_Button_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Button_Click(null, null);
+            //Disable_Button_Click(null, null);
 
             StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Auton;
             send_dashboard_data();
         }
         private void Test_Button_Click(object sender, RoutedEventArgs e)
         {
-            Disable_Button_Click(null, null);
+            //Disable_Button_Click(null, null);
 
             StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Test;
             send_dashboard_data();

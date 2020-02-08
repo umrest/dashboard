@@ -31,7 +31,7 @@ namespace REST_Dashboard
 
         public byte[] Serialize()
         {
-            byte[] ret = new byte[128];
+            byte[] ret = new byte[CommunicationStandards.CommunicationDefinitions.PACKET_SIZES[CommunicationStandards.CommunicationDefinitions.TYPE.DASHBOARD_DATA] + 1];
             using (MemoryStream m = new MemoryStream())
             {
                 using (BinaryWriter writer = new BinaryWriter(m))

@@ -23,7 +23,7 @@ namespace REST_Dashboard.Handlers
 
         bool socket_connected = false;
 
-        string host = "192.168.0.120";
+        string host = "192.168.61.128";//"192.168.0.120";
         int port = 8091;
 
         byte[] buffer = new byte[128000];
@@ -101,8 +101,9 @@ namespace REST_Dashboard.Handlers
 
         public void socket_disconnect()
         {
-            Console.WriteLine("Socket: Disconnected");
             socket_connected = false;
+            Console.WriteLine("Socket: Disconnected");
+            
             client.Close();
             client = null;
             on_disconnect();
@@ -137,22 +138,35 @@ namespace REST_Dashboard.Handlers
 
                    int bytesRead = client.GetStream().EndRead(ar);
 
-                    if (bytesRead != 3)
+                if (bytesRead + cur_offset != 3)
+                {
+
+                    if (socket_connected)
                     {
-                        if (socket_connected)
+                        if (bytesRead > 0)
+                        {
+                            cur_offset += bytesRead;
+                            socket_read_key();
+                        }
+                        else
                         {
                             socket_disconnect();
                             socket_reconnect();
                         }
-                        return;
-                    }
 
-                    for (int i = 0; i < 3; i++)
+                    }
+                    return;
+                }
+
+                cur_offset = 0;
+
+                for (int i = 0; i < 3; i++)
                     {
                         if (buffer[i] != CommunicationDefinitions.key[i])
                         {
                             Console.WriteLine("Invalid key");
                         socket_read();
+                        return;
                         }
                     }
                     // Valid key
@@ -193,7 +207,7 @@ namespace REST_Dashboard.Handlers
         {
             try
             {
-               client.GetStream().BeginRead(buffer, 0, 3, new AsyncCallback(on_key), null);
+               client.GetStream().BeginRead(buffer, cur_offset, 3, new AsyncCallback(on_key), null);
             }
             catch
             {
@@ -225,10 +239,8 @@ namespace REST_Dashboard.Handlers
 
         public void on_recv(IAsyncResult ar) 
         {
-            try
-            {
-              
 
+            try { 
                     int bytesRead = client.GetStream().EndRead(ar);
 
                     if (bytesRead + cur_offset != read_size)
@@ -267,13 +279,17 @@ namespace REST_Dashboard.Handlers
                     {
                         StateData.vision_data.Deserialize(buffer);
                     }
-                    else if (type == CommunicationDefinitions.TYPE.ROBOT_STATE)
+                    else if (type == CommunicationDefinitions.TYPE.SENSOR_STATE)
                     {
-                        StateData.robot_state_data.Deserialize(buffer);
+                        StateData.sensor_state_data.Deserialize(buffer);
                     }
                     else if (type == CommunicationDefinitions.TYPE.VISION_IMAGE)
                     {
                         parent.vision_view.SetImage(buffer.Skip(1).ToArray());
+                    }
+                    else if (type == CommunicationDefinitions.TYPE.ROBOT_STATE)
+                    {
+                        StateData.robot_state_data.Deserialize(buffer);
                     }
                     else
                     {

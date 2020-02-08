@@ -15,7 +15,8 @@ namespace REST_Dashboard
 
 
         public static DashboardVisionData vision_data = new DashboardVisionData();
-        public static DashboardRobotStateData robot_state_data = new DashboardRobotStateData();
+        public static DashboardSensorStateData sensor_state_data = new DashboardSensorStateData();
+        public static DashboardRobotState robot_state_data = new DashboardRobotState();
 
         public static DashboardTagPosition t0 = (DashboardTagPosition)vision_data.t0;
         public static DashboardTagPosition t1 = (DashboardTagPosition)vision_data.t1;
@@ -32,6 +33,8 @@ namespace REST_Dashboard
         public static GlobalHotkey space_hotkey;
 
         public static bool send_joystick_enabled = false;
+
+        public static MainWindow mainwindow = null;
 
         public static List<DeviceInstance> get_joysticks()
         {

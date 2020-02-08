@@ -48,7 +48,7 @@ namespace REST_Dashboard
                 try
                 {
                     // 192.168.0.120
-                    client.ConnectAsync("uofmrestraspberrypi", 8091).Wait(1000);
+                    client.ConnectAsync("192.168.61.128", 8091).Wait(1000);
                     if (client.Connected)
                     {
                             _connected = true;

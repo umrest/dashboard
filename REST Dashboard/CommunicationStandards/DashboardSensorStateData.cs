@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace REST_Dashboard
 {
-    public class DashboardRobotStateData : RobotStateData, INotifyPropertyChanged
+    public class DashboardSensorStateData : SensorStateData, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public DashboardMotorInfo[] motor_info;
         public GyroData gyro_data;
 
-        public DashboardRobotStateData() : base()
+        public DashboardSensorStateData() : base()
         {
             motor_info = new DashboardMotorInfo[14];
 

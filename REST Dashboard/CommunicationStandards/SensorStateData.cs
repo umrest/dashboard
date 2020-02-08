@@ -25,9 +25,9 @@ namespace REST_Dashboard
         public float pitch { get; set; } 
         public float roll { get; set; } 
     }
-    public class RobotStateData : RESTPacket
+    public class SensorStateData : RESTPacket
     {
-        public RobotStateData()
+        public SensorStateData()
         {
 
         }

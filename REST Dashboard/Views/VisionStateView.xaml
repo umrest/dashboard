@@ -27,6 +27,15 @@
                 </DataGrid.Columns>
 
             </DataGrid>
+            <DataGrid x:Name="vision_data_grid2" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding label}"  Header="Label"/>
+                    <DataGridTextColumn Binding="{Binding X_, StringFormat=F2}"  Header="X"/>
+                    <DataGridTextColumn Binding="{Binding Y_, StringFormat=F2}"  Header="Y"/>
+                    <DataGridTextColumn Binding="{Binding yaw_, StringFormat=F2}"  Header="Yaw"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
         </StackPanel>
     </Grid>
 </UserControl>

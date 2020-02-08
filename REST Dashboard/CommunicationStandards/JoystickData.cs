@@ -24,6 +24,11 @@ namespace REST_Dashboard
         public bool button_lj;
         public bool button_rj;
 
+        public bool pov_u;
+        public bool pov_r;
+        public bool pov_d;
+        public bool pov_l;
+
         public byte lj_x;
         public byte lj_y;
         public byte rj_x;

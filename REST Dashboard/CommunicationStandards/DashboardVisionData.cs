@@ -14,7 +14,7 @@ namespace REST_Dashboard
         {
             t0 = new DashboardTagPosition("t0");
             t1 = new DashboardTagPosition("t1");
-            fp = new DashboardFieldPosition();
+            fp = new DashboardFieldPosition("Sieve");
         }
         public override byte[] Serialize()
         {
@@ -124,7 +124,12 @@ namespace REST_Dashboard
     public class DashboardFieldPosition : FieldPosition, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public DashboardFieldPosition(string label_in)
+        {
+            label = label_in;
+        }
 
+        public string label { get; set; }
         public override void Deserialize(byte[] data)
         {
             X = BitConverter.ToInt16(data, X_OFFSET);
@@ -147,7 +152,7 @@ namespace REST_Dashboard
         {
             get
             {
-                return ScaleUtils.scale_xyz(X);
+                return ScaleUtils.scale_xyz(Y);
             }
         }
 

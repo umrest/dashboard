@@ -69,6 +69,7 @@
     <Compile Include="CommunicationStandards\CommunicationDefinitions.cs" />
     <Compile Include="CommunicationStandards\SensorStateData.cs" />
     <Compile Include="CommunicationStandards\VisionCaptureProperties.cs" />
+    <Compile Include="Handlers\CommunicationHandlerNew2.cs" />
     <Compile Include="Handlers\CommunicationHandlerNew.cs" />
     <Compile Include="Handlers\CommunicationHandler.cs" />
     <Compile Include="StateData.cs" />

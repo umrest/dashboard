@@ -104,12 +104,7 @@ namespace REST_Dashboard
                 pov_d = false;
                 pov_r = false;
             }
-
-            Console.WriteLine(pov_u + " " + pov_l + " " + pov_d + " " + pov_r);
-
-
-
-
+            
             PropertyChanged(this, new PropertyChangedEventArgs(null));
 
             

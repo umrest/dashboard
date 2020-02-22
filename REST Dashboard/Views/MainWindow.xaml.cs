@@ -34,14 +34,14 @@ namespace REST_Dashboard
 
         ObservableCollection<DashboardVisionCaptureProperties> props = new ObservableCollection<DashboardVisionCaptureProperties>();
 
-        private CommunicationHandlerNew communication;
+        private CommunicationHandlerNew2 communication;
 
         public MainWindow()
         {
             InitializeComponent();
 
             update_indicators();
-            communication =  new CommunicationHandlerNew(this);
+            communication =  new CommunicationHandlerNew2(this);
 
             //communication.start_recieve_data();
 
@@ -163,6 +163,14 @@ namespace REST_Dashboard
                 }
             }
             
+        }
+
+        public void Disable()
+        {
+            Dispatcher.BeginInvoke((Action)(() =>
+            {
+                Disable_Button_Click(null, null);
+            }));
         }
 
         private void Disable_Button_Click(object sender, RoutedEventArgs e)

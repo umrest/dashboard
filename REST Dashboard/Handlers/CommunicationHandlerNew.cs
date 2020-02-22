@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace REST_Dashboard.Handlers
@@ -19,7 +17,9 @@ namespace REST_Dashboard.Handlers
         MainWindow parent;
 
         ThreadStart send_joystick_ts;
+        ThreadStart send_heartbeat_ts;
         Thread send_joystick_thread;
+        Thread send_heartbeat_thread;
 
         bool socket_connected = false;
 
@@ -39,8 +39,23 @@ namespace REST_Dashboard.Handlers
             parent = parent_in;
 
             send_joystick_ts = new ThreadStart(send_joystick_data);
+            send_heartbeat_ts = new ThreadStart(send_heartbeat);
 
             socket_reconnect();
+        }
+
+        public void send_heartbeat()
+        {
+            while (connected())
+            {
+                byte[] identifier = new byte[128];
+                identifier[0] = (byte)CommunicationDefinitions.TYPE.INDENTIFIER;
+                identifier[1] = (byte)CommunicationDefinitions.IDENTIFIER.DASHBOARD;
+
+                send(identifier);
+
+                System.Threading.Thread.Sleep(500);
+            }
         }
 
         public void send_joystick_data()
@@ -71,6 +86,10 @@ namespace REST_Dashboard.Handlers
 
                 if (stick.Poll().IsFailure)
                 {
+                    StateData.send_joystick_enabled = false;
+                    StateData.dashboard_state.enabled = false;
+                    StateData.mainwindow.Disable();
+                    MessageBox.Show("Joystick Disconnected");
                     return;
                 }
                 stick.GetBufferedData();
@@ -91,6 +110,8 @@ namespace REST_Dashboard.Handlers
                 client = new TcpClient();
                 client.SendBufferSize = 128;
                 client.ReceiveBufferSize = 128000;
+                client.ReceiveTimeout = 1000;
+                client.SendTimeout = 1000;
                 client.BeginConnect(host, port, on_connect, null);
             }
             catch
@@ -121,11 +142,20 @@ namespace REST_Dashboard.Handlers
             }
         }
 
+        public void start_send_heartbeat()
+        {
+            if (send_heartbeat_thread == null || !send_heartbeat_thread.IsAlive)
+            {
+                send_heartbeat_thread = new Thread(send_heartbeat_ts);
+                send_heartbeat_thread.Start();
+            }
+        }
+
         public void stop_send_joystick()
         {
             StateData.send_joystick_enabled = false;
         }
-
+        
         void socket_read()
         {
             cur_offset = 0;
@@ -197,7 +227,7 @@ namespace REST_Dashboard.Handlers
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex);
+                Console.WriteLine(ex);
                 if (socket_connected)
                 {
                     socket_disconnect();
@@ -384,11 +414,17 @@ namespace REST_Dashboard.Handlers
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
 
+                if(bytesSent == 0)
+                {
+                    throw new Exception("No Bytes Sent");
+                }
+
                 // Signal that all bytes have been sent.  
                 socket_connected = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 Console.WriteLine("Socket: Send Failed");
                 if (socket_connected)
                 {
@@ -420,6 +456,8 @@ namespace REST_Dashboard.Handlers
                 identifier[1] = (byte)CommunicationDefinitions.IDENTIFIER.DASHBOARD;
 
                 send(identifier);
+
+                start_send_heartbeat();
             }
             catch (Exception e)
             {

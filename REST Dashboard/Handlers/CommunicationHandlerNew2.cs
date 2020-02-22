@@ -86,6 +86,7 @@ namespace REST_Dashboard.Handlers
 
         DateTime last_joystick_send = DateTime.Now;
         DateTime last_heartbeat_send = DateTime.Now;
+        DateTime last_state_send = DateTime.Now;
         public void connected_handler()
         {
             var now = DateTime.Now;
@@ -99,6 +100,12 @@ namespace REST_Dashboard.Handlers
             {
                 send_identifier();
                 last_heartbeat_send = now;
+            }
+
+            if ((now - last_state_send).TotalMilliseconds > 100)
+            {
+                send_dashboard_state();
+                last_state_send = now;
             }
 
             send_buffered();
@@ -253,7 +260,7 @@ namespace REST_Dashboard.Handlers
 
         public void send_joystick()
         {
-            if (stick.Poll().IsFailure)
+            if (stick == null || stick.Poll().IsFailure)
             {
                 StateData.send_joystick_enabled = false;
                 StateData.dashboard_state.enabled = false;
@@ -267,29 +274,6 @@ namespace REST_Dashboard.Handlers
             StateData.joystick_data.Load(state);
 
             send_key(StateData.joystick_data.Serialize());
-        }
-
-        public void start_send_joystick_data()
-        {
-            try
-            {
-                stick = new SlimDX.DirectInput.Joystick(StateData.Input, StateData.joy_guid);
-                stick.Properties.BufferSize = 128;
-                if (stick.Acquire().IsFailure)
-                {
-                    throw new Exception("Joystick Aquire Failed");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-
-                StateData.send_joystick_enabled = false;
-                MessageBox.Show("Failed to Aquire Joystick");
-                return;
-            }
-
-            StateData.send_joystick_enabled = true;
         }
 
         public void socket_reconnect()
@@ -326,6 +310,26 @@ namespace REST_Dashboard.Handlers
 
         public void start_send_joystick()
         {
+     
+
+            try
+            {
+                stick = new SlimDX.DirectInput.Joystick(StateData.Input, StateData.joy_guid);
+                stick.Properties.BufferSize = 128;
+                if (stick.Acquire().IsFailure)
+                {
+                    throw new Exception("Joystick Aquire Failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                StateData.send_joystick_enabled = false;
+                MessageBox.Show("Failed to Aquire Joystick");
+                return;
+            }
+
             StateData.send_joystick_enabled = true;
         }
 

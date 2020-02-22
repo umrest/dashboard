@@ -23,7 +23,7 @@ namespace REST_Dashboard.Handlers
 
         bool socket_connected = false;
 
-        string host = "192.168.61.128";//"192.168.0.120";
+        string host = "uofmrestraspberrypi"; //"192.168.61.128";//;
         int port = 8091;
 
         byte[] buffer = new byte[128000];
@@ -57,8 +57,9 @@ namespace REST_Dashboard.Handlers
                     throw new Exception("Joystick Aquire Failed");
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
 
                 StateData.send_joystick_enabled = false;
                 MessageBox.Show("Failed to Aquire Joystick");
@@ -137,6 +138,7 @@ namespace REST_Dashboard.Handlers
             {
 
                    int bytesRead = client.GetStream().EndRead(ar);
+                //Console.WriteLine(bytesRead);
 
                 if (bytesRead + cur_offset != 3)
                 {
@@ -175,8 +177,9 @@ namespace REST_Dashboard.Handlers
 
                 
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 if (socket_connected)
                 {
                     socket_disconnect();
@@ -192,8 +195,9 @@ namespace REST_Dashboard.Handlers
             {
                 client.GetStream().BeginRead(buffer, 0, 1, new AsyncCallback(on_header), null);
             }
-            catch
+            catch (Exception ex)
             {
+                //Console.WriteLine(ex);
                 if (socket_connected)
                 {
                     socket_disconnect();
@@ -209,8 +213,9 @@ namespace REST_Dashboard.Handlers
             {
                client.GetStream().BeginRead(buffer, cur_offset, 3, new AsyncCallback(on_key), null);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 if (socket_connected)
                 {
                     socket_disconnect();
@@ -242,8 +247,11 @@ namespace REST_Dashboard.Handlers
 
             try { 
                     int bytesRead = client.GetStream().EndRead(ar);
+                   // Console.WriteLine(bytesRead);
 
-                    if (bytesRead + cur_offset != read_size)
+                CommunicationDefinitions.TYPE type = (CommunicationDefinitions.TYPE)buffer[0];
+
+                if (bytesRead + cur_offset != read_size)
                     {
                         
                         if (socket_connected)
@@ -267,8 +275,10 @@ namespace REST_Dashboard.Handlers
                     // Signal that all bytes have been sent.  
                     socket_connected = true;
 
-                    CommunicationDefinitions.TYPE type = (CommunicationDefinitions.TYPE)buffer[0];
+  
 
+              //  Console.WriteLine(type);
+                    
                     if (type == CommunicationDefinitions.TYPE.DATAAGGREGATOR_STATE)
                     {
                         StateData.dataaggregator_state.Deserialize(buffer);
@@ -300,8 +310,9 @@ namespace REST_Dashboard.Handlers
 
                 
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 if (socket_connected)
                 {
                     socket_disconnect();
@@ -352,8 +363,9 @@ namespace REST_Dashboard.Handlers
                     socket_read_data();
                 
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 if (socket_connected)
                 {
                     socket_disconnect();

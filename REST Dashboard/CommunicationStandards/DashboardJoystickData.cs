@@ -69,14 +69,14 @@ namespace REST_Dashboard
             button_b = state.GetButtons()[1];
             button_x = state.GetButtons()[2];
             button_y = state.GetButtons()[3];
-            
+
             button_lb = state.GetButtons()[4];
             button_rb = state.GetButtons()[5];
             button_select = state.GetButtons()[6];
             button_start = state.GetButtons()[7];
             button_lj = state.GetButtons()[8];
             button_rj = state.GetButtons()[9];
-            
+
             lj_x = joy2byte(state.X);
             lj_y = joy2byte(state.Y);
             rj_x = joy2byte(state.RotationX);
@@ -87,7 +87,7 @@ namespace REST_Dashboard
 
             int[] all_pov = state.GetPointOfViewControllers();
             int pov = all_pov[0];
-            
+
             if (pov != -1)
             {
                 pov /= 100;
@@ -104,6 +104,8 @@ namespace REST_Dashboard
                 pov_d = false;
                 pov_r = false;
             }
+
+            Console.WriteLine(pov_u + " " + pov_l + " " + pov_d + " " + pov_r);
 
 
 

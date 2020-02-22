@@ -32,8 +32,10 @@ namespace REST_Dashboard
             t1.Deserialize(t1_data);
 
             byte[] fp_data = new byte[12];
-            Array.Copy(data, FIELD_POSITION_OFFSET, fp_data, 0, 12);
+            Array.Copy(data, FIELD_POSITION_OFFSET, fp_data, 0, 6);
             fp.Deserialize(fp_data);
+
+            vision_good = data[VISION_GOOD_OFFSET];
         }
     }
 

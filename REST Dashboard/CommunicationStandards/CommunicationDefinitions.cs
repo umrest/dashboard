@@ -34,7 +34,7 @@ namespace REST_Dashboard.CommunicationStandards
 
         public static Dictionary<TYPE, int> PACKET_SIZES = new Dictionary<TYPE, int>(){
             {TYPE.JOYSTICK,  8},
-            {TYPE.VISION,   36},
+            {TYPE.VISION,   31},
             {TYPE.REALSENSE,  127},
             {TYPE.DATAAGGREGATOR_STATE,  127},
             {TYPE.DASHBOARD_DATA,  9},

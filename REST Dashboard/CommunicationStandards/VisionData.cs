@@ -15,12 +15,15 @@ namespace REST_Dashboard
         public TagPosition t1;
         public FieldPosition fp;
 
+        public byte vision_good;
+
 
       
 
         protected const int TAG_0_OFFSET = 1;
         protected const int TAG_1_OFFSET = 13;
         protected const int FIELD_POSITION_OFFSET = TAG_1_OFFSET + 12;
+        protected const int VISION_GOOD_OFFSET = FIELD_POSITION_OFFSET + 6;
 
 
     }

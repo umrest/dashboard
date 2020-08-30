@@ -89,7 +89,7 @@ namespace REST_Dashboard.Handlers
                     StateData.send_joystick_enabled = false;
                     StateData.dashboard_state.enabled = false;
                     StateData.mainwindow.Disable();
-                    MessageBox.Show("Joystick Disconnected");
+                    StateData.mainwindow.list_joysticks();
                     return;
                 }
                 stick.GetBufferedData();
@@ -331,9 +331,10 @@ namespace REST_Dashboard.Handlers
                     {
                         StateData.robot_state_data.Deserialize(buffer);
                     }
-                    else
+               
+                else
                     {
-                        Console.WriteLine("Invalid Type");
+                        Console.WriteLine("Invalid Type", type);
                     }
 
                     socket_read();

@@ -62,6 +62,7 @@
     <Compile Include="CommunicationStandards\DashboardDataAggregatorState.cs" />
     <Compile Include="CommunicationStandards\DashboardSensorStateData.cs" />
     <Compile Include="CommunicationStandards\DashboardVisionCaptureProperties.cs" />
+    <Compile Include="CommunicationStandards\DashboardRealsenseData.cs" />
     <Compile Include="CommunicationStandards\DashboardVisionData.cs" />
     <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
     <Compile Include="CommunicationStandards\RobotState.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="CommunicationStandards\CommunicationDefinitions.cs" />
     <Compile Include="CommunicationStandards\SensorStateData.cs" />
     <Compile Include="CommunicationStandards\VisionCaptureProperties.cs" />
+    <Compile Include="CommunicationStandards\RealsenseData.cs" />
     <Compile Include="Handlers\CommunicationHandlerNew2.cs" />
     <Compile Include="Handlers\CommunicationHandlerNew.cs" />
     <Compile Include="Handlers\CommunicationHandler.cs" />
@@ -90,6 +92,9 @@
     </Compile>
     <Compile Include="Views\SensorStateView.xaml.cs">
       <DependentUpon>SensorStateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RealsenseStateView.xaml.cs">
+      <DependentUpon>RealsenseStateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VisionStateView.xaml.cs">
       <DependentUpon>VisionStateView.xaml</DependentUpon>
@@ -137,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SensorStateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RealsenseStateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

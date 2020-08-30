@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="REST_Dashboard.RealsenseStateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:REST_Dashboard"
+             mc:Ignorable="d" d:DesignWidth="300">
+    <Grid
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel >
+            <Label Content="Realsense State View"/>
+            <DataGrid x:Name="data_grid" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding label}"  Header="Label"/>
+                    <DataGridTextColumn Binding="{Binding _X, StringFormat=F2}"  Header="X"/>
+                    <DataGridTextColumn Binding="{Binding _Y, StringFormat=F2}"  Header="Y"/>
+                    <DataGridTextColumn Binding="{Binding _width, StringFormat=F2}"  Header="Width"/>
+                    <DataGridTextColumn Binding="{Binding _height, StringFormat=F2}"  Header="Height"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>

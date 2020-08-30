@@ -77,7 +77,7 @@ namespace REST_Dashboard
          
 
         
-        private void list_joysticks()
+        public void list_joysticks()
         {
             List<DeviceInstance> sticks = StateData.get_joysticks(); // Creates the list of joysticks connected to the computer via USB.
 
@@ -194,6 +194,7 @@ namespace REST_Dashboard
 
             StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Teleop;
             send_dashboard_data();
+            start_send_joystick();
         }
 
         private void Auton_Button_Click(object sender, RoutedEventArgs e)
@@ -202,6 +203,7 @@ namespace REST_Dashboard
 
             StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Auton;
             send_dashboard_data();
+            stop_send_joystick();
         }
         private void Test_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -209,8 +211,8 @@ namespace REST_Dashboard
 
             StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Test;
             send_dashboard_data();
+            stop_send_joystick();
 
-            
         }
 
 
@@ -234,20 +236,18 @@ namespace REST_Dashboard
 
         private void ControllerSelect1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            bool was_running = StateData.send_joystick_enabled;
+            
             if (ControllerSelect1.SelectedIndex != -1)
             {
                 StateData.joy_guid = ((DeviceInstance)ControllerSelect1.SelectedItem).InstanceGuid;
 
-                bool was_running = StateData.send_joystick_enabled;
-                if (was_running)
-                {
-                    stop_send_joystick();
-                    start_send_joystick();
-                }
+               
             }
-            else
+            if (was_running)
             {
                 stop_send_joystick();
+                start_send_joystick();
             }
         }
 
@@ -264,6 +264,11 @@ namespace REST_Dashboard
         private void send_vision_image_button_Click(object sender, RoutedEventArgs e)
         {
             communication.send_vision_image();
+        }
+
+        private void realsense_state_view_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

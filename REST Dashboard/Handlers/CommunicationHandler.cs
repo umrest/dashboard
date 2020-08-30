@@ -111,9 +111,10 @@ namespace REST_Dashboard.Handlers
                             {
                                 parent.vision_view.SetImage(bytes.Skip(1).ToArray());
                             }
-                            else
+                       
+                        else
                             {
-                                Console.WriteLine("Invalid Type");
+                                Console.WriteLine("Invalid Type" + type.ToString());
                             }
                         }
                     }

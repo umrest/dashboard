@@ -28,6 +28,8 @@ namespace REST_Dashboard
 
         public static DashboardVisionCaptureProperties properties = new DashboardVisionCaptureProperties();
 
+        public static DashboardRealsenseData realsense_data = new DashboardRealsenseData();
+
         public static Guid joy_guid;
 
         public static GlobalHotkey space_hotkey;

@@ -213,6 +213,10 @@ namespace REST_Dashboard.Handlers
                         {
                             StateData.robot_state_data.Deserialize(recieve_buffer);
                         }
+                        else if (type == CommunicationDefinitions.TYPE.REALSENSE)
+                        {
+                            StateData.realsense_data.Deserialize(recieve_buffer);
+                        }
                         else
                         {
                             Console.WriteLine("Invalid Type");

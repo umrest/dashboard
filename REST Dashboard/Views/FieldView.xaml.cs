@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,8 +41,13 @@ namespace REST_Dashboard
         {
             InitializeComponent();
             StateData.fp.PropertyChanged += Tag_PropertyChanged;
+            StateData.realsense_data.PropertyChanged += Object_PropertyChanged;
         }
 
+        private void Object_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateObjectsPosition();
+        }
 
         private void Tag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -87,6 +93,41 @@ namespace REST_Dashboard
                 RobotRectangle.RenderTransform = rotation;
             }
             ));
+        }
+
+        private void SetObstaclePosition(double field_x, double field_y, double radius)
+        {
+            // Origin point is the bottom right corner
+            double origin_x = FieldCanvas.ActualWidth - T1_X_OFFSET * 100;
+            double origin_y = FieldCanvas.ActualHeight - T1_Y_OFFSET * 100;
+
+            double x = origin_x - field_x; // convert to pixels
+            double y = origin_y - field_y;
+
+            RobotRectangle.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                double left = x - Object1.ActualWidth / 2;
+                double top = y - Object1.ActualHeight / 2 - CAMERA_Y_OFFSET * 100;
+
+                Object1.Width = radius * 2;
+                Object1.Height = radius * 2;
+                Canvas.SetTop(Object1, top);
+                Canvas.SetLeft(Object1, left);
+            }
+            ));
+        }
+
+        public void UpdateObjectsPosition()
+        {
+            DashboardObstacle o = (DashboardObstacle)StateData.realsense_data.o1;
+            double object_x = o._X;
+            double object_y = o._Y;
+            double radius = o._width;
+
+
+            double field_x = object_x;
+            double field_y = object_y;
+            SetObstaclePosition(field_x, field_y, radius);
         }
 
         public void UpdateRobotPosition()

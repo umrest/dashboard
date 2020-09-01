@@ -22,7 +22,7 @@ namespace REST_Dashboard.Handlers
 
         bool socket_connected = false;
 
-        string host = "uofmrestraspberrypi"; //"192.168.61.128";//;
+        string host = "192.168.0.120";//"uofmrestraspberrypi"; //"192.168.61.128";//;
         int port = 8091;
 
         byte[] recieve_buffer = new byte[128000];

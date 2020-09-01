@@ -52,6 +52,7 @@ namespace REST_Dashboard
             { 11, "LeftActuator" },
             { 12, "RightActuator" },
             { 13, "AugerRotation"},
+            { 14, "AugerExtender"},
             { 21, "LeftDumper" },
             { 22, "RightDumper"}
 , 

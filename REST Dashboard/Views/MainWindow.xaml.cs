@@ -266,6 +266,29 @@ namespace REST_Dashboard
             communication.send_vision_image();
         }
 
+        private void stop_vision_streaming_button_Click(object sender, RoutedEventArgs e)
+        {
+            communication.stop_vision_streaming();
+        }
+
+
+        private void start_vision_streaming_button_Click(object sender, RoutedEventArgs e)
+        {
+            communication.start_vision_streaming();
+        }
+
+        private void stop_detection_button_Click(object sender, RoutedEventArgs e)
+        {
+            communication.stop_detection();
+        }
+
+
+        private void start_detection_button_Click(object sender, RoutedEventArgs e)
+        {
+            communication.start_detection();
+        }
+
+
         private void realsense_state_view_Loaded(object sender, RoutedEventArgs e)
         {
 

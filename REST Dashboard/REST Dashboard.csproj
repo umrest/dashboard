@@ -72,8 +72,6 @@
     <Compile Include="CommunicationStandards\VisionCaptureProperties.cs" />
     <Compile Include="CommunicationStandards\RealsenseData.cs" />
     <Compile Include="Handlers\CommunicationHandlerNew2.cs" />
-    <Compile Include="Handlers\CommunicationHandlerNew.cs" />
-    <Compile Include="Handlers\CommunicationHandler.cs" />
     <Compile Include="StateData.cs" />
     <Compile Include="Utils\GlobalHotkey.cs" />
     <Compile Include="Views\FieldView.xaml.cs">

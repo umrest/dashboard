@@ -112,7 +112,11 @@
             </Viewbox>
             <StackPanel Grid.Row="1">
             <Button x:Name="send_vision_image_button" Content="Send Vision Image" Click="send_vision_image_button_Click"/>
-            <DataGrid x:Name="VisionCaptureProperties"  />
+                <Button x:Name="stop_vision_streaming_button" Content="Stop Vision Streaming" Click="stop_vision_streaming_button_Click"/>
+                <Button x:Name="start_vision_streaming_button" Content="Start Vision Streaming" Click="start_vision_streaming_button_Click"/>
+                <Button x:Name="start_detection_button" Content="Start Detection" Click="start_detection_button_Click"/>
+                <Button x:Name="stop_detection_button" Content="Stop Detection" Click="stop_detection_button_Click"/>
+                <DataGrid x:Name="VisionCaptureProperties"  />
             </StackPanel>
 
         </Grid>

@@ -35,7 +35,6 @@ namespace REST_Dashboard
         public new byte TYPE = 10;
 
 
-
         public override byte[] Serialize()
         {
             throw new System.NotImplementedException();

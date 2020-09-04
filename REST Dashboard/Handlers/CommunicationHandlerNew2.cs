@@ -374,7 +374,39 @@ namespace REST_Dashboard.Handlers
         {
             byte[] data = new byte[128];
             data[0] = 12;
-            data[1] = 0;
+            data[1] = 5;
+            send_key(data);
+        }
+
+        public void start_vision_streaming()
+        {
+            byte[] data = new byte[128];
+            data[0] = 12;
+            data[1] = 6;
+            send_key(data);
+        }
+
+        public void stop_vision_streaming()
+        {
+            byte[] data = new byte[128];
+            data[0] = 12;
+            data[1] = 7;
+            send_key(data);
+        }
+
+        public void start_detection()
+        {
+            byte[] data = new byte[128];
+            data[0] = 12;
+            data[1] = 8;
+            send_key(data);
+        }
+
+        public void stop_detection()
+        {
+            byte[] data = new byte[128];
+            data[0] = 12;
+            data[1] = 9;
             send_key(data);
         }
     }

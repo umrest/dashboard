@@ -40,7 +40,7 @@ namespace REST_Dashboard.Views
             }
             catch
             {
-                //MessageBox.Show("Invalid Image...");
+                Console.WriteLine("Invalid Image");
             }
             
              

@@ -38,7 +38,7 @@ namespace REST_Dashboard.CommunicationStandards
             {TYPE.REALSENSE,  127},
             {TYPE.DATAAGGREGATOR_STATE,  127},
             {TYPE.DASHBOARD_DATA,  9},
-            {TYPE.SENSOR_STATE,  120},
+            {TYPE.SENSOR_STATE,  160},
             {TYPE.ROBOT_STATE,  1},
 
             {TYPE.VISION_COMMAND,  127},

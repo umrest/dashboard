@@ -22,6 +22,10 @@ namespace REST_Dashboard
 
         public static DashboardData_Server data_server = new DashboardData_Server();
 
+        public static DashboardNavigation_State navigation_state = new DashboardNavigation_State();
+
+        public static DashboardNavigation_Obstacles navigation_obstacles = new DashboardNavigation_Obstacles();
+
         public static DashboardVisionCaptureProperties properties = new DashboardVisionCaptureProperties();
 
         public static DashboardRealsense realsense = new DashboardRealsense();

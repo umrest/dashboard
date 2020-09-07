@@ -39,9 +39,10 @@
             </StackPanel>
             <StackPanel >
 
-                <!--<local:RealsenseStateView x:Name="realsense_state_view" />
+                <local:RealsenseStateView x:Name="realsense_state_view" />
+                <local:SensorStateView x:Name="sensor_state_view" />
                 <local:VisionStateView x:Name="vision_state_view"   />
-                <local:SensorStateView x:Name="sensor_state_view" Margin="0,0,0.333,0"/> -->
+                <DataGrid x:Name="VisionCaptureProperties"  />
             </StackPanel>
 
         </StackPanel>
@@ -119,7 +120,7 @@
                     <Button x:Name="send_obstacle" Content="Send Obstacle" Click="send_obstacle_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"/>
-                <DataGrid x:Name="VisionCaptureProperties"  />
+
             </StackPanel>
 
         </Grid>

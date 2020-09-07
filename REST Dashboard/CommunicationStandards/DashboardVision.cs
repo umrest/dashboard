@@ -9,8 +9,15 @@ using comm;
 
 namespace REST_Dashboard
 {
-    public class DashboardVision : comm.Vision
+    public class DashboardVision : comm.Vision, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
+
         public DashboardVision() : base()
         {
             _field_position = new DashboardFieldPosition("fp");
@@ -45,9 +52,12 @@ namespace REST_Dashboard
 
     public class DashboardTagPosition : comm.Tag_Position,  INotifyPropertyChanged
     {
-
-
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
         public DashboardTagPosition(string label_in)
         {
             label = label_in;
@@ -103,6 +113,11 @@ namespace REST_Dashboard
     public class DashboardFieldPosition : comm.Field_Position, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
         public DashboardFieldPosition(string label_in)
         {
             label = label_in;

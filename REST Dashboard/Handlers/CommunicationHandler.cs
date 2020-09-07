@@ -91,9 +91,25 @@ namespace REST_Dashboard.Handlers
                 }
                 else if (message.type() == CommunicationDefinitions.TYPE.VISION)
                 {
+                    StateData.vision.Deserialize(message.Serialize());
+                }
+                else if (message.type() == CommunicationDefinitions.TYPE.REALSENSE)
+                {
+                    StateData.realsense.Deserialize(message.Serialize());
+                }
+                else if (message.type() == CommunicationDefinitions.TYPE.SENSOR_STATE)
+                {
+                    StateData.sensor_state.Deserialize(message.Serialize());
+                }
+                else if (message.type() == CommunicationDefinitions.TYPE.NAVIGATION_STATE)
+                {
+                    StateData.navigation_state.Deserialize(message.Serialize());
+                }
+                else if (message.type() == CommunicationDefinitions.TYPE.NAVIGATION_OBSTACLES)
+                {
+                    StateData.navigation_obstacles.Deserialize(message.Serialize());
                 }
             }
-            System.Threading.Thread.Sleep(50);
         }
 
         SlimDX.DirectInput.Joystick stick = null;

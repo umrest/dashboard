@@ -78,6 +78,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CommunicationStandards\DashboardData_Server.cs" />
+    <Compile Include="CommunicationStandards\DashboardNavigation_State.cs" />
+    <Compile Include="CommunicationStandards\DashboardNavigation_Obstacles.cs" />
     <Compile Include="CommunicationStandards\DashboardRobot_State.cs" />
     <Compile Include="CommunicationStandards\DashboardSensor_State.cs" />
     <Compile Include="CommunicationStandards\DashboardVisionCaptureProperties.cs" />

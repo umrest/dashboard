@@ -11,6 +11,11 @@ namespace REST_Dashboard
     public class DashboardRealsense : comm.Realsense, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
         public DashboardRealsense()
         {
             _obstacle_1 = new DashboardObstacle("o1");
@@ -25,6 +30,9 @@ namespace REST_Dashboard
             {
                 DashboardObstacle[] ret = new DashboardObstacle[4];
                 ret[0] = (DashboardObstacle)get_obstacle_1();
+                ret[1] = (DashboardObstacle)get_obstacle_2();
+                ret[2] = (DashboardObstacle)get_obstacle_3();
+                ret[3] = (DashboardObstacle)get_obstacle_4();
                 return ret;
             }
         }
@@ -34,6 +42,11 @@ namespace REST_Dashboard
     public class DashboardObstacle : comm.Obstacle,  INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
         public DashboardObstacle(string label_in)
         {
             label = label_in;

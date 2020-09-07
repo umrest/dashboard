@@ -28,10 +28,10 @@ namespace REST_Dashboard
         {
             InitializeComponent();
 
-            tags.Add((DashboardTagPosition)(StateData.vision_data.t0));
-            tags.Add((DashboardTagPosition)(StateData.vision_data.t1));
+            tags.Add((DashboardTagPosition)(StateData.vision.tag0));
+            tags.Add((DashboardTagPosition)(StateData.vision.tag1));
 
-            fps.Add((DashboardFieldPosition)(StateData.vision_data.fp));
+            fps.Add((DashboardFieldPosition)(StateData.vision.field_position));
             vision_data_grid.ItemsSource = tags;
             vision_data_grid2.ItemsSource = fps;
         }

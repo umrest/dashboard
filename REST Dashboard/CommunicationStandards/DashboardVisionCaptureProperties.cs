@@ -5,58 +5,40 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using comm;
 
 namespace REST_Dashboard
 {
-    public class DashboardVisionCaptureProperties : VisionCaptureProperties, INotifyPropertyChanged
+    public class DashboardVisionCaptureProperties : comm.Vision_Properties, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        public double exposure
+        public uint exposure
         {
             get
             {
-                return _exposure;
+                return get_exposure();
             }
             set
             {
                 PropertyChanged(this, new PropertyChangedEventArgs("exposure"));
-                _exposure = value;
+                set_exposure(value);
             }
         }
 
-        public byte gain
+        public uint gain
         {
             get
             {
-                return _gain;
+                return get_gain();
             }
             set
             {
                 PropertyChanged(this, new PropertyChangedEventArgs("gain"));
-                _gain = value;
+                set_gain(value);
             }
         }
-        public DashboardVisionCaptureProperties() : base()
-        {
 
-        }
-        public override byte[] Serialize()
-        {
-            byte[] ret = new byte[128];
-
-            ret[0] = TYPE;
-
-            BitConverter.GetBytes((short)(exposure * 100)).CopyTo(ret, EXPOSURE_OFFSET);
-            BitConverter.GetBytes(gain).CopyTo(ret, GAIN_OFFSET);
-
-            return ret;
-        }
-
-        public override void Deserialize(byte[] data)
-        {
-            
-        }
     }
 
 }

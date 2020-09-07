@@ -21,20 +21,13 @@ namespace REST_Dashboard
     /// </summary>
     public partial class SensorStateView : UserControl
     {
-        public ObservableCollection<DashboardMotorInfo> motor_info;
-
-        public ObservableCollection<GyroData> gyro_data = new ObservableCollection<GyroData>();
+        public ObservableCollection<DashboardMotor_Info> motor_info;
 
         public SensorStateView()
         {
             InitializeComponent();
 
-            
-            gyro_data.Add(StateData.sensor_state_data.gyro_data);
-
-            gyro_data_grid.ItemsSource = gyro_data;
-
-            motor_info = new ObservableCollection<DashboardMotorInfo>(StateData.sensor_state_data.motor_info);
+            motor_info = new ObservableCollection<DashboardMotor_Info>(StateData.sensor_state.motor_info);
 
             motor_data_grid.ItemsSource = motor_info;
             

@@ -15,16 +15,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel >
             <Label Content="Realsense State View"/>
-            <DataGrid x:Name="data_grid" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding label}"  Header="Label"/>
-                    <DataGridTextColumn Binding="{Binding _X, StringFormat=F2}"  Header="X"/>
-                    <DataGridTextColumn Binding="{Binding _Y, StringFormat=F2}"  Header="Y"/>
-                    <DataGridTextColumn Binding="{Binding _width, StringFormat=F2}"  Header="Width"/>
-                    <DataGridTextColumn Binding="{Binding _height, StringFormat=F2}"  Header="Height"/>
-                </DataGrid.Columns>
-
-            </DataGrid>
+            <DataGrid x:Name="data_grid"/>
         </StackPanel>
     </Grid>
 </UserControl>

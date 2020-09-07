@@ -21,20 +21,15 @@ namespace REST_Dashboard
     /// </summary>
     public partial class RealsenseStateView : UserControl
     { 
-        private ObservableCollection<DashboardObstacle> tags = new ObservableCollection<DashboardObstacle>();
+        private ObservableCollection<DashboardObstacle> obstacles = new ObservableCollection<DashboardObstacle>();
 
         public RealsenseStateView()
         {
             InitializeComponent();
 
-            tags.Add((DashboardObstacle)(StateData.realsense_data.o1));
-            tags.Add((DashboardObstacle)(StateData.realsense_data.o2));
+            obstacles = new ObservableCollection<DashboardObstacle>(StateData.realsense.obstacles);
 
-
-            tags.Add((DashboardObstacle)(StateData.realsense_data.o3));
-            tags.Add((DashboardObstacle)(StateData.realsense_data.o4));
-
-            data_grid.ItemsSource = tags;
+            data_grid.ItemsSource = obstacles;
             
         }
     }

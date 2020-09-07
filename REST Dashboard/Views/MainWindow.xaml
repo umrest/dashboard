@@ -28,28 +28,23 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <local:ConnectionIndicator x:Name="connected_indicator" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="260" label="Connected" Grid.Row="0"/>
+        <local:ConnectionIndicator x:Name="connected_indicator" Height="Auto" Width="Auto" label="Connected" Grid.Row="0"/>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="1" >
             <StackPanel x:Name="ConnectionIndicators">
-            <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Hero" />
-            <local:ConnectionIndicator x:Name="TCPSerialConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="TCPSerial" />
-            <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Vision" />
-            <local:ConnectionIndicator x:Name="DashboardConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Dashboard" />
-            <local:ConnectionIndicator x:Name="RealsenseConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Realsense" />
+                <local:ConnectionIndicator x:Name="HeroConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Hero" />
+                <local:ConnectionIndicator x:Name="TCPSerialConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="TCPSerial" />
+                <local:ConnectionIndicator x:Name="VisionConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Vision" />
+                <local:ConnectionIndicator x:Name="DashboardConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Dashboard" />
+                <local:ConnectionIndicator x:Name="RealsenseConnectedIndicator" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="Auto" label="Realsense" />
+            </StackPanel>
+            <StackPanel >
+
+                <!--<local:RealsenseStateView x:Name="realsense_state_view" />
+                <local:VisionStateView x:Name="vision_state_view"   />
+                <local:SensorStateView x:Name="sensor_state_view" Margin="0,0,0.333,0"/> -->
+            </StackPanel>
+
         </StackPanel>
-        <StackPanel >
-
-            <local:RealsenseStateView x:Name="realsense_state_view" Loaded="realsense_state_view_Loaded"/>
-            <local:VisionStateView x:Name="vision_state_view"   />
-            <local:SensorStateView x:Name="sensor_state_view"/>
-        </StackPanel>
-
-        </StackPanel>
-
-
-        <Viewbox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Grid.Row="1" Grid.Column="1">
-            <local:FieldView x:Name="field_view" MinWidth="540" MinHeight="360" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Viewbox>
 
 
 
@@ -106,20 +101,32 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <Viewbox  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0">
                 <Views:VisionView x:Name="vision_view" />
             </Viewbox>
             <StackPanel Grid.Row="1">
-            <Button x:Name="send_vision_image_button" Content="Send Vision Image" Click="send_vision_image_button_Click"/>
-                <Button x:Name="stop_vision_streaming_button" Content="Stop Vision Streaming" Click="stop_vision_streaming_button_Click"/>
-                <Button x:Name="start_vision_streaming_button" Content="Start Vision Streaming" Click="start_vision_streaming_button_Click"/>
-                <Button x:Name="start_detection_button" Content="Start Detection" Click="start_detection_button_Click"/>
-                <Button x:Name="stop_detection_button" Content="Stop Detection" Click="stop_detection_button_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="send_vision_image_button" Content="Send Vision Image" Click="send_vision_image_button_Click"/>
+                    <Button x:Name="stop_vision_streaming_button" Content="Stop Vision Streaming" Click="stop_vision_streaming_button_Click"/>
+                    <Button x:Name="start_vision_streaming_button" Content="Start Vision Streaming" Click="start_vision_streaming_button_Click"/>
+                    <Button x:Name="start_detection_button" Content="Start Detection" Click="start_detection_button_Click"/>
+                    <Button x:Name="stop_detection_button" Content="Stop Detection" Click="stop_detection_button_Click"/>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="send_depth" Content="Send Depth" Click="send_depth_Click"/>
+                    <Button x:Name="send_obstacle" Content="Send Obstacle" Click="send_obstacle_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"/>
                 <DataGrid x:Name="VisionCaptureProperties"  />
             </StackPanel>
 
         </Grid>
+        <Viewbox Grid.Column="1" Grid.Row="1" Margin="0">
+
+            <Views:FieldView></Views:FieldView>
+        </Viewbox>
 
     </Grid>
 </Window>

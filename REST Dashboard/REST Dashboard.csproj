@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="libcomm, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libcomm\csharp\libcomm\bin\Debug\libcomm.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
     </Reference>
@@ -58,27 +77,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CommunicationStandards\DashboardRobotState.cs" />
-    <Compile Include="CommunicationStandards\DashboardDataAggregatorState.cs" />
-    <Compile Include="CommunicationStandards\DashboardSensorStateData.cs" />
+    <Compile Include="CommunicationStandards\DashboardData_Server.cs" />
+    <Compile Include="CommunicationStandards\DashboardRobot_State.cs" />
+    <Compile Include="CommunicationStandards\DashboardSensor_State.cs" />
     <Compile Include="CommunicationStandards\DashboardVisionCaptureProperties.cs" />
-    <Compile Include="CommunicationStandards\DashboardRealsenseData.cs" />
-    <Compile Include="CommunicationStandards\DashboardVisionData.cs" />
-    <Compile Include="CommunicationStandards\DashboardJoystickData.cs" />
-    <Compile Include="CommunicationStandards\RobotState.cs" />
-    <Compile Include="CommunicationStandards\DataAggregatorState.cs" />
-    <Compile Include="CommunicationStandards\CommunicationDefinitions.cs" />
-    <Compile Include="CommunicationStandards\SensorStateData.cs" />
-    <Compile Include="CommunicationStandards\VisionCaptureProperties.cs" />
-    <Compile Include="CommunicationStandards\RealsenseData.cs" />
-    <Compile Include="Handlers\CommunicationHandlerNew2.cs" />
+    <Compile Include="CommunicationStandards\DashboardRealsense.cs" />
+    <Compile Include="CommunicationStandards\DashboardVision.cs" />
+    <Compile Include="CommunicationStandards\DashboardJoystick.cs" />
+    <Compile Include="Handlers\DashboardClient.cs" />
+    <Compile Include="Handlers\CommunicationHandler.cs" />
     <Compile Include="StateData.cs" />
     <Compile Include="Utils\GlobalHotkey.cs" />
     <Compile Include="Views\FieldView.xaml.cs">
       <DependentUpon>FieldView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommunicationStandards\VisionData.cs" />
-    <Compile Include="CommunicationStandards\RESTPacket.cs" />
     <Compile Include="Views\GamepadView.xaml.cs">
       <DependentUpon>GamepadView.xaml</DependentUpon>
     </Compile>
@@ -124,13 +136,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\AsyncSocketClient.cs" />
-    <Compile Include="Utils\BitArray8.cs" />
     <Compile Include="Views\ConnectionIndicator.xaml.cs">
       <DependentUpon>ConnectionIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommunicationStandards\DashboardData.cs" />
-    <Compile Include="CommunicationStandards\JoystickData.cs" />
+    <Compile Include="CommunicationStandards\DashboardDashboard.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -182,6 +191,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,27 +15,8 @@
         </Grid.ColumnDefinitions>
         <StackPanel >
             <Label Content="Vision State View"/>
-            <DataGrid x:Name="vision_data_grid" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding label}"  Header="Label"/>
-                    <DataGridTextColumn Binding="{Binding X_, StringFormat=F2}"  Header="X"/>
-                    <DataGridTextColumn Binding="{Binding Y_, StringFormat=F2}"  Header="Y"/>
-                    <DataGridTextColumn Binding="{Binding Z_, StringFormat=F2}"  Header="Z"/>
-                    <DataGridTextColumn Binding="{Binding yaw_, StringFormat=F2}"  Header="Yaw"/>
-                    <DataGridTextColumn Binding="{Binding pitch_, StringFormat=F2}"  Header="Pitch"/>
-                    <DataGridTextColumn Binding="{Binding roll_, StringFormat=F2}"  Header="Roll"/>
-                </DataGrid.Columns>
-
-            </DataGrid>
-            <DataGrid x:Name="vision_data_grid2" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding label}"  Header="Label"/>
-                    <DataGridTextColumn Binding="{Binding X_, StringFormat=F2}"  Header="X"/>
-                    <DataGridTextColumn Binding="{Binding Y_, StringFormat=F2}"  Header="Y"/>
-                    <DataGridTextColumn Binding="{Binding yaw_, StringFormat=F2}"  Header="Yaw"/>
-                </DataGrid.Columns>
-
-            </DataGrid>
+            <DataGrid x:Name="vision_data_grid" />
+            <DataGrid x:Name="vision_data_grid2"/>
         </StackPanel>
     </Grid>
 </UserControl>

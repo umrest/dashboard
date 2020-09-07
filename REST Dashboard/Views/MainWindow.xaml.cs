@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using comm;
 using REST_Dashboard.Handlers;
 using REST_Dashboard.Utils;
 using SlimDX.DirectInput;
@@ -34,14 +35,14 @@ namespace REST_Dashboard
 
         ObservableCollection<DashboardVisionCaptureProperties> props = new ObservableCollection<DashboardVisionCaptureProperties>();
 
-        private CommunicationHandlerNew2 communication;
+        private CommunicationHandler communication;
 
         public MainWindow()
         {
             InitializeComponent();
 
             update_indicators();
-            communication =  new CommunicationHandlerNew2(this);
+            communication =  new CommunicationHandler();
 
             //communication.start_recieve_data();
 
@@ -117,11 +118,11 @@ namespace REST_Dashboard
             Dispatcher.BeginInvoke((Action)(() =>
             {
                 connected_indicator.connected = communication.connected();
-                HeroConnectedIndicator.connected = StateData.dataaggregator_state.hero_connected;
-                VisionConnectedIndicator.connected = StateData.dataaggregator_state.vision_connected;
-                TCPSerialConnectedIndicator.connected = StateData.dataaggregator_state.tcpserial_connected;
-                RealsenseConnectedIndicator.connected = StateData.dataaggregator_state.realsense_connected;
-                DashboardConnectedIndicator.connected = StateData.dataaggregator_state.dashboard_connected;
+                HeroConnectedIndicator.connected = StateData.data_server.get_hero_connected();
+                VisionConnectedIndicator.connected = StateData.data_server.get_vision_connected();
+                TCPSerialConnectedIndicator.connected = StateData.data_server.get_tcpserial_connected();
+                RealsenseConnectedIndicator.connected = StateData.data_server.get_realsense_connected();
+                DashboardConnectedIndicator.connected = StateData.data_server.get_dashboard_connected();
                    
                 Enable_Button.Background.Opacity = StateData.dashboard_state.enabled ? on : off;
 
@@ -129,11 +130,11 @@ namespace REST_Dashboard
 
                 EStop_Button.Background.Opacity = StateData.dashboard_state.estop ? on : off;
 
-                Auton_Button.Background.Opacity = StateData.dashboard_state.robot_state == DashboardData.RobotStateEnum.Auton ? on : off;
+                Auton_Button.Background.Opacity = StateData.dashboard_state.robot_state == DashboardDashboard.RobotStateEnum.Auton ? on : off;
 
-                Teleop_Button.Background.Opacity = StateData.dashboard_state.robot_state == DashboardData.RobotStateEnum.Teleop ? on : off;
+                Teleop_Button.Background.Opacity = StateData.dashboard_state.robot_state == DashboardDashboard.RobotStateEnum.Teleop ? on : off;
 
-                Test_Button.Background.Opacity = StateData.dashboard_state.robot_state == DashboardData.RobotStateEnum.Test ? on : off;
+                Test_Button.Background.Opacity = StateData.dashboard_state.robot_state == DashboardDashboard.RobotStateEnum.Test ? on : off;
 
             }
 
@@ -157,7 +158,7 @@ namespace REST_Dashboard
             {
                 StateData.dashboard_state.enabled = true;
                 send_dashboard_data();
-                if (StateData.dashboard_state.robot_state == DashboardData.RobotStateEnum.Teleop)
+                if (StateData.dashboard_state.robot_state == DashboardDashboard.RobotStateEnum.Teleop)
                 {
                     start_send_joystick();
                 }
@@ -192,7 +193,7 @@ namespace REST_Dashboard
         {
             //Disable_Button_Click(null, null);
 
-            StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Teleop;
+            StateData.dashboard_state.robot_state = DashboardDashboard.RobotStateEnum.Teleop;
             send_dashboard_data();
             start_send_joystick();
         }
@@ -201,7 +202,7 @@ namespace REST_Dashboard
         {
             //Disable_Button_Click(null, null);
 
-            StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Auton;
+            StateData.dashboard_state.robot_state = DashboardDashboard.RobotStateEnum.Auton;
             send_dashboard_data();
             stop_send_joystick();
         }
@@ -209,7 +210,7 @@ namespace REST_Dashboard
         {
             //Disable_Button_Click(null, null);
 
-            StateData.dashboard_state.robot_state = DashboardData.RobotStateEnum.Test;
+            StateData.dashboard_state.robot_state = DashboardDashboard.RobotStateEnum.Test;
             send_dashboard_data();
             stop_send_joystick();
 
@@ -288,10 +289,14 @@ namespace REST_Dashboard
             communication.start_detection();
         }
 
-
-        private void realsense_state_view_Loaded(object sender, RoutedEventArgs e)
+        private void send_depth_Click(object sender, RoutedEventArgs e)
         {
+            communication.send_depth();
+        }
 
+        private void send_obstacle_Click(object sender, RoutedEventArgs e)
+        {
+            communication.send_obstacle();
         }
     }
 }

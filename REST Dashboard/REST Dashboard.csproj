@@ -50,9 +50,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="libcomm, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libcomm\csharp\libcomm\bin\Debug\libcomm.dll</HintPath>
+    <Reference Include="libcomm">
+      <HintPath>..\..\libcomm\csharp\libcomm\bin\Release\libcomm.dll</HintPath>
     </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
       <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
@@ -77,7 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommunicationStandards\DashboardDebug_Message.cs" />
     <Compile Include="CommunicationStandards\DashboardData_Server.cs" />
+    <Compile Include="CommunicationStandards\DashboardNavigation_Path.cs" />
     <Compile Include="CommunicationStandards\DashboardNavigation_State.cs" />
     <Compile Include="CommunicationStandards\DashboardNavigation_Obstacles.cs" />
     <Compile Include="CommunicationStandards\DashboardRobot_State.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="Handlers\CommunicationHandler.cs" />
     <Compile Include="StateData.cs" />
     <Compile Include="Utils\GlobalHotkey.cs" />
+    <Compile Include="Views\ButtonIndicator.xaml.cs">
+      <DependentUpon>ButtonIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FieldView.xaml.cs">
       <DependentUpon>FieldView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +102,12 @@
     </Compile>
     <Compile Include="Views\JoystickView.xaml.cs">
       <DependentUpon>JoystickView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavigationStateView.xaml.cs">
+      <DependentUpon>NavigationStateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RobotView.xaml.cs">
       <DependentUpon>RobotView.xaml</DependentUpon>
@@ -114,6 +124,10 @@
     <Compile Include="Views\VisionView.xaml.cs">
       <DependentUpon>VisionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ButtonIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConnectionIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\JoystickView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +164,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NavigationStateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\RobotView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

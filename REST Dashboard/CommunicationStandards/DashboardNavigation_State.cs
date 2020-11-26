@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace REST_Dashboard
 {
-    public class DashboardNavigation_State : comm.Navigation_State, INotifyPropertyChanged
+    public class DashboardNavigation_State : comm.Slam_State, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public override void Deserialize(byte[] data)

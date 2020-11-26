@@ -12,6 +12,11 @@ namespace REST_Dashboard
     public class DashboardSensor_State : comm.Sensor_State, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
         public DashboardSensor_State()
         {
             _motor_info_1 = new DashboardMotor_Info();
@@ -68,6 +73,11 @@ namespace REST_Dashboard
             
         }
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public override void Deserialize(byte[] data)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
+            base.Deserialize(data);
+        }
 
         public int id
         {
@@ -77,7 +87,7 @@ namespace REST_Dashboard
             }
         }
 
-        public uint current
+        public double current
         {
             get
             {
@@ -85,7 +95,7 @@ namespace REST_Dashboard
             }
         }
 
-        public int percent
+        public double percent
         {
             get
             {
@@ -93,7 +103,7 @@ namespace REST_Dashboard
             }
         }
 
-        public uint position
+        public double position
         {
             get
             {
@@ -102,7 +112,7 @@ namespace REST_Dashboard
         }
 
 
-        public uint velocity
+        public double velocity
         {
             get
             {

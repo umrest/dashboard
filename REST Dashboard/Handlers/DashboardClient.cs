@@ -9,7 +9,7 @@ namespace REST_Dashboard.Handlers
 {
     public class DashboardClient : RESTClient
     {
-        public DashboardClient() : base("uofmrestraspberrypi.local", 8091, CommunicationDefinitions.IDENTIFIER.DASHBOARD)
+        public DashboardClient() : base("uofmrest.local", 8091, CommunicationDefinitions.IDENTIFIER.DASHBOARD)
         {
         }
         public override void on_connect()

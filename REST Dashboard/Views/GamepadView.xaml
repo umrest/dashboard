@@ -7,8 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600">
     <Grid>
-        <local:JoystickView x:Name="left_joystick" HorizontalAlignment="Left" Height="100" Margin="133,150,0,0" VerticalAlignment="Top" Width="100"/>
-        <local:JoystickView x:Name="right_joystick" HorizontalAlignment="Right" Height="100" Margin="0,150,128,0" VerticalAlignment="Top" Width="100"/>
+        <local:JoystickView x:Name="left_joystick" HorizontalAlignment="Left" Height="100" Margin="136,235,0,0" VerticalAlignment="Top" Width="100"/>
+        <local:JoystickView x:Name="right_joystick" HorizontalAlignment="Right" Height="100" Margin="0,235,134,0" VerticalAlignment="Top" Width="100"/>
+        <local:ButtonIndicator x:Name="LB_indicator" HorizontalAlignment="Left" Height="19" Margin="65,72,0,0" VerticalAlignment="Top" Width="100"/>
+        <local:ButtonIndicator x:Name="RB_Indicator" HorizontalAlignment="Left" Height="19" Margin="426,72,0,0" VerticalAlignment="Top" Width="100"/>
+        <local:ButtonIndicator x:Name="u_Indicator" HorizontalAlignment="Left" Height="30" Margin="110,122,0,0" VerticalAlignment="Top" Width="30"/>
+        <local:ButtonIndicator x:Name="r_Indicator" HorizontalAlignment="Left" Height="30" Margin="155,159,0,0" VerticalAlignment="Top" Width="30"/>
+        <local:ButtonIndicator x:Name="d_Indicator" HorizontalAlignment="Left" Height="30" Margin="110,200,0,0" VerticalAlignment="Top" Width="30" RenderTransformOrigin="0.602,3.08"/>
+        <local:ButtonIndicator x:Name="l_Indicator" HorizontalAlignment="Left" Height="30" Margin="65,159,0,0" VerticalAlignment="Top" Width="30" RenderTransformOrigin="0.602,3.08"/>
+        <local:ButtonIndicator x:Name="b_Indicator" HorizontalAlignment="Left" Height="30" Margin="543,159,0,0" VerticalAlignment="Top" Width="30"/>
+        <local:ButtonIndicator x:Name="y_Indicator" HorizontalAlignment="Left" Height="30" Margin="496,122,0,0" VerticalAlignment="Top" Width="30"/>
+        <local:ButtonIndicator x:Name="x_Indicator" HorizontalAlignment="Left" Height="30" Margin="456,159,0,0" VerticalAlignment="Top" Width="30"/>
+        <local:ButtonIndicator x:Name="a_Indicator" HorizontalAlignment="Left" Height="30" Margin="496,200,0,0" VerticalAlignment="Top" Width="30" RenderTransformOrigin="2.829,2.374"/>
+        <local:ButtonIndicator x:Name="start_Indicator" HorizontalAlignment="Left" Height="30" Margin="366,122,0,0" VerticalAlignment="Top" Width="30"/>
+        <local:ButtonIndicator x:Name="select_Indicator" HorizontalAlignment="Left" Height="30" Margin="248,122,0,0" VerticalAlignment="Top" Width="30"/>
 
     </Grid>
 </UserControl>

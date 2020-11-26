@@ -25,14 +25,20 @@ namespace REST_Dashboard
             _obstacle_3 = new DashboardNavigation_Obstacle();
         }
 
-        public DashboardNavigation_Obstacle obstacle_0
+        public DashboardNavigation_Obstacle[] obstacles
         {
             get
             {
-                return (DashboardNavigation_Obstacle)get_obstacle_0();
+                DashboardNavigation_Obstacle[] ret = new DashboardNavigation_Obstacle[4];
+                ret[0] = (DashboardNavigation_Obstacle)get_obstacle_0();
+                ret[1] = (DashboardNavigation_Obstacle)get_obstacle_1();
+                ret[2] = (DashboardNavigation_Obstacle)get_obstacle_2();
+                ret[3] = (DashboardNavigation_Obstacle)get_obstacle_3();
+                return ret;
             }
         }
 
+       
     }
 
     public class DashboardNavigation_Obstacle : comm.Navigation_Obstacle, INotifyPropertyChanged
@@ -42,6 +48,37 @@ namespace REST_Dashboard
         {
             PropertyChanged(this, new PropertyChangedEventArgs(null));
             base.Deserialize(data);
+        }
+
+        public double X
+        {
+            get
+            {
+                return get_x();
+            }
+        }
+        public double Y
+        {
+            get
+            {
+                return get_y();
+
+            }
+        }
+        public double width
+        {
+            get
+            {
+                return get_width();
+
+            }
+        }
+        public double height
+        {
+            get
+            {
+                return get_height();
+            }
         }
     }
 }

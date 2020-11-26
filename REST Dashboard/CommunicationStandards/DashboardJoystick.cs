@@ -43,6 +43,11 @@ namespace REST_Dashboard
             }
         }
 
+        private double joy2double(int joy)
+        {
+            return (joy / 65535.0) * 2;
+        }
+
         public void Load(JoystickState state)
         {
             set_button_A(state.GetButtons()[0]);
@@ -56,13 +61,13 @@ namespace REST_Dashboard
             set_button_LJ(state.GetButtons()[8]);
             set_button_RJ(state.GetButtons()[9]);
 
-            set_lj_x(state.X);
-            set_lj_y(state.Y);
-            set_rj_x(state.RotationX);
-            set_rj_y(state.RotationY);
+            set_lj_x(joy2double(state.X));
+            set_lj_y(joy2double(state.Y));
+            set_rj_x(joy2double(state.RotationX));
+            set_rj_y(joy2double(state.RotationY));
 
-            set_rt(state.Z);
-            set_lt(state.Z);
+            set_rt(joy2double(state.Z));
+            set_lt(joy2double(state.Z));
 
             int[] all_pov = state.GetPointOfViewControllers();
             int pov = all_pov[0];

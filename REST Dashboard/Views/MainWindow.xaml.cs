@@ -37,6 +37,8 @@ namespace REST_Dashboard
 
         private CommunicationHandler communication;
 
+        private Color lights_color;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,7 +58,18 @@ namespace REST_Dashboard
             VisionCaptureProperties.ItemsSource = props;
 
             list_joysticks();
+
+            StateData.message.PropertyChanged += Message_PropertyChanged;
            
+        }
+
+        private void Message_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var buf = StateData.message.get_message();
+            string str = Encoding.ASCII.GetString(buf.TakeWhile(x => x != 0).ToArray());
+            var id = ((comm.CommunicationDefinitions.IDENTIFIER)StateData.message.get_identifier()).ToString();
+            log_view.add_message(id, str);
+
         }
 
         private void Properties_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -143,6 +156,7 @@ namespace REST_Dashboard
 
         private void send_dashboard_data()
         {
+            update_hardware();
             update_indicators();
             communication.send_dashboard_state();
         }
@@ -163,6 +177,10 @@ namespace REST_Dashboard
                     start_send_joystick();
                 }
             }
+
+            
+
+            
             
         }
 
@@ -297,6 +315,68 @@ namespace REST_Dashboard
         private void send_obstacle_Click(object sender, RoutedEventArgs e)
         {
             communication.send_obstacle();
+        }
+
+        private void angle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            update_hardware();
+        }
+
+        private void update_hardware()
+        {
+            lights_color.R = (byte)(StateData.dashboard_state.enabled ? 0 : 25);
+            lights_color.G = (byte)(StateData.dashboard_state.enabled ? 25 : 0);
+            lights_color.B = 0;
+
+            if (communication != null)
+            {
+                int out_angle = 0;
+                bool res1 = int.TryParse(angle.Text, out out_angle);
+                
+                if (res1)
+                {
+
+                    communication.send_hardware(out_angle, lights_color.R, lights_color.G, lights_color.B);
+                }
+
+
+            }
+
+        }
+
+        private void ExcavateLocation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SieveAlign_Click(object sender, RoutedEventArgs e)
+        {
+            field_view.target_rover_position.X = 0;
+            field_view.target_rover_position.Y = 15;
+            field_view.set_target_rover_position();
+        }
+
+        private void VisionPropertiesSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            StateData.properties.set_exposure(uint.Parse(exposure.Text));
+            StateData.properties.set_gain(uint.Parse(gain.Text));
+            communication.send_vision_properties();
+        }
+
+        private void b_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            update_hardware();
+        }
+
+        private void g_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            update_hardware();
+
+        }
+
+        private void r_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            update_hardware();
         }
     }
 }

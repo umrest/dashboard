@@ -1,23 +1,28 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using comm;
 
 namespace REST_Dashboard
 {
-    public class DashboardRobot_State : comm.Robot_State, INotifyPropertyChanged
+    public class DashboardDebug_Message : comm.Debug_Message, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public override void Deserialize(byte[] data)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(null));
             base.Deserialize(data);
+            PropertyChanged(this, new PropertyChangedEventArgs(null));
         }
-    }
 
-    
+        public DashboardDebug_Message()
+        {
+            
+        }
+
+       
+    }
 }

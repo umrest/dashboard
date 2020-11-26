@@ -15,6 +15,7 @@ namespace REST_Dashboard
 
 
         public static DashboardVision vision = new DashboardVision();
+        public static DashboardDebug_Message message = new DashboardDebug_Message();
         public static DashboardSensor_State sensor_state = new DashboardSensor_State();
         public static DashboardRobot_State robot_state = new DashboardRobot_State();
 
@@ -23,6 +24,8 @@ namespace REST_Dashboard
         public static DashboardData_Server data_server = new DashboardData_Server();
 
         public static DashboardNavigation_State navigation_state = new DashboardNavigation_State();
+
+        public static DashboardNavigation_Path navigation_path = new DashboardNavigation_Path();
 
         public static DashboardNavigation_Obstacles navigation_obstacles = new DashboardNavigation_Obstacles();
 

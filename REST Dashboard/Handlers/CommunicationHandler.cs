@@ -24,13 +24,7 @@ namespace REST_Dashboard.Handlers
             connection_thread.Start();
         }       
 
-        public void send_obstacle()
-        {
-            comm.Realsense_Command message = new Realsense_Command();
-            message.set_command(5);
 
-            send_message(message);
-        }
 
         public void connection()
         {
@@ -59,7 +53,7 @@ namespace REST_Dashboard.Handlers
         public void connected_handler()
         {
             var now = DateTime.Now;
-            if (StateData.send_joystick_enabled && (now - last_joystick_send).TotalMilliseconds > 50)
+            if (StateData.send_joystick_enabled && (now - last_joystick_send).TotalMilliseconds > 1)
             {
                 send_joystick();
                 last_joystick_send = now;
@@ -71,7 +65,7 @@ namespace REST_Dashboard.Handlers
                 last_heartbeat_send = now;
             }
 
-            if ((now - last_state_send).TotalMilliseconds > 100)
+            if ((now - last_state_send).TotalMilliseconds > 250)
             {
                 send_dashboard_state();
                 last_state_send = now;
@@ -101,7 +95,11 @@ namespace REST_Dashboard.Handlers
                 {
                     StateData.sensor_state.Deserialize(message.Serialize());
                 }
-                else if (message.type() == CommunicationDefinitions.TYPE.NAVIGATION_STATE)
+                else if (message.type() == CommunicationDefinitions.TYPE.ROBOT_STATE)
+                {
+                    StateData.robot_state.Deserialize(message.Serialize());
+                }
+                else if (message.type() == CommunicationDefinitions.TYPE.SLAM_STATE)
                 {
                     StateData.navigation_state.Deserialize(message.Serialize());
                 }
@@ -109,7 +107,16 @@ namespace REST_Dashboard.Handlers
                 {
                     StateData.navigation_obstacles.Deserialize(message.Serialize());
                 }
+                else if (message.type() == CommunicationDefinitions.TYPE.NAVIGATION_PATH)
+                {
+                    StateData.navigation_path.Deserialize(message.Serialize());
+                }
+                else if (message.type() == CommunicationDefinitions.TYPE.DEBUG_MESSAGE)
+                {
+                    StateData.message.Deserialize(message.Serialize());
+                }
             }
+            System.Threading.Thread.Sleep(20);
         }
 
         SlimDX.DirectInput.Joystick stick = null;
@@ -211,9 +218,24 @@ namespace REST_Dashboard.Handlers
             message.set_command(9);
             send_message(message);
         }
+        public void send_obstacle()
+        {
+            comm.Realsense_Command message = new Realsense_Command();
+            message.set_command(10);
 
+            send_message(message);
+        }
 
+        internal void send_hardware(int angle, byte r, byte g, byte b)
+        {
+            comm.Hardware message = new Hardware();
+            message.set_angle((byte)angle);
+            message.set_r(r);
+            message.set_g(g);
+            message.set_b(b);
 
+            send_message(message);
+        }
     }
 
 }
